@@ -24,16 +24,16 @@ Table::Table()
 void Table::Clear()
 {
   columns.clear();
-  
-  font = &FontSet::Get(14);
+
+  font = &FontSet::Get(18);
   rowSize = Point(0., 20.);
   centre = Point(0., font->Height() / 2);
   lineSize = Point(0., 1.);
   lineOff = Point(0., font->Height() + 1);
-  
+
   point = Point();
   it = columns.begin();
-  colour = Colour(1., 0.);
+  colour = Colour(1.f, 0.f);
 }
 
 
@@ -41,7 +41,7 @@ void Table::Clear()
 void Table::AddColumn(int x, Align align)
 {
   columns.emplace_back(x, align == LEFT ? 0. : align == RIGHT ? -1. : -.5);
-  
+
   // This may invalidate iterators, so:
   it = columns.begin();
 }
@@ -72,7 +72,7 @@ void Table::SetHighlight(int startX, int endX)
 {
   rowSize.X() = endX - startX;
   centre.X() = (endX + startX) / 2;
-  
+
   if(!lineSize.X())
   {
     lineSize.X() = rowSize.X();
@@ -88,7 +88,7 @@ void Table::SetUnderline(int startX, int endX)
 {
   lineSize.X() = endX - startX;
   lineOff.X() = (endX + startX) / 2;
-  
+
   if(!rowSize.X())
   {
     rowSize.X() = lineSize.X();
@@ -133,25 +133,25 @@ void Table::Advance(int fields) const
 
 
 // Draw a single text field, and move on to the next one.
-void Table::Draw(const string &text) const
+void Table::Draw(const string &text, const Font::Layout *layout) const
 {
-  Draw(text, colour);
+  Draw(text, colour, layout);
 }
 
 
 
-// If a colour is given, this field is drawn using that colour, but the
-// previously set colour will be used for future fields.
-void Table::Draw(const string &text, const Colour &colour) const
+// If a colour is given, this field is drawn using that colour, 
+// but the previously set colour will be used for future fields.
+void Table::Draw(const string &text, const Colour &colour, const Font::Layout *layout) const
 {
   if(font)
   {
     Point pos = point;
     if(it != columns.end())
-      pos += Point(it->offset + it->align * font->Width(text), 0.);
-    font->Draw(text, pos, colour);
+      pos += Point(it->offset + it->align * font->Width(text, layout), 0.);
+    font->Draw(text, pos, colour, layout);
   }
-  
+
   Advance();
 }
 
@@ -209,7 +209,7 @@ void Table::DrawGap(int y) const
 }
 
 
-  
+
 // Get the point that should be passed to DrawAt() to start the next row at
 // the given location.
 Point Table::GetPoint()

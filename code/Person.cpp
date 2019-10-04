@@ -18,7 +18,7 @@ void Person::Load(const DataNode &node)
   {
     if(child.Token(0) == "system")
       location.Load(child);
-    if(child.Token(0) == "frequency" && child.Size() >= 2)
+    else if(child.Token(0) == "frequency" && child.Size() >= 2)
       frequency = child.Value(1);
     else if(child.Token(0) == "ship" && child.Size() >= 2)
     {
@@ -55,7 +55,7 @@ int Person::Frequency(const System *system) const
   // links, don't create them in systems with no links.
   if(!system || IsDestroyed() || IsPlaced() || system->Links().empty())
     return 0;
-  
+
   return (location.IsEmpty() || location.Matches(system)) ? frequency : 0;
 }
 
@@ -95,7 +95,7 @@ bool Person::IsDestroyed() const
 {
   if(ships.empty() || !ships.front())
     return true;
-  
+
   const Ship &flagship = *ships.front();
   return (flagship.IsDestroyed() || (flagship.GetSystem() && flagship.GetGovernment() != government));
 }
@@ -130,7 +130,7 @@ bool Person::IsPlaced() const
   for(const shared_ptr<Ship> &ship : ships)
     if(ship->GetSystem())
       return true;
-  
+
   return false;
 }
 

@@ -3,11 +3,9 @@ shipyard "Star Variants"
   "Star Barge (Miner)"
   "Star Freighter"
   "Star Freighter (Fancy)"
-  "Star Freighter (Hai)"
   "Star Freighter (Miner)"
   "Star Freighter (Secret Cargo)"
   "Star Queen"
-  "Star Queen (Hai)"
 
 
 
@@ -28,15 +26,20 @@ ship "Star Barge"
     "drag" 2.4
     "heat dissipation" .8
     "cargo space" 50
-    "outfit space" 140
-    "core space" 80
+    "outfit space" 120
+    "core space" 60
     "engine space" 30
     "weapon space" 30
     weapon
-      "blast radius" 16
-      "shield damage" 160
-      "hull damage" 80
-      "hit force" 240
+      "blast radius" 52
+      "shield damage" 140
+      "random shield damage" 380
+      "hull damage" 210
+      "random hull damage" 570
+      "heat damage" 4200
+      "random heat damage" 11400
+      "hit force" 350
+      "random hit force" 950
   outfits
     "D14-RN Shield Generator"
     "nGVF-AA Fuel Cell"
@@ -49,22 +52,22 @@ ship "Star Barge"
     "AM3 Anti-Missile"
 
     "LP036a Battery Pack"
-    "Fuel Pod" 9
+    "Fuel Pod" 8
     "Tactical Scanner"
   engine -9 38
   engine 9 38
-  turret 0 -8 "AM3 Anti-Missile"
+  turret 0 -8
   leak "leak" 60 50
   explode "tiny explosion" 10
   explode "small explosion" 10
-  description "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions."
+  description "The Corporation CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions."
   description "  Because they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates."
 
 
 ship "Star Barge" "Star Barge (Miner)"
   outfits
     "D14-RN Shield Generator"
-    "nGVF-BB Fuel Cell"
+    "nGVF-AA Fuel Cell"
     "Hyperdrive"
 
     "IT-1700 Ion Thruster"
@@ -74,7 +77,7 @@ ship "Star Barge" "Star Barge (Miner)"
 
     "LP036a Battery Pack"
     "Asteroid Scanner"
-    "Fuel Pod" 9
+    "Fuel Pod" 8
     "Tactical Scanner"
 
 
@@ -96,15 +99,20 @@ ship "Star Freighter"
     "drag" 5.6
     "heat dissipation" .6
     "cargo space" 200
-    "outfit space" 270
-    "core space" 120
+    "outfit space" 240
+    "core space" 90
     "engine space" 60
     "weapon space" 90
     weapon
-      "blast radius" 40
-      "shield damage" 400
-      "hull damage" 200
-      "hit force" 600
+      "blast radius" 142
+      "shield damage" 480
+      "random shield damage" 940
+      "hull damage" 720
+      "random hull damage" 1410
+      "heat damage" 14400
+      "random heat damage" 28200
+      "hit force" 1200
+      "random hit force" 2350
   outfits
     "D23-QP Shield Generator"
     "nGVF-CC Fuel Cell"
@@ -114,26 +122,25 @@ ship "Star Freighter"
     "IS-2200 Ion Steering"
     "IR-2700 Ion Reverse"
 
-    "X4 Blaster Turret"
-    "AM5 Anti-Missile" 2
+    "X2 Blaster Turret" 2
+    "AM5 Anti-Missile"
 
-    "LP072a Battery Pack"
-    "LP036a Battery Pack"
-    "Fuel Pod" 29
-    "Tactical Scanner" 3
+    "LP144a Battery Pack"
+    "Fuel Pod" 28
+    "Tactical Scanner" 2
   engine -9 97
   engine 9 97
-  turret 0 -52 "AM5 Anti-Missile"
-  turret 0 6 "X4 Blaster Turret"
-  turret 0 65 "AM5 Anti-Missile"
+  turret 0 -52
+  turret 0 6 "AM5 Anti-Missile"
+  turret 0 65
   leak "leak" 60 50
   leak "flame" 50 80
   explode "tiny explosion" 10
   explode "small explosion" 30
   explode "medium explosion" 20
   "final explode" "final explosion small"
-  description "The Star Freighter is designed by Syndicate's Star Shipyards to be an efficient means of carrying cargo from system to system, but is so slow and difficult to land that most pilots hate flying them."
-  description "  Freighters are an obvious target for pirates, but turn much too slowly to be able to bring any forward-facing guns to bear on an approaching enemy. As a result, the latest model is equipped only with turrets, including anti-missile turrets to prevent attackers from simply bombarding them into submission from a safe distance."
+  description "The Star Freighter is designed by Corporation's Star Shipyards to be an efficient means of carrying cargo from system to system, but is so slow and difficult to land that most pilots hate flying them."
+  description "  Freighters are an obvious target for pirates, but turn much too slowly to be able to bring any forward-facing guns to bear on an approaching enemy. As a result, the latest model is equipped only with turrets, including an anti-missile turret to prevent attackers from simply bombarding them into submission from a safe distance."
 
 
 ship "Star Freighter" "Star Freighter (Fancy)"
@@ -150,33 +157,12 @@ ship "Star Freighter" "Star Freighter (Fancy)"
     "Heavy Anti-Missile"
 
     "LP072a Battery Pack"
-    "LP036a Battery Pack"
-    "Fuel Pod" 29
+    "Fuel Pod" 28
     "Ramscoop"
-    "Tactical Scanner" 3
+    "Tactical Scanner" 2
   turret "Laser Turret"
   turret "Heavy Anti-Missile"
   turret "Laser Turret"
-
-
-ship "Star Freighter" "Star Freighter (Hai)"
-  outfits
-    "Corundum Regenerator"
-    "Pebble Core" 2
-    "Hyperdrive"
-
-    `"Benga" Atomic Steering`
-    `"Benga" Atomic Thruster`
-
-    "Pulse Turret"
-    "Chameleon Anti-Missile" 2
-
-    "Fissure Batteries"
-    "Fuel Pod" 29
-    "Yoloy Scanner"
-  turret "Chameleon Anti-Missile"
-  turret "Pulse Turret"
-  turret "Chameleon Anti-Missile"
 
 
 ship "Star Freighter" "Star Freighter (Miner)"
@@ -193,9 +179,9 @@ ship "Star Freighter" "Star Freighter (Miner)"
     "LP072a Battery Pack"
     "LP036a Battery Pack"
     "Asteroid Scanner"
-    "Fuel Pod" 29
+    "Fuel Pod" 28
     "Ramscoop"
-    "Tactical Scanner" 3
+    "Tactical Scanner" 2
 
 
 ship "Star Freighter" "Star Freighter (Secret Cargo)"
@@ -208,17 +194,16 @@ ship "Star Freighter" "Star Freighter (Secret Cargo)"
     "IS-2200 Ion Steering"
     "IR-2700 Ion Reverse"
 
-    "X4 Blaster Turret"
-    "AM5 Anti-Missile" 2
+    "X2 Blaster Turret" 2
+    "AM5 Anti-Missile"
 
-    "LP072a Battery Pack"
-    "LP036a Battery Pack"
-    "Fuel Pod" 29
-    "Tactical Scanner" 3
+    "LP144a Battery Pack"
+    "Fuel Pod" 28
+    "Tactical Scanner" 2
     "Secret Cargo"
+  turret "X2 Blaster Turret"
   turret "AM5 Anti-Missile"
-  turret "X4 Blaster Turret"
-  turret "AM5 Anti-Missile"
+  turret "X2 Blaster Turret"
 
 
 
@@ -238,16 +223,21 @@ ship "Star Queen"
     "mass" 230
     "drag" 5.5
     "heat dissipation" .65
-    "cargo space" 60
-    "outfit space" 400
-    "core space" 180
-    "engine space" 100
+    "cargo space" 100
+    "outfit space" 360
+    "core space" 150
+    "engine space" 90
     "weapon space" 120
     weapon
-      "blast radius" 60
-      "shield damage" 600
-      "hull damage" 300
-      "hit force" 900
+      "blast radius" 138
+      "shield damage" 460
+      "random shield damage" 920
+      "hull damage" 690
+      "random hull damage" 1380
+      "heat damage" 13800
+      "random heat damage" 27600
+      "hit force" 1150
+      "random hit force" 2300
   outfits
     "D94-YV Shield Generator"
     "Fission Reactor"
@@ -255,22 +245,20 @@ ship "Star Queen"
 
     "IT-3700 Ion Thruster"
     "IS-3200 Ion Steering"
+    "IR-3700 Ion Reverse"
 
-    "Meteor Missile" 108
-    "Meteor Missile Box" 3
-    "Meteor Missile Launcher" 3
     "Heavy Anti-Missile" 2
 
-    "LP036a Battery Pack"
+    "LP072a Battery Pack"
     "Fuel Pod" 36
-    "Tactical Scanner" 5
+    "Tactical Scanner" 3
   engine -18 116
   engine 18 116
-  gun 0 -116 "Meteor Missile Launcher"
-  gun -22 -80 "Meteor Missile Launcher"
-  gun 22 -80 "Meteor Missile Launcher"
-  turret -28 -9 "Heavy Anti-Missile"
-  turret 28 -9 "Heavy Anti-Missile"
+  gun 0 -116
+  gun -22 -80
+  gun 22 -80
+  turret -28 -9
+  turret 28 -9
   leak "leak" 50 50
   leak "big leak" 80 30
   explode "tiny explosion" 10
@@ -279,25 +267,4 @@ ship "Star Queen"
   explode "large explosion" 10
   "final explode" "final explosion medium"
   description "The Star Queen is a relic of a more peaceful period of galactic history: a luxury liner for high-end tourists. Every cabin has its own mini-bar, and the bathrooms have marble tile and showers that use actual hot water instead of chemicals or sonic vibrations."
-
-
-ship "Star Queen" "Star Queen (Hai)"
-  outfits
-    "Diamond Regenerator"
-    "Geode Reactor"
-    "Hyperdrive"
-
-    `"Biroo" Atomic Steering`
-    `"Biroo" Atomic Thruster`
-
-    "Tracker" 168
-    "Tracker Storage Pod" 3
-    "Tracker Launcher" 3
-    "Chameleon Anti-Missile" 2
-
-    "Chasm Batteries"
-    "Fuel Pod" 36
-    "Quantum Keystone"
-    "Yoloy Scanner"
-    "Extra Outfit Space" 3
 

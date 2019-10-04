@@ -8,7 +8,10 @@
 #include "Information.h"
 #include "WrappedText.h"
 
+#include <map>
+
 class PlayerInfo;
+class Sprite;
 
 
 
@@ -18,21 +21,24 @@ class PlayerInfo;
 class SpaceportPanel : public Panel {
 public:
   explicit SpaceportPanel(PlayerInfo &player);
-  
+
   void UpdateNews();
-  
+
   virtual void Step() override;
   virtual void Draw() override;
-  
-  
+
+
 private:
   PlayerInfo &player;
   WrappedText text;
-  
+
   // Current news item (if any):
   bool hasNews = false;
   Information newsInfo;
   WrappedText newsMessage;
+  // After displaying a portrait for a particular profession,
+  // only show it for that same profession.
+  std::map<const Sprite *, std::string> displayedProfessions;
 };
 
 

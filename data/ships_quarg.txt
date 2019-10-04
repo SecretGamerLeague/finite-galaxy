@@ -6,8 +6,9 @@ shipyard "Quarg Variants"
 
 ship "Skylark"
   sprite "ship/skylark"
+  thumbnail "thumbnail/skylark"
   attributes
-    category "Frigate"
+    category "Destroyer"
 #    manufacturer "Quarg"
     licences
       Quarg
@@ -19,16 +20,21 @@ ship "Skylark"
     "mass" 500
     "drag" 12.3
     "heat dissipation" .7
-    "cargo space" 200
-    "outfit space" 700
-    "core space" 400
+    "cargo space" 400
+    "outfit space" 600
+    "core space" 300
     "engine space" 100
     "weapon space" 200
     weapon
-      "blast radius" 250
+      "blast radius" 300
       "shield damage" 1000
-      "hull damage" 500
-      "hit force" 1500
+      "random shield damage" 2000
+      "hull damage" 1500
+      "random hull damage" 3000
+      "heat damage" 30000
+      "random heat damage" 60000
+      "hit force" 2500
+      "random hit force" 5000
   outfits
     "Quantum Shield Generator"
     "Quantum Hull Repair"
@@ -44,7 +50,7 @@ ship "Skylark"
     "Neutrino Cooling"
     "Bosonic Fuel Storage" 12
     "Quarg Ramscoop"
-    "Intrusion Countermeasures" 40
+    "Intrusion Countermeasures" 50
   engine -15 117
   engine 15 117
   turret -30 -48 "Skylance"
@@ -63,6 +69,7 @@ ship "Skylark"
 
 ship "Wardragon"
   sprite "ship/wardragon"
+  thumbnail "thumbnail/wardragon"
   attributes
     category "Frigate"
 #    manufacturer "Quarg"
@@ -76,16 +83,21 @@ ship "Wardragon"
     "mass" 300
     "drag" 9.3
     "heat dissipation" .5
-    "cargo space" 50
-    "outfit space" 700
-    "core space" 400
+    "cargo space" 100
+    "outfit space" 600
+    "core space" 300
     "engine space" 100
     "weapon space" 200
     weapon
-      "blast radius" 250
-      "shield damage" 1000
-      "hull damage" 500
+      "blast radius" 210
+      "shield damage" 600
+      "random shield damage" 1500
+      "hull damage" 900
+      "random hull damage" 2250
+      "heat damage" 18000
+      "random heat damage" 45000
       "hit force" 1500
+      "random hit force" 3750
   outfits
     "Quantum Shield Generator"
     "Quantum Hull Repair"
@@ -99,7 +111,7 @@ ship "Wardragon"
 
     "Nanotech Battery"
     "Neutrino Cooling"
-    "Bosonic Fuel Storage" 9
+    "Bosonic Fuel Storage" 8
     "Quarg Ramscoop"
     "Intrusion Countermeasures" 50
   engine -14 47

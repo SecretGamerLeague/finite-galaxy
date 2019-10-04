@@ -2,9 +2,10 @@
 
 #include "Shader.h"
 
+#include "Files.h"
+
 #include <cctype>
 #include <cstring>
-#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -17,19 +18,19 @@ Shader::Shader(const char *vertex, const char *fragment)
 {
   GLuint vertexShader = Compile(vertex, GL_VERTEX_SHADER);
   GLuint fragmentShader = Compile(fragment, GL_FRAGMENT_SHADER);
-  
+
   program = glCreateProgram();
   if(!program)
     throw runtime_error("Creating OpenGL shader program failed.");
-  
+
   glAttachShader(program, vertexShader);
   glAttachShader(program, fragmentShader);
-  
+
   glLinkProgram(program);
-  
+
   glDetachShader(program, vertexShader);
   glDetachShader(program, fragmentShader);
-  
+
   GLint status;
   glGetProgramiv(program, GL_LINK_STATUS, &status);
   if(status == GL_FALSE)
@@ -50,7 +51,7 @@ GLint Shader::Attrib(const char *name) const
   GLint attrib = glGetAttribLocation(program, name);
   if(attrib == -1)
     throw runtime_error("Attribute \"" + string(name) + "\" not found.");
-  
+
   return attrib;
 }
 
@@ -61,7 +62,7 @@ GLint Shader::Uniform(const char *name) const
   GLint uniform = glGetUniformLocation(program, name);
   if(uniform == -1)
     throw runtime_error("Uniform \"" + string(name) + "\" not found.");
-  
+
   return uniform;
 }
 
@@ -72,7 +73,7 @@ GLuint Shader::Compile(const char *str, GLenum type)
   GLuint object = glCreateShader(type);
   if(!object)
     throw runtime_error("Shader creation failed.");
-  
+
   static string version;
   if(version.empty())
   {
@@ -92,26 +93,27 @@ GLuint Shader::Compile(const char *str, GLenum type)
   memcpy(&text.front(), version.data(), version.length());
   memcpy(&text.front() + version.length(), str, length);
   text[version.length() + length] = '\0';
-  
+
   const GLchar *cText = &text.front();
   glShaderSource(object, 1, &cText, nullptr);
   glCompileShader(object);
-  
+
   GLint status;
   glGetShaderiv(object, GL_COMPILE_STATUS, &status);
   if(status == GL_FALSE)
   {
-    cerr << version;
-    cerr.write(str, length);
-    
+    string error = version;
+    error += string(str, length);
+
     static const int SIZE = 4096;
     GLchar message[SIZE];
     GLsizei length;
-    
+
     glGetShaderInfoLog(object, SIZE, &length, message);
-    cerr.write(message, length);
+    error += string(message, length);
+    Files::LogError(error);
     throw runtime_error("Shader compilation failed.");
   }
-  
+
   return object;
 }

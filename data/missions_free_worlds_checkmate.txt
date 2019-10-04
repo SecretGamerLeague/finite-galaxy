@@ -54,10 +54,10 @@ mission "FWC Scouting 1"
     dialogue `You have failed an essential Free Worlds mission. If you want to complete the story line, revert to the autosave or another earlier snapshot of the game.`
   
   on offer
-    log `Drove the Navy out of Delta Sagittarii with the help of the "Wolf Pack," a militia group in favour of more extreme measures who launched a preemptive strike before the main Free Worlds force arrived. The Free Worlds are now committed to fighting the Republic to a standstill rather than proving their innocence; the defector has been recaptured by the Syndicate and whatever information he had to share is now lost.`
+    log `Drove the Navy out of Delta Sagittarii with the help of the "Wolf Pack," a militia group in favour of more extreme measures who launched a preemptive strike before the main Free Worlds force arrived. The Free Worlds are now committed to fighting the Republic to a standstill rather than proving their innocence; the defector has been recaptured by the Corporation and whatever information he had to share is now lost.`
     conversation
       `It was a close battle, and could have gone very differently if it were not for the Wolf Pack strike that happened before you arrived and that disabled or destroyed the majority of the Navy fleet. You can't help but wonder how the Wolf Pack managed to assemble a large enough fleet to do that sort of damage.`
-      `  "Well," says JJ, "the die is cast. It's too late now to wonder what that business with the Syndicate was about; now we're in a fight to the finish with the Republic. And that means we must strike soon, before they have time to bring in more reinforcements. Captain <last>, I'd like you to perform a scouting mission while I'm working on gathering a new fleet. Our next target has to be the Navy base on Clear Sky. If we can drive them out of that system, our position will be much better. So, I'd like you to fly through Kaus Borealis and return here to report on their fleet strength. Understood?"`
+      `  "Well," says JJ, "the die is cast. It's too late now to wonder what that business with the Corporation was about; now we're in a fight to the finish with the Republic. And that means we must strike soon, before they have time to bring in more reinforcements. Captain <last>, I'd like you to perform a scouting mission while I'm working on gathering a new fleet. Our next target has to be the Navy base on Clear Sky. If we can drive them out of that system, our position will be much better. So, I'd like you to fly through Kaus Borealis and return here to report on their fleet strength. Understood?"`
       choice
         `  "No problem."`
           goto freya
@@ -113,7 +113,7 @@ mission "FWC Attack Kaus Borealis"
       `  "Yes," says JJ, "it will have to be a diplomatic solution in the end. But we must negotiate that solution from a position of strength, not weakness. And that means driving the Navy out of our territory."`
         goto plan
       label strength
-      `  "Precisely," says JJ, "and the only way to do that is to drive the Navy out of our territory. And if that isn't enough... we have plans for that contingency as well."`
+      `  "Precisely," says JJ, "and the only way to do that is to drive the Navy out of our territory. And if that isn't enough… we have plans for that contingency as well."`
         goto plan
       label plan
       `  "So, now we attack Kaus Borealis?" you ask.`
@@ -137,17 +137,17 @@ mission "FWC Attack Kaus Borealis"
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Heavy)"
-    fleet
-      names "free worlds capital"
-      variant
-        "Dreadnought"
-        "Falcon (Plasma)"
+        "Lance (Plasma)"
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
         "Osprey"
+    fleet
+      names "free worlds capital"
+      variant
+        "Dreadnought"
+        "Raven"
   
   npc evade
     personality staying heroic
@@ -157,15 +157,15 @@ mission "FWC Attack Kaus Borealis"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
     fleet 3
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
   
   npc
     personality staying derelict
@@ -175,7 +175,7 @@ mission "FWC Attack Kaus Borealis"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Mars" 2
     fleet
       names "republic"
@@ -242,9 +242,9 @@ mission "FWC Cebalrai 1"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Mercury (Mark II)" 2
 
 
@@ -281,18 +281,18 @@ mission "FWC Cebalrai 1B"
       variant
         "Dreadnought"
         "Bastion"
-        "Fury (Flamethrower)" 4
+        "Stymphalian (Flamethrower)" 4
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Heavy)"
+        "Lance (Plasma)"
         "Hawk" 2
     fleet
       names "free worlds capital"
       variant
         "Osprey"
-        "Argosy (Blaster)" 2
+        "Stymphalian" 2
   
   npc evade
     personality staying heroic
@@ -302,9 +302,9 @@ mission "FWC Cebalrai 1B"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Mars (Mark II)" 2
     fleet
       names "republic"
@@ -522,7 +522,7 @@ mission "FWC Diplomacy 1B"
       `  Alondo sighs. "Yes, but the Senate thought if we brought anything heavier armed, it might look like an attack fleet rather than an escort. And of course, it's not carrying nukes, because if the Navy picked those up on their sensors, they'd blast us out of the sky long before we could land on Earth. Anyway, let's get going and hope for the best."`
         accept
       label nukes
-      `  "No, no, of course not," sys Alondo. "If the Navy picked those up on their sensors, they'd blast us out of the sky long before we could land on Earth. Anyway, let's get going and hope for the best."`
+      `  "No, no, of course not," says Alondo. "If the Navy picked those up on their sensors, they'd blast us out of the sky long before we could land on Earth. Anyway, let's get going and hope for the best."`
         accept
   
   npc accompany save
@@ -583,15 +583,15 @@ mission "FWC Diplomacy 1C"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
     fleet 2
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
   
   npc
     personality staying heroic
@@ -601,15 +601,15 @@ mission "FWC Diplomacy 1C"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
     fleet 2
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
 
 
 
@@ -627,7 +627,7 @@ mission "FWC Checkmate 1"
   on offer
     event "fwc defend cebalrai"
     conversation
-      `When you land on Tundra, Tomek seems glad to see Katya back, but you sense that he's also a little wary of how she will respond to the choices the Free Worlds have been making. "Using nukes, threatening orbital bombardment," says Katya, "treating the Syndicate as an ally. Anything else I missed while I was gone?"`
+      `When you land on Tundra, Tomek seems glad to see Katya back, but you sense that he's also a little wary of how she will respond to the choices the Free Worlds have been making. "Using nukes, threatening orbital bombardment," says Katya, "treating the Corporation as an ally. Anything else I missed while I was gone?"`
       choice
         `  "We only want this war to be over as soon as possible."`
         `  "We've just been trying to avoid being destroyed by the Navy, and things have gotten a bit out of hand."`
@@ -647,18 +647,18 @@ mission "FWC Checkmate 1"
         "Dreadnought"
         "Skein"
         "Hag" 6
-        "Fury (Flamethrower)" 4
+        "Stymphalian (Flamethrower)" 4
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Heavy)"
+        "Lance (Plasma)"
         "Hawk" 2
     fleet
       names "free worlds capital"
       variant
         "Osprey"
-        "Argosy (Blaster)" 2
+        "Stymphalian" 2
   
   npc
     personality heroic waiting
@@ -667,12 +667,12 @@ mission "FWC Checkmate 1"
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Bastion (Laser)"
+        "Bastion (Plasma)"
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Laser)"
+        "Lance (Plasma)"
   
   npc evade
     personality staying heroic
@@ -692,15 +692,15 @@ mission "FWC Checkmate 1"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
     fleet 2
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
   
   npc evade
     personality heroic
@@ -710,15 +710,15 @@ mission "FWC Checkmate 1"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
     fleet 3
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
   
   npc evade
     personality heroic
@@ -728,15 +728,15 @@ mission "FWC Checkmate 1"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
     fleet 2
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
   
   npc
     personality heroic
@@ -751,12 +751,12 @@ mission "FWC Checkmate 1"
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon"
+        "Lance"
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Plasma)"
+        "Lance (Plasma)"
   
   npc
     personality heroic
@@ -773,17 +773,17 @@ mission "FWC Checkmate 1"
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Heavy)"
+        "Lance (Plasma)"
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Plasma)"
+        "Osprey"
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Osprey (Javelin)"
+        "Osprey (Laser)"
   
   on complete
     log "Defended Tundra against a major Navy counter-offensive. From here, the only recourse available to the Free Worlds seems to be to push deep into Republic territory and capture the Sol system, forcing the Navy to surrender. Nuclear weapons are now for sale on Solace to aid in the final assault."
@@ -869,12 +869,12 @@ mission "FWC Checkmate 1B"
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Plasma)"
+        "Lance (Plasma)"
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Osprey (Javelin)"
+        "Osprey (Laser)"
   
   npc
     personality staying heroic uninterested disables
@@ -893,15 +893,15 @@ mission "FWC Checkmate 1B"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
     fleet 2
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
   
   npc
     personality derelict
@@ -911,7 +911,7 @@ mission "FWC Checkmate 1B"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Mars (Mark II)" 2
         "Mercury (Mark II)" 1
     fleet
@@ -974,9 +974,8 @@ mission "FWC Checkmate Escorts"
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Bastion (Laser)"
-        "Argosy (Blaster)"
-        "Argosy (Laser)"
+        "Bastion (Plasma)"
+        "Stymphalian" 2
     fleet
       names "free worlds capital"
       fighters "free worlds fighter"
@@ -984,19 +983,19 @@ mission "FWC Checkmate Escorts"
         "Skein"
         "Hag" 6
         "Dreadnought"
-        "Falcon (Plasma)"
+        "Osprey"
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Laser)"
-        "Osprey (Laser)"
+        "Lance (Plasma)"
+        "Osprey"
     fleet
       names "free worlds capital"
       variant
-        "Falcon (Heavy)"
-        "Osprey (Laser)"
-        "Argosy (Impact)"
+        "Lance (Plasma)"
+        "Osprey"
+        "Stymphalian"
 
 
 
@@ -1042,7 +1041,7 @@ mission "FWC Pug 1"
       label reinforcements
       `  "Yes," he says, "and a second after they arrived in system, this other fleet of ships appeared, unlike any ships I've ever seen before. They're tearing the Wolf Pack fleet to ribbons. If you don't get up there immediately, none of them will be left alive."`
       label end
-      `  You and hurry to your ship and fire it up for a hasty launch...`
+      `  You and hurry to your ship and fire it up for a hasty launch…`
         launch
   
   npc
@@ -1054,9 +1053,7 @@ mission "FWC Pug 1"
       variant
         "Skein"
         "Hag" 6
-        "Hawk"
-        "Hawk (Blaster)"
-        "Hawk (Javelin)"
+        "Berserker" 4
     fleet 4
       names "free worlds small"
       variant
@@ -1064,11 +1061,8 @@ mission "FWC Pug 1"
     fleet
       names "free worlds small"
       variant
-        "Bastion (Laser)"
-        "Argosy"
-        "Argosy (Blaster)"
-        "Argosy (Laser)"
-        "Argosy (Impact)"
+        "Bastion (Plasma)"
+        "Stymphalian" 3
   
   npc evade
     personality staying disables heroic
@@ -1519,10 +1513,10 @@ mission "FWC Pug 3B"
       label end
       branch alone
         has "FWC Checkmate Escorts: done"
-      `  The resistance fighters tell you their own fleet will be launching shortly. You return to your ship and fire up the engines. Hopefully the ships that are left over from your attack fleet will be enough to hold off the Pug until Freya finishes her work down here...`
+      `  The resistance fighters tell you their own fleet will be launching shortly. You return to your ship and fire up the engines. Hopefully the ships that are left over from your attack fleet will be enough to hold off the Pug until Freya finishes her work down here…`
         launch
       label alone
-      `  The resistance fighters tell you their own fleet will be launching shortly. You return to your ship and fire up the engines, wishing that you had managed to keep some of the ships from your attack fleet alive, and hoping you will be able to hold off the Pug until Freya finishes her work down here...`
+      `  The resistance fighters tell you their own fleet will be launching shortly. You return to your ship and fire up the engines, wishing that you had managed to keep some of the ships from your attack fleet alive, and hoping you will be able to hold off the Pug until Freya finishes her work down here…`
         launch
   
   npc
@@ -1534,9 +1528,9 @@ mission "FWC Pug 3B"
       variant
         "Skein"
         "Hag" 6
-        "Argosy (Blaster)"
-        "Argosy (Laser)"
-        "Argosy (Impact)"
+        "Stymphalian"
+        "Stymphalian"
+        "Stymphalian"
   
   npc disable
     personality entering disables heroic
@@ -1646,15 +1640,15 @@ mission "FWC Pug 3D: Reinforcements"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mars (Mark II)" 2
     fleet
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Mercury (Mark II)" 3
   npc kill
     government "Republic"
@@ -1664,7 +1658,7 @@ mission "FWC Pug 3D: Reinforcements"
       fighters "republic fighter"
       variant
         "Venus"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mars" 2
     fleet
       names "republic"
@@ -1672,7 +1666,7 @@ mission "FWC Pug 3D: Reinforcements"
       variant
         "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Mercury" 2
   npc kill
     government "Free Worlds"
@@ -1681,22 +1675,22 @@ mission "FWC Pug 3D: Reinforcements"
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Bastion (Laser)"
-        "Argosy (Laser)"
+        "Bastion (Plasma)"
+        "Stymphalian"
     fleet
       names "free worlds capital"
       fighters "free worlds fighter"
       variant
         "Dreadnought"
-        "Falcon (Plasma)"
+        "Lance (Plasma)"
         "Skein" 
         "Hag" 6
     fleet
       names "free worlds capital"
       variant
-        "Falcon (Heavy)"
-        "Osprey (Laser)"
-        "Argosy (Impact)"
+        "Lance (Plasma)"
+        "Osprey (Particle)"
+        "Stymphalian"
 
 
 
@@ -1715,7 +1709,7 @@ mission "FWC Pug 4"
   
   on offer
     conversation
-      `Your fleet lands on <planet>, and to your surprise the locals say that soon before your fleet arrived, all the Pug who were present on the planet departed; clearly they expected your arrival and had no desire to become your prisoners. You only have a few hours to take stock of the situation before the Navy informs you that they have detected another Pug fleet incoming...`
+      `Your fleet lands on <planet>, and to your surprise the locals say that soon before your fleet arrived, all the Pug who were present on the planet departed; clearly they expected your arrival and had no desire to become your prisoners. You only have a few hours to take stock of the situation before the Navy informs you that they have detected another Pug fleet incoming…`
         launch
   
   on complete
@@ -1810,7 +1804,7 @@ mission "FWC Pug 4A"
         goto plan
       
       label positive
-      `  "You might be right," she says. "I wonder if instead of aiming for complete independence from the Republic, all along we should have tried for something closer to what the Syndicate has: relative autonomy, but within the framework of the Republic."`
+      `  "You might be right," she says. "I wonder if instead of aiming for complete independence from the Republic, all along we should have tried for something closer to what the Corporation has: relative autonomy, but within the framework of the Republic."`
         goto plan
       
       label plan
@@ -1851,7 +1845,7 @@ mission "FWC Pug 4B"
   on offer
     conversation
       `You land on <origin> and quickly begin packing up the alien equipment that you left here earlier. Quite a few of the locals are watching you from a distance, but they seem friendly despite the fact that their world was so recently occupied by the Free Worlds against their will. Clearly your success in opening a path for the Navy to enter the disconnected region of space has become known.`
-      `  As you are setting up the alien equipment, Freya says, "Doesn't this all seem a little too... neat, to you? I mean, that the aliens close off the hyperlinks but then for some reason leave behind the exact equipment that we need to gradually reopen them? And that the requisite technology is so simple, a transmitter and a reflector? It all fits together way too well."`
+      `  As you are setting up the alien equipment, Freya says, "Doesn't this all seem a little too… neat, to you? I mean, that the aliens close off the hyperlinks but then for some reason leave behind the exact equipment that we need to gradually reopen them? And that the requisite technology is so simple, a transmitter and a reflector? It all fits together way too well."`
       choice
         `  "Are you suggesting that the aliens intended for us to do exactly what we're doing?"`
         `  "It does all seem odd, that we could have any success at all fighting a species that is apparently so sophisticated."`
@@ -1971,14 +1965,14 @@ mission "FWC Pug 4C"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mars (Mark II)" 2
     fleet
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mercury (Mark II)" 2
   npc
     government "Republic"
@@ -1989,14 +1983,14 @@ mission "FWC Pug 4C"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mars (Mark II)" 2
     fleet
       names "republic"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mercury (Mark II)" 2
 
 
@@ -2046,7 +2040,7 @@ mission "FWC Pug 5"
       fighters "republic fighter"
       variant
         "Saturn (Jump)"
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Dagger" 4
   
   npc evade
@@ -2105,11 +2099,11 @@ mission "FWC Pug 5B"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mars (Mark II)" 2
         "Mercury (Mark II)" 3
 
@@ -2144,11 +2138,11 @@ mission "FWC Pug 5C"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mars (Mark II)" 2
         "Mercury (Mark II)" 3
 
@@ -2184,7 +2178,7 @@ mission "FWC Pug 6"
         `  "As ready as I'll ever be, I guess."`
       `  She laughs. "I suppose that's the best we can hope for. Do you mind if I ride in your ship tomorrow, rather than one of the others? If this is the end, I'd rather face it with people I know." You agree. She turns back to look out the window.`
       `  Since Freya seems to want to be alone, you return downstairs, and discover that a sizeable Oathkeeper fleet has arrived. In the main vestibule of the spaceport, an Oathkeeper officer is leading a group in qigong meditation. And surprisingly, you spot Admiral Danforth sitting with the Muslim prayer group and chanting in fluent Arabic. Meanwhile, the party outside the pub continues.`
-      `  Eventually morning comes, and you prepare your ship for the assault on the Pug homeworld...`
+      `  Eventually morning comes, and you prepare your ship for the assault on the Pug homeworld…`
         accept
   
   npc
@@ -2194,11 +2188,11 @@ mission "FWC Pug 6"
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mars (Mark II)" 2
         "Mercury (Mark II)" 3
   npc
@@ -2210,15 +2204,15 @@ mission "FWC Pug 6"
       fighters "republic fighter"
       variant
         "Venus (Mark II)"
-        "Mark II Drone" 4
+        "Mark III Drone" 4
         "Mars (Mark II)" 2
     fleet 2
       names "republic"
       fighters "republic fighter"
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
         "Mercury (Mark II)" 3
   npc
     personality heroic
@@ -2228,29 +2222,28 @@ mission "FWC Pug 6"
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Bastion (Laser)"
-        "Argosy (Blaster)"
-        "Argosy (Laser)"
+        "Bastion (Plasma)"
+        "Stymphalian" 2
     fleet
       names "free worlds capital"
       fighters "free worlds fighter"
       variant
         "Dreadnought"
-        "Falcon (Plasma)"
+        "Lance (Plasma)"
         "Skein"
         "Hag" 6
     fleet
       names "free worlds capital"
       variant
         "Dreadnought"
-        "Falcon (Laser)"
-        "Osprey (Laser)"
+        "Lance (Plasma)"
+        "Osprey (Particle)"
     fleet
       names "free worlds capital"
       variant
-        "Falcon (Heavy)"
-        "Osprey (Laser)"
-        "Argosy (Impact)"
+        "Lance (Plasma)"
+        "Osprey (Particle)"
+        "Stymphalian"
   
   on complete
     log `The Pug have fled, apparently travelling through an artificial wormhole back to whatever galaxy they came from. And, it turns out that many of their cities on "Pugglemug" were only for show: buildings with no inhabitants, and with holograms creating the appearance of a heavily populated world. They left no advanced technology behind, and no sign of what their true intentions were, but it turns out that the fake cities here were designed for human habitation. They must have been planning this departure for a very long time.`
@@ -2303,7 +2296,7 @@ mission "FWC Pug 6"
         `  "No, it's just an ordinary electric outlet."`
         `  "Everything here is odd. The city, the holograms, all of it."`
       `  She says, "It's an ordinary, human style electrical outlet. Human. In an alien city. And the steps we came up to get here: the Pug have legs half again as long as ours. But the tread spacing was at the normal human height. This building wasn't made for the Pug. It was made for us."`
-      `  Reports begin coming in as the Navy explores the rest of the planet, and they are all finding the same thing: the cities are abandoned, many of them with signs that they were never inhabited in the first place. The first time you visited this planet, you thought it must have a billion inhabitants, but now it seems that its true population was less than a million - all of whom have apparently departed to somewhere beyond the wormhole.`
+      `  Reports begin coming in as the Navy explores the rest of the planet, and they are all finding the same thing: the cities are abandoned, many of them with signs that they were never inhabited in the first place. The first time you visited this planet, you thought it must have a billion inhabitants, but now it seems that its true population was less than a million – all of whom have apparently departed to somewhere beyond the wormhole.`
       `  Freya says, "Let's get back to the spaceport and meet up with the admirals."`
 
 
@@ -2327,7 +2320,7 @@ mission "FWC End"
     conversation
       `You find Admiral Danforth inspecting the Pug spaceport. "This is all very odd," he says. "I'm glad the aliens appear to have left, but I wish we knew where they came from and whether they're likely to return."`
       `  Freya says, "What should we do now?"`
-      `  "I've contacted Carbuncle and told them that Councillor Reynolds is free to leave," he says. "She told me that your Senate has agreed to the Free Worlds being a semi-autonomous district of the Republic, similar to the Syndicate systems. She also asked that you and Captain <last> meet up with her and Alondo Gruyere on Earth, where they will be meeting with Parliament. I sent a report to Earth that places a very heavy emphasis on the role that the Free Worlds played in this victory, so Parliament ought to be quite willing to negotiate with you."`
+      `  "I've contacted Carbuncle and told them that Councillor Reynolds is free to leave," he says. "She told me that your Senate has agreed to the Free Worlds being a semi-autonomous district of the Republic, similar to the Corporation systems. She also asked that you and Captain <last> meet up with her and Alondo Gruyere on Earth, where they will be meeting with Parliament. I sent a report to Earth that places a very heavy emphasis on the role that the Free Worlds played in this victory, so Parliament ought to be quite willing to negotiate with you."`
       choice
         `  "Thank you. It's been an honour to fight alongside you."`
           goto honour
@@ -2337,22 +2330,20 @@ mission "FWC End"
       `  "No, the honour has been mine," he says. "Feel free to drop by and visit me on Farpoint any time you're in the area."`
         accept
       label trial
-      `  "Trust me," he says, "you won't need to worry about that this time around. Having an alien attack so close to Earth be thwarted through the assistance of the Free Worlds has put Parliament in a very... receptive mood. Good luck, Captain <last>, and I hope our paths will cross again."`
+      `  "Trust me," he says, "you won't need to worry about that this time around. Having an alien attack so close to Earth be thwarted through the assistance of the Free Worlds has put Parliament in a very… receptive mood. Good luck, Captain <last>, and I hope our paths will cross again."`
         accept
   
   on complete
     event "fwc conquests returned"
     event "electron beams available"
     event "free worlds end"
-    event "particle turret available" 30
-    event "luna rebuilt" 60
-    event "navy using mark iii ships" 90
+    event "luna rebuilt" 30
     set "free worlds plot completed"
     set "main plot completed"
     conversation
       `You arrive in the Parliament building just as Alondo and Katya have finished meeting with them. "Good news," says Katya. "We're all officially pardoned. And you, Captain <last>, have become something of a hero."`
       `  "Better yet," says Alondo, "the war with the Republic is over. We agreed to accept a very minor tax to cover the cost of Navy protection if the aliens attack again or some other major catastrophe strikes, to limit our territory to its current size, and to allow any planet that does not want to be part of the Free Worlds to peacefully rejoin the Republic. In return, the Free Worlds have been formally granted autonomy from the Republic. The Navy announced they will start a new base on Alapia, in the Ascella system, to protect the Tarazed to Earth route, but they promised to abandon most of the new bases built during the war, keeping only the one on Bod."`
-      `  "Furthermore," says Katya, "you've been given permission to use the Navy arsenals. Also, as their own expression of gratitude, the Deep members of Parliament have offered to make some of their new technology, developed during the war, available to everyone at an affordable price. And the Syndicate offered interest-free loans to rebuild the planets damaged during the war."`
+      `  "Furthermore," says Katya, "you've been given permission to use the Navy arsenals. Also, as their own expression of gratitude, the Deep members of Parliament have offered to make some of their new technology, developed during the war, available to everyone at an affordable price. And the Corporation offered interest-free loans to rebuild the planets damaged during the war."`
       choice
         `  "That's very generous of them."`
         `  "I wonder if that's their way of buying our support and keeping us quiet about the supposed defector."`
@@ -2361,5 +2352,5 @@ mission "FWC End"
         `  "Build a merchant fleet and live a safe, quiet life."`
         `  "See if folks in the fringe worlds need any help against the pirates."`
         `  "Use my jump drive to explore beyond human space."`
-      `  "Well, we all wish you the best of luck," says Freya. "We would never have won this war without you. Be sure to stay in touch." You hug each of them goodbye, and return to your ship. What you do next is up to you...`
+      `  "Well, we all wish you the best of luck," says Freya. "We would never have won this war without you. Be sure to stay in touch." You hug each of them goodbye, and return to your ship. What you do next is up to you…`
 

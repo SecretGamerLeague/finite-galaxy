@@ -122,7 +122,7 @@ interface "main menu"
     dimensions 90 30
   
   visible
-  button l "_Load / Save..."
+  button l "_Load / Save…"
     centre 300 155
     dimensions 120 30
   
@@ -130,7 +130,7 @@ interface "main menu"
   button q "_Quit"
     centre -285 155
     dimensions 90 30
-  button p "_Preferences..."
+  button p "_Preferences…"
     centre -420 155
     dimensions 120 30
 
@@ -252,6 +252,13 @@ interface "settings"
     dimensions 90 30
     colour medium
     hover bright
+  sprite "ui/empty bar"
+    centre 130 110
+  bar "refuel behaviour"
+    from 30 110
+    dimensions -200 0
+    colour "fuel"
+    size 3
 
 
 
@@ -276,7 +283,7 @@ interface "plugins"
 
 
 interface "preferences"
-  button b "_Back to Menu..."
+  button b "_Back to Menu…"
     centre 195 210
     dimensions 120 30
   bar "volume"
@@ -472,7 +479,7 @@ interface "planet"
   button t "_Trading"
     centre -400 90
     dimensions 140 40
-    size 18
+    size 24
     align left
     pad 10 0
 
@@ -482,7 +489,7 @@ interface "planet"
   button h "_Hire Crew"
     centre -400 145
     dimensions 140 40
-    size 18
+    size 24
     align left
     pad 10 0
   
@@ -492,7 +499,7 @@ interface "planet"
   button j "_Job Board"
     centre -400 200
     dimensions 140 40
-    size 18
+    size 24
     align left
     pad 10 0
   
@@ -502,8 +509,18 @@ interface "planet"
   button p "Space_port"
     centre -400 310
     dimensions 140 40
-    size 18
+    size 24
     align left
+    pad 10 0
+  
+  visible if "has fuel"
+  sprite "ui/planet dialogue button"
+    centre 280 255
+  button r "_Refuel"
+    centre 280 255
+    dimensions 140 40
+    size 24
+    align right
     pad 10 0
   
   visible if "has shipyard"
@@ -512,7 +529,7 @@ interface "planet"
   button s "_Shipyard"
     centre 280 90
     dimensions 140 40
-    size 18
+    size 24
     align right
     pad 10 0
   
@@ -522,7 +539,7 @@ interface "planet"
   button o "_Outfitter"
     centre 280 145
     dimensions 140 40
-    size 18
+    size 24
     align right
     pad 10 0
   
@@ -532,7 +549,7 @@ interface "planet"
   button b "_Bank"
     centre 280 200
     dimensions 140 40
-    size 18
+    size 24
     align right
     pad 10 0
   
@@ -542,7 +559,7 @@ interface "planet"
   button d "_Depart"
     centre 280 310
     dimensions 140 40
-    size 18
+    size 24
     align right
     pad 10 0
 
@@ -799,6 +816,25 @@ interface "bank"
 
 
 
+interface "refuel"
+  active if "can refuel"
+  sprite "ui/dialogue cancel"
+    centre 140 355
+  button r "_Refuel"
+    centre 140 355
+    dimensions 80 40
+  
+  visible if "empty"
+  sprite "ui/empty bar"
+    centre -180 150
+  bar "ratio"
+    from -280 150
+    dimensions -200 0
+    colour "fuel"
+    size 3
+
+
+
 interface "mission" bottom
   sprite "ui/mission"
     align bottom
@@ -830,34 +866,34 @@ interface "mission" bottom
 
 
 
-interface "map buttons" bottom right
-  sprite "ui/dialogue cancel"
-    from -450 -50 to -360 0
-  button d "_Done"
-    from -450 -50 to -360 0
-  
-  active if "!is shipyards"
+interface "map buttons" bottom right  
+  active if "!is ports"
   sprite "ui/wide button"
-    from -370 -50 to -260 0
-  button s "_Shipyards"
-    from -370 -50 to -260 0
+    from -500 -50 to -390 0
+  button p "_Ports"
+    from -500 -50 to -390 0
+  
+  active if "!is missions"
+  sprite "ui/wide button"
+    from -400 -50 to -290 0
+  button i "M_issions"
+    from -400 -50 to -290 0
   
   active if "!is outfitters"
   sprite "ui/wide button"
-    from -270 -50 to -160 0
+    from -300 -50 to -190 0
   button o "_Outfitters"
-    from -270 -50 to -160 0
+    from -300 -50 to -190 0
   
-  active if "!is missions"
-  sprite "ui/dialogue cancel"
-    from -170 -50 to -80 0
-  button i "M_issions"
-    from -170 -50 to -80 0
-  
-  active if "!is ports"
+  active if "!is shipyards"
+  sprite "ui/wide button"
+    from -200 -50 to -90 0
+  button s "_Shipyards"
+    from -200 -50 to -90 0
+
   sprite "ui/dialogue cancel"
     from -90 -50 to 0 0
-  button p "_Ports"
+  button d "_Done"
     from -90 -50 to 0 0
   
   sprite "ui/zoom"
@@ -865,11 +901,11 @@ interface "map buttons" bottom right
   active if "!max zoom"
   button + "_+"
     from -10 -50 to -40 -80
-    size 18
+    size 24
   active if "!min zoom"
   button - "_-"
     from -50 -50 to -80 -80
-    size 18
+    size 24
 
 
 
@@ -928,11 +964,11 @@ interface "info panel"
   button d "_Done"
     centre 455 305
     dimensions 90 30
-  button m "_Missions..."
+  button m "_Missions…"
     centre 355 305
     dimensions 90 30
   active if "enable logbook"
-  button l "_Logbook..."
+  button l "_Logbook…"
     centre 255 305
     dimensions 90 30
   active

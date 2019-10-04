@@ -33,17 +33,16 @@ HailPanel::HailPanel(PlayerInfo &player, const shared_ptr<Ship> &ship)
   : player(player), ship(ship), sprite(ship->GetSprite()), facing(ship->Facing())
 {
   SetInterruptible(false);
-  
+
   const Government *gov = ship->GetGovernment();
-  const Font &font = FontSet::Get(14);
   if(!ship->Name().empty())
-    header = font.Truncate(gov->GetName() + " " + ship->Noun() + " \"" + ship->Name(), 328) + "\":";
+    header = gov->GetName() + " " + ship->Noun() + " \"" + ship->Name() + "\":";
   else
     header = ship->ModelName() + " (" + gov->GetName() + "): ";
   // Drones are always unpiloted, so they never respond to hails.
   bool isMute = ship->GetPersonality().IsMute() || (ship->Attributes().Category() == "Drone");
   hasLanguage = !isMute && (gov->Language().empty() || player.GetCondition("language: " + gov->Language()));
-  
+
   if(isMute)
     message = "(There is no response to your hail.)";
   else if(!hasLanguage)
@@ -81,28 +80,29 @@ HailPanel::HailPanel(PlayerInfo &player, const shared_ptr<Ship> &ship)
       playerNeedsHelp = true;
       canRepair = true;
     }
-    
+
     if(ship->GetPersonality().IsSurveillance())
     {
       canGiveFuel = false;
       canRepair = false;
     }
-    
+
     if(ship->GetShipToAssist() == player.FlagshipPtr())
       message = "Hang on, we'll be there in a minute.";
     else if(canGiveFuel || canRepair)
     {
       message = "Looks like you've gotten yourself into a bit of trouble. "
         "Would you like us to ";
+      string fuelMessage = "We will charge you " + Format::Number(ship->GetGovernment()->GetFuelPrice()) + " credits per unit of fuel.";
       if(canGiveFuel && canRepair)
-        message += "patch you up and give you some fuel?";
+        message += "patch you up and bring you some fuel? " + fuelMessage;
       else if(canGiveFuel)
-        message += "give you some fuel?";
+        message += "bring you some fuel? " + fuelMessage;
       else if(canRepair)
-        message += "patch you up?";
+        message += "patch you up? ";
     }
   }
-  
+
   if(message.empty())
     message = ship->GetHail(player);
 }
@@ -113,12 +113,12 @@ HailPanel::HailPanel(PlayerInfo &player, const StellarObject *object)
   : player(player), planet(object->GetPlanet()), sprite(object->GetSprite()), facing(object->Facing())
 {
   SetInterruptible(false);
-  
+
   const Government *gov = planet ? planet->GetGovernment() : player.GetSystem()->GetGovernment();
   if(planet)
     header = gov->GetName() + " " + planet->Noun() + " \"" + planet->Name() + "\":";
   hasLanguage = (gov->Language().empty() || player.GetCondition("language: " + gov->Language()));
-  
+
   if(!hasLanguage)
     message = "(An alien voice says something in a language you do not recognize.)";
   else if(planet && player.Flagship())
@@ -150,9 +150,10 @@ HailPanel::HailPanel(PlayerInfo &player, const StellarObject *object)
 void HailPanel::Draw()
 {
   DrawBackdrop();
-  
+
   Information info;
-  info.SetString("header", header);
+  const Font::Layout layout(Font::TRUNC_BACK, 330);
+  info.SetString("header", header, layout);
   if(ship)
   {
     info.SetCondition("show assist");
@@ -177,21 +178,21 @@ void HailPanel::Draw()
     else
       info.SetCondition("show dominate");
   }
-  
+
   const Interface *interface = GameData::Interfaces().Get("hail panel");
   interface->Draw(info, this);
-  
+
   // Draw the sprite, rotated, scaled, and swizzled as necessary.
-  double zoom = min(2., 400. / max(sprite->Width(), sprite->Height()));
+  float zoom = min(2., 400. / max(sprite->Width(), sprite->Height()));
   Point centre(-170., -10.);
-  
+
   DrawList draw;
   // If this is a ship, copy its swizzle, animation settings, etc.
   if(ship)
     draw.Add(Body(*ship, centre, Point(), facing, zoom));
   else
     draw.Add(Body(sprite, centre, Point(), facing, zoom));
-  
+
   // If hailing a ship, draw its turret sprites.
   if(ship)
     for(const Hardpoint &hardpoint : ship->Weapons())
@@ -206,22 +207,22 @@ void HailPanel::Draw()
         draw.Add(body);
       }
   draw.Draw();
-  
+
   // Draw the current message.
   WrappedText wrap;
-  wrap.SetAlignment(WrappedText::JUSTIFIED);
+  wrap.SetAlignment(Font::JUSTIFIED);
   wrap.SetWrapWidth(330);
-  wrap.SetFont(FontSet::Get(14));
+  wrap.SetFont(FontSet::Get(18));
   wrap.Wrap(message);
   wrap.Draw(Point(-50., -50.), *GameData::Colours().Get("medium"));
 }
 
 
 
-bool HailPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
+bool HailPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command, bool isNewPress)
 {
   bool shipIsEnemy = (ship && ship->GetGovernment()->IsEnemy());
-  
+
   if(key == 'd' || key == SDLK_ESCAPE || key == SDLK_RETURN || (key == 'w' && (mod & (KMOD_CTRL | KMOD_GUI))))
     GetUI()->Pop(this);
   else if(key == 't' && hasLanguage && planet)
@@ -269,7 +270,7 @@ bool HailPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
     // Make sure it actually makes sense to bribe this ship.
     if((ship && !shipIsEnemy) || (planet && planet->CanLand()))
       return true;
-    
+
     if(bribe > player.Accounts().Credits())
       message = "Sorry, but you don't have enough money to be worth my while.";
     else if(bribe)
@@ -286,14 +287,14 @@ bool HailPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
         Messages::Add("You bribed the authorities on " + planet->Name() + " "
           + Format::Credits(bribe) + " credits to permit you to land.");
       }
-      
+
       player.Accounts().AddCredits(-bribe);
       message = "It's a pleasure doing business with you.";
     }
     else
       message = "I do not want your money.";
   }
-  
+
   return true;
 }
 
@@ -305,7 +306,7 @@ void HailPanel::SetBribe(double scale)
   int64_t value = 0;
   for(const shared_ptr<Ship> &it : player.Ships())
     value += it->Cost();
-  
+
   bribe = 1000 * static_cast<int64_t>(sqrt(value) * scale);
   if(scale && !bribe)
     bribe = 1000;

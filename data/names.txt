@@ -28,17 +28,18 @@
 #
 # civilian
 #
+# corporation capital
+# corporation small
 # deep
 # free worlds capital
 # free worlds small
 # militia
 # republic
-# syndicate capital
-# syndicate small
+# tarazed
+# corporation fighter
 # deep fighter
 # free worlds fighter
 # republic fighter
-# syndicate fighter
 #
 # sinister names
 # pirate adjectives that work as titles
@@ -2266,6 +2267,24 @@ phrase "civilian"
 
 
 
+phrase "corporation capital"
+  word
+    "C.S.S. "
+  phrase 
+    "chemical elements full"
+
+phrase "corporation small"
+  word
+    "C-"
+  phrase
+    "digit"
+  phrase
+    "digit"
+  phrase
+    "letter"
+  phrase
+    "digit"
+
 phrase "deep"
   word
     "D.D.S. "
@@ -2500,82 +2519,8 @@ phrase "free worlds small"
 phrase "militia"
   word
     "I.M.S. "
-  word
-    Alder
-    Aloe
-    Ash
-    Aspen
-    Asphodel
-    Balsam
-    Banyan
-    Baobab
-    Bartlett
-    Beech
-    Birch
-    Borage
-    Brisbane
-    Buckthorn
-    Carob
-    Cedar
-    Coral
-    Cork
-    Cottonwood
-    Crabwood
-    Cypress
-    Dogwood
-    Douglas
-    Ebony
-    Elder
-    Elm
-    Eucalyptus
-    Ginko
-    Hawthorn
-    Hazel
-    Heath
-    Hemlock
-    Hickory
-    Holly
-    Hophorn
-    Ironwood
-    Joshua
-    Juniper
-    Lancewood
-    Larch
-    Laurel
-    Linden
-    Locust
-    Magnolia
-    Mangrove
-    Maple
-    Medlar
-    Myrtle
-    Nightshade
-    Persimmon
-    Pinyon
-    Ponderosa
-    Poplar
-    Primrose
-    Privet
-    Quince
-    Raywood
-    Redbud
-    Redwood
-    Sassafras
-    Senna
-    Sequoia
-    Spurge
-    Sumac
-    Sycamore
-    Tallow
-    Tamarack
-    Tamarisk
-    Teak
-    Terebinth
-    Torrey
-    Traveller
-    Willow
-    Winterthorn
-    Yucca
+  phrase
+    "civilian"
 
 phrase "republic"
   word
@@ -3246,9 +3191,9 @@ phrase "republic"
     Zorn
     Zujar
 
-phrase "syndicate capital"
+phrase "tarazed"
   word
-    "S.S.S. "
+    "T.C.S. "
   word
     Africanus
     Agrippa
@@ -3325,19 +3270,15 @@ phrase "syndicate capital"
     Vespasian
     Virgil
 
-phrase "syndicate small"
+phrase "corporation fighter"
   word
-    "S-"
+    "F-"
   phrase
     "digit"
   phrase
     "digit"
   phrase
-    "letter"
-  phrase
     "digit"
-
-
 
 phrase "deep fighter"
   phrase 
@@ -3366,16 +3307,6 @@ phrase "republic fighter"
     " "
   phrase
     "one to twelve"
-
-phrase "syndicate fighter"
-  word
-    "F-"
-  phrase
-    "digit"
-  phrase
-    "digit"
-  phrase
-    "digit"
 
 
 

@@ -21,21 +21,34 @@ using namespace std;
 namespace {
   const string WORMHOLE = "wormhole";
   const string PLANET = "planet";
+
+  // Planet attributes in the form "requires: <attribute>" restrict the ability of ships to land
+  // unless the ship has all required attributes.
+  void SetRequiredAttributes(const set<string> &attributes, set<string> &required)
+  {
+    static const string PREFIX = "requires: ";
+    static const string PREFIX_END = "requires:!";
+    required.clear();
+    for_each(attributes.lower_bound(PREFIX), attributes.lower_bound(PREFIX_END), [&](const string &attribute)
+    {
+      required.emplace_hint(required.cend(), attribute.substr(PREFIX.length()));
+    });
+  }
 }
 
 
 
 // Load a planet's description from a file.
-void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<Sale<Outfit>> &outfits)
+void Planet::Load(const DataNode &node)
 {
   if(node.Size() < 2)
     return;
   name = node.Token(1);
-  
+
   // If this planet has been loaded before, these sets of items should be
   // reset instead of appending to them:
   set<string> shouldOverwrite = {"attributes", "description", "spaceport"};
-  
+
   for(const DataNode &child : node)
   {
     // Check for the "add" or "remove" keyword.
@@ -46,13 +59,13 @@ void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<
       child.PrintTrace("Skipping " + child.Token(0) + " with no key given:");
       continue;
     }
-    
+
     // Get the key and value (if any).
     const string &key = child.Token((add || remove) ? 1 : 0);
     int valueIndex = (add || remove) ? 2 : 1;
     bool hasValue = (child.Size() > valueIndex);
     const string &value = child.Token(hasValue ? valueIndex : 0);
-    
+
     // Check for conditions that require clearing this key's current value.
     // "remove <key>" means to clear the key's previous contents.
     // "remove <key> <value>" means to remove just that value from the key.
@@ -88,14 +101,16 @@ void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<
         security = 0.;
       else if(key == "tribute")
         tribute = 0;
-      
+      else if(key == "fuel")
+        fuelPrice = -1;
+
       // If not in "overwrite" mode, move on to the next node.
       if(overwriteAll)
         shouldOverwrite.erase(key);
       else
         continue;
     }
-    
+
     // Handle the attributes which can be "removed."
     if(!hasValue)
     {
@@ -114,16 +129,16 @@ void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<
     else if(key == "shipyard")
     {
       if(remove)
-        shipSales.erase(ships.Get(value));
+        shipSales.erase(GameData::Shipyards().Get(value));
       else
-        shipSales.insert(ships.Get(value));
+        shipSales.insert(GameData::Shipyards().Get(value));
     }
     else if(key == "outfitter")
     {
       if(remove)
-        outfitSales.erase(outfits.Get(value));
+        outfitSales.erase(GameData::Outfitters().Get(value));
       else
-        outfitSales.insert(outfits.Get(value));
+        outfitSales.insert(GameData::Outfitters().Get(value));
     }
     // Handle the attributes which cannot be "removed."
     else if(remove)
@@ -181,10 +196,12 @@ void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<
           grand.PrintTrace("Skipping unrecognized tribute attribute:");
       }
     }
+    else if(key == "fuel")
+      fuelPrice = child.Value(valueIndex);
     else
       child.PrintTrace("Skipping unrecognized attribute:");
   }
-  
+
   static const vector<string> AUTO_ATTRIBUTES = {"spaceport", "shipyard", "outfitter"};
   bool autoValues[3] = {!spaceport.empty(), !shipSales.empty(), !outfitSales.empty()};
   for(unsigned i = 0; i < AUTO_ATTRIBUTES.size(); ++i)
@@ -197,8 +214,10 @@ void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<
 
   bank = attributes.count("bank");
 //  fuel = attributes.count("fuel");
+  // Precalculate commonly used values that can only change due to Load().
 //  inhabited = (HasSpaceport() || requiredReputation || !defenceFleets.empty()) && !attributes.count("uninhabited");
   inhabited = !attributes.count("uninhabited");
+  SetRequiredAttributes(Attributes(), requiredAttributes);
 }
 
 
@@ -259,11 +278,11 @@ const string &Planet::Noun() const
 {
   if(IsWormhole())
     return WORMHOLE;
-  
+
   for(const string &attribute : attributes)
     if(attribute == "moon" || attribute == "station")
       return attribute;
-  
+
   return PLANET;
 }
 
@@ -293,7 +312,7 @@ bool Planet::IsInhabited() const
 }
 
 
-  
+
 // Check if this planet has a bank (i.e. it has the 
 bool Planet::HasBank() const
 {
@@ -301,7 +320,7 @@ bool Planet::HasBank() const
 }
 
 
-  
+
 // Check if this planet has a shipyard.
 bool Planet::HasShipyard() const
 {
@@ -316,7 +335,7 @@ const Sale<Ship> &Planet::Shipyard() const
   shipyard.clear();
   for(const Sale<Ship> *sale : shipSales)
     shipyard.Add(*sale);
-  
+
   return shipyard;
 }
 
@@ -336,7 +355,7 @@ const Sale<Outfit> &Planet::Outfitter() const
   outfitter.clear();
   for(const Sale<Outfit> *sale : outfitSales)
     outfitter.Add(*sale);
-  
+
   return outfitter;
 }
 
@@ -424,7 +443,7 @@ const System *Planet::WormholeSource(const System *to) const
   auto it = find(systems.begin(), systems.end(), to);
   if(it == systems.end())
     return to;
-  
+
   return (it == systems.begin() ? systems.back() : *--it);
 }
 
@@ -436,7 +455,7 @@ const System *Planet::WormholeDestination(const System *from) const
   auto it = find(systems.begin(), systems.end(), from);
   if(it == systems.end())
     return from;
-  
+
   ++it;
   return (it == systems.end() ? systems.front() : *it);
 }
@@ -454,22 +473,23 @@ const vector<const System *> &Planet::WormholeSystems() const
 // land on this planet.
 bool Planet::IsAccessible(const Ship *ship) const
 {
-  // Check whether any of this planet's attributes are in the form of the
-  // string "requires: <attribute>"; if so the ship must have that attribute.
-  static const string PREFIX = "requires: ";
-  static const string PREFIX_END = "requires:!";
-  auto it = attributes.lower_bound(PREFIX);
-  auto end = attributes.lower_bound(PREFIX_END);
-  if(it == end)
+  // If there are no required attributes, then any ship may land here.
+  if(IsUnrestricted())
     return true;
   if(!ship)
     return false;
-  
-  for( ; it != end; ++it)
-    if(!ship->Attributes().Get(it->substr(PREFIX.length())))
-      return false;
-  
-  return true;
+
+  const auto &shipAttributes = ship->Attributes();
+  return all_of(requiredAttributes.cbegin(), requiredAttributes.cend(),
+    [&](const string &attr) -> bool { return shipAttributes.Get(attr); });
+}
+
+
+
+// Check if this planet has any required attributes that restrict landability.
+bool Planet::IsUnrestricted() const
+{
+  return requiredAttributes.empty();
 }
 
 
@@ -520,7 +540,7 @@ string Planet::DemandTribute(PlayerInfo &player) const
     return "Please don't joke about that sort of thing.";
   if(player.GetCondition("combat rating") < defenceThreshold)
     return "You're not worthy of our time.";
-  
+
   // The player is scary enough for this planet to take notice. Check whether
   // this is the first demand for tribute, or not.
   if(!isDefending)
@@ -535,7 +555,7 @@ string Planet::DemandTribute(PlayerInfo &player) const
     GetGovernment()->Offend(ShipEvent::ATROCITY);
     return "Our defence fleet will make short work of you.";
   }
-  
+
   // The player has already demanded tribute. Have they defeated the entire defence fleet?
   bool isDefeated = (defenceDeployed == defenceFleets.size());
   for(const shared_ptr<Ship> &ship : defenders)
@@ -544,10 +564,10 @@ string Planet::DemandTribute(PlayerInfo &player) const
       isDefeated = false;
       break;
     }
-  
+
   if(!isDefeated)
     return "We're not ready to surrender yet.";
-  
+
   player.Conditions()["tribute: " + name] = tribute;
   GameData::GetPolitics().DominatePlanet(this);
   return "We surrender. We will pay you " + Format::Credits(tribute) + " credits per day to leave us alone.";
@@ -560,16 +580,16 @@ void Planet::DeployDefence(list<shared_ptr<Ship>> &ships) const
 {
   if(!isDefending || Random::Int(60) || defenceDeployed == defenceFleets.size())
     return;
-  
+
   auto end = defenders.begin();
   defenceFleets[defenceDeployed]->Enter(*GetSystem(), defenders, this);
   ships.insert(ships.begin(), defenders.begin(), end);
-  
+
   // All defenders use a special personality.
   Personality defenderPersonality = Personality::Defender();
   for(auto it = defenders.begin(); it != end; ++it)
     (**it).SetPersonality(defenderPersonality);
-  
+
   ++defenceDeployed;
 }
 
@@ -582,3 +602,9 @@ void Planet::ResetDefence() const
   defenders.clear();
 }
 
+
+
+double Planet::GetFuelPrice() const
+{
+  return fuelPrice;
+}

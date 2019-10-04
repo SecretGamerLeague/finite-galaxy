@@ -65,10 +65,10 @@ mission "Courier 1"
   to offer
     random < 5
   source
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   destination
     distance 4 10
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   on offer
     dialogue `As you are walking through the spaceport, a man approaches you and says, "Excuse me, Captain. I took on a rush delivery to <planet>, but my ship needs repairs and there's no way I can make it there before <day>. Can you take this job for me?"`
   on complete
@@ -88,12 +88,12 @@ mission "Courier 2"
   to offer
     random < 5
   source
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   destination
     distance 7 14
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   on offer
-    dialogue `A woman in the spaceport flags you down and asks, "Excuse me, Captain. I have small package that needs to get to <planet> by <day>. Can you carry it for me?"`
+    dialogue `A woman in the spaceport flags you down and asks, "Excuse me, Captain. I have a small package that needs to get to <planet> by <day>. Can you deliver it for me?"`
   on complete
     payment
     payment 50000
@@ -110,10 +110,10 @@ mission "Courier 3"
   to offer
     random < 5
   source
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   destination
     distance 7 14
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   on offer
     dialogue `A woman in a suit walks up to you and says, "Pardon me, Captain. I represent a recently deceased client here on <origin> whose legal papers need to be delivered to his next of kin on <destination>. Would you be willing to do some courier work? The papers must be delivered by <day>."`
   on complete
@@ -131,10 +131,10 @@ mission "Courier 4"
   to offer
     random < 5
   source
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   destination
     distance 7 14
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
     attributes "rich"
   on offer
     conversation
@@ -191,7 +191,7 @@ mission "Deep Archaeology 1"
       `  You say, "And, is the work you're asking me to do going to make me equally unpopular?"`
       label samples
       `  "Not if you are circumspect," he says. "I need two samples from a certain village. One is simple: wood from a living or recently deceased tree. Any tree will do."`
-      `  He pauses for a minute, then continues. "The other is more... sensitive. There is a historical site on Midgard, an ancient church. Not something they publish in the official tourist guides, mind you. I need a small sample of the wood that the church is built with. A small splinter would suffice."`
+      `  He pauses for a minute, then continues. "The other is more… sensitive. There is a historical site on Midgard, an ancient church. Not something they publish in the official tourist guides, mind you. I need a small sample of the wood that the church is built with. A small splinter would suffice."`
       choice
         `  "Sure, if it's in the interest of science, I can do that."`
           goto yes
@@ -210,7 +210,7 @@ mission "Deep Archaeology 1"
 mission "Deep Archaeology 2"
   landing
   name "Deep Archaeology"
-  description "Travel to <destination> and take wood fiber samples from an ancient church and from the trees that grow nearby."
+  description "Travel to <destination> and take wood fibre samples from an ancient church and from the trees that grow nearby."
   source "Vinci"
   destination "Midgard"
   to offer
@@ -256,31 +256,31 @@ mission "Deep Archaeology 3"
   npc
     personality waiting
     government "Republic"
-    ship "Raven (Afterburner)" "D.P.S. Wyrd"
+    ship "Raven" "D.P.S. Wyrd"
   
   npc
     personality waiting
     system Aspidiske
     government "Republic"
-    ship "Raven (Afterburner)" "D.P.S. Skuld"
+    ship "Raven" "D.P.S. Skuld"
   
   npc
     personality waiting
     system "Gomeisa"
     government "Republic"
-    ship "Raven (Afterburner)" "D.P.S. Verthandi"
+    ship "Raven" "D.P.S. Verthandi"
   
   on complete
     payment 200000
     log `Agreed to take a piece of wood from a church on Midgard for an archaeologist. Carbon dating suggests that the church was built many centuries before the discovery of the hyperdrive.`
     conversation
       `You return to the lab where you dropped off the anonymous archaeologist. Soon after you arrive, he appears and eagerly collects the two samples, giving you a payment of <payment> for your troubles. "But please," he says, "stick around long enough to learn the results." He hands the two envelopes to a lab technologist, and says, "Here you go, John, Take a look and let us know what you find."`
-      `  After the lab tech leaves, he explains, "You see, the ratio of Carbon 12 to Carbon 14 varies from world to world, so accurate dating can only be done if you have a control sample to compare against. Only a handful of archaeological studies have been done in the Deep, and those were sloppy - they used the standard tables of Earth's carbon ratios instead of determining the local concentrations."`
+      `  After the lab tech leaves, he explains, "You see, the ratio of Carbon 12 to Carbon 14 varies from world to world, so accurate dating can only be done if you have a control sample to compare against. Only a handful of archaeological studies have been done in the Deep, and those were sloppy – they used the standard tables of Earth's carbon ratios instead of determining the local concentrations."`
       choice
         `  (Wait and see what the results are.)`
       `  About thirty minutes later, John reappears, looking somewhat shaken. "Where did you get those samples?" he asks.`
       `  "Never mind that," says the archaeologist. "What are your results?"`
-      `  "The second sample is infused with some sort of oil or tar," he says. "A varnish. And therefore it is from furniture or a building. A man-made artifact. The control sample has an isotopic ratio different from Earth, so unless you're playing games with me, these samples are not from Earth."`
+      `  "The second sample is infused with some sort of oil or tar," he says. "A varnish. And therefore it is from furniture or a building. A man-made artefact. The control sample has an isotopic ratio different from Earth, so unless you're playing games with me, these samples are not from Earth."`
       `  "Go on," says the archaeologist.`
       `  "However," says the lab tech, "again assuming the two samples are from the same planet, the second sample is between fifteen hundred and twenty-five hundred years old. Which means it predates the discovery of the hyperdrive by, at minimum, five centuries. So again I ask you, where did you get these samples?" His voice is raised.`
       `  "Intriguing, isn't it?" says the archaeologist. "Captain <last>, if you'd like to help us get to the bottom of this, make sure you've got space for us and some equipment, and meet us in the spaceport."`
@@ -326,7 +326,7 @@ mission "Deep Archaeology 5"
     conversation
       `You cruise high above the surface of <origin> as John calibrates his instruments. "Sorry it's taking so long," he says, "there's some sort of glitch in the gravitational sensors, messing up my measurements."`
       `  "What sort of glitch?" asks Albert.`
-      `  "Just a sensor artifact," he says, "some sort of echo. No, wait..." He trails off and starts turning dials on the instrument, then turns very pale.`
+      `  "Just a sensor artefact," he says, "some sort of echo. No, wait…" He trails off and starts turning dials on the instrument, then turns very pale.`
       `  Albert looks over his shoulder at the monitor, but clearly doesn't understand what he's looking at. "What is it?" he asks.`
       `  "It's not a sensor glitch," says John. "It's an artificial singularity."`
       choice
@@ -346,9 +346,9 @@ mission "Deep Archaeology 5"
   npc
     personality heroic
     government "Deep"
-    ship "Raven (Afterburner)" "D.P.S. Wyrd"
-    ship "Raven (Afterburner)" "D.P.S. Skuld"
-    ship "Raven (Afterburner)" "D.P.S. Verthandi"
+    ship "Raven" "D.P.S. Wyrd"
+    ship "Raven" "D.P.S. Skuld"
+    ship "Raven" "D.P.S. Verthandi"
   
   on complete
     payment 300000
@@ -478,7 +478,7 @@ mission "Hallucination"
         `  (No, I never touch that stuff.)`
           defer
         `  (Sure, sounds like fun!)`
-      `  The room begins to spin, and strange things happen...`
+      `  The room begins to spin, and strange things happen…`
         launch
   
   npc kill
@@ -566,7 +566,7 @@ mission "Humanitarian 1"
     random < 5
     "combat rating" > 0
   source
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   destination
     government "Pirate"
     distance 2 10
@@ -604,7 +604,7 @@ mission "Humanitarian 2"
     random < 5
     "combat rating" > 0
   source
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
   destination
     government "Pirate"
     distance 2 10
@@ -754,7 +754,7 @@ mission "Pookie 2"
         goto response
     
       label response
-      `  "Thank heavens," she says. "She's all yours." She hands you the leash and a large bag that appears to be full of chew toys. "Here are her toys, her food, and her... outfits. Which she hates. Feed her twice a day, or she will go berserk. Do not feed her more than twice a day, or she will throw up..."`
+      `  "Thank heavens," she says. "She's all yours." She hands you the leash and a large bag that appears to be full of chew toys. "Here are her toys, her food, and her… outfits. Which she hates. Feed her twice a day, or she will go berserk. Do not feed her more than twice a day, or she will throw up…"`
       `  As she continues rattling off instructions, you ask, "Wait, Pookie is the dog?"`
       `  "Short for 'Pocahontas,"' she explains. "Good luck, and I hope my sister pays you well." She walks away. There's nothing else you can do but bring Pookie back to your ship, where she immediately lifts her leg against the landing strut.`
         accept
@@ -845,7 +845,7 @@ mission "Rim Archaeology 1"
           goto telepath
       label telepath
       `  You expect him to laugh at you, but instead he's so shocked that he drops the data pad he's holding. "An Archon?" he says. "How the hell did you get tangled up with one of those?" You tell him the story, and he listens intently.`
-      `  "It's feasible," he says. "We've heard rumours from the Quarg that an alien civilization used to exist in the Rim, a hundred thousand years ago. No signs of it, of course - any artifacts they left behind have been destroyed by the elements, or perhaps intentionally removed. But if a city were encased in lava, that could preserve signs of it even over such a long time frame."`
+      `  "It's feasible," he says. "We've heard rumours from the Quarg that an alien civilization used to exist in the Rim, a hundred thousand years ago. No signs of it, of course – any artefacts they left behind have been destroyed by the elements, or perhaps intentionally removed. But if a city were encased in lava, that could preserve signs of it even over such a long time frame."`
       `  Foster makes a few phone calls to cancel his upcoming plans, and then shows up at your ship with a large collection of geological surveying tools. "Let's go check it out," he says.`
         accept
   
@@ -859,7 +859,7 @@ mission "Rim Archaeology 1"
           goto scan
       `  "Air pockets," he says, "some of them filled in with ground water. Nothing out of the ordinary."`
       label scan
-      `  When the scan reaches about thirty meters below the surface, suddenly the view changes...`
+      `  When the scan reaches about thirty meters below the surface, suddenly the view changes…`
       `  "Great burning suns!" says Foster. "There is something down there! Roads in a triangular grid. That ain't no human city." You both stare at the monitor for a minute, then Foster says, "I'm going to need to pull some permits. Meet me in the spaceport in an hour if you're willing to help pick up some of the other stuff we'll need."`
 
 
@@ -874,7 +874,7 @@ mission "Rim Archaeology 2A"
   
   on offer
     conversation
-      `When you meet up with Foster, he tells you, "This is going to be tricky. We're going to have to dig through a twenty meter thick slab of solid basalt to get at those ruins. We have to work fast, or my competitors will catch wind of what we're doing and beat us to the punch. But we have to work delicately, too, or we'll damage what's underneath. Blasting won't work. I think some of the Syndicate's strip mining equipment could do the job, though. Would you be able to pick up maybe twenty or thirty tons of heavy machinery from <planet>?"`
+      `When you meet up with Foster, he tells you, "This is going to be tricky. We're going to have to dig through a twenty meter thick slab of solid basalt to get at those ruins. We have to work fast, or my competitors will catch wind of what we're doing and beat us to the punch. But we have to work delicately, too, or we'll damage what's underneath. Blasting won't work. I think some of the Corporation's strip mining equipment could do the job, though. Would you be able to pick up maybe twenty or thirty tons of heavy machinery from <planet>?"`
       choice
         `  "Sure."`
           accept
@@ -940,13 +940,13 @@ mission "Rim Archaeology 3B"
   on offer
     conversation
       `Once again, the equipment that Foster needs is waiting for you when you land. It's a truck carrying a power generator and an articulated arm with a laser cannon mounted on the end. You can't help imagining what would happen if it malfunctioned and began firing while inside your cargo bay, but the engineer who delivers it assures you that it has many redundant safeties in place.`
-      `  Also waiting for you is an encrypted message from Foster: "Hi there, <first>. I've been told that one of my competitors, Sibyl Greythatch, has been asking around trying to figure out where my dig site is. She's an antiquities thief - robs archaeological sites and sells the artifacts on the black market. I think my equipment purchase on <origin> may have caught her attention. If so, her ship, the Oxyrhynchus, will be following you. Don't return to the dig site until you're certain you've shaken her."`
+      `  Also waiting for you is an encrypted message from Foster: "Hi there, <first>. I've been told that one of my competitors, Sibyl Greythatch, has been asking around trying to figure out where my dig site is. She's an antiquities thief – robs archaeological sites and sells the artefacts on the black market. I think my equipment purchase on <origin> may have caught her attention. If so, her ship, the Oxyrhynchus, will be following you. Don't return to the dig site until you're certain you've shaken her."`
         accept
   
   npc evade
     government "Independent"
     personality waiting
-    ship "Marauder Falcon (Engines)" "Oxyrhynchus"
+    ship "Modified Lance (Engines)" "Oxyrhynchus"
   
   on visit
     dialogue
@@ -1001,7 +1001,7 @@ mission "Rim Archaeology 4B"
     government "Merchant"
     personality waiting
     system "Dabih"
-    ship "Marauder Arrow (Engines)" "Naukratis"
+    ship "Modified Arrow (Engines)" "Naukratis"
   
   on complete
     payment 200000
@@ -1020,26 +1020,26 @@ mission "Rim Archaeology 5A"
     conversation
       `Foster greets Amelia enthusiastically when you land, but seems less enthusiastic about having Yarthis here as well. The dig has nearly reached the target depth, and at the deepest part of the trench they are now slicing out blocks of stone with the laser and hoisting them out of the pit rather than just grinding through the rock. "Thanks again, Captain," he says, as he hands you a chip worth two hundred thousand credits.`
       `  As Foster is showing the three of you around the dig, one of the workers runs up. "Mister Foster," he says, "there's a ton of traffic on the emergency militia channel. I think the planet is under attack."`
-      `  Foster swears and looks up at the sky as if expecting pirates to swoop down and steal his precious artifacts at any moment. "Captain <last>," he says, "We have to keep those pirates away from the dig at all costs, or they could destroy priceless information. Can you assist in defending the planet?"`
+      `  Foster swears and looks up at the sky as if expecting pirates to swoop down and steal his precious artefacts at any moment. "Captain <last>," he says, "We have to keep those pirates away from the dig at all costs, or they could destroy priceless information. Can you assist in defending the planet?"`
       choice
         `  "Of course."`
           goto end
         `  "My ship is not a warship."`
       `  "Then just get up there and lead them around in circles until reinforcements arrive," he says. "I don't care how you do it, just keep whoever is up there occupied."`
       label end
-      `  As you run for your ship, you see Yarthis pull out some sort of communication device and speak into it. Perhaps the Quarg will be joining in this fight as well...`
+      `  As you run for your ship, you see Yarthis pull out some sort of communication device and speak into it. Perhaps the Quarg will be joining in this fight as well…`
         launch
   
   npc evade
     government "Pirate"
     personality heroic waiting
-    ship "Marauder Falcon (Weapons)" "Akhetaten"
-    ship "Marauder Splinter (Weapons)" "Itjtawy"
-    ship "Marauder Firebird (Weapons)" "Tanis"
-    ship "Marauder Leviathan (Weapons)" "Buhen"
-    ship "Marauder Manta (Weapons)" "Athribis"
-    ship "Marauder Quicksilver (Weapons)" "Philae"
-    ship "Marauder Raven (Weapons)" "Esna"
+    ship "Modified Lance (Weapons)" "Akhetaten"
+    ship "Modified Goose (Weapons)" "Itjtawy"
+    ship "Modified Firebird (Weapons)" "Tanis"
+    ship "Modified Leviathan (Weapons)" "Buhen"
+    ship "Modified Manta (Weapons)" "Athribis"
+    ship "Modified Quicksilver (Weapons)" "Philae"
+    ship "Modified Raven (Weapons)" "Esna"
     dialogue `The last of the pirate raiders have been driven off. Time to land and check if any damage was done to the dig.`
   
   npc
@@ -1077,7 +1077,7 @@ mission "Rim Archaeology 5B"
 mission "Rim Archaeology 6"
   landing
   source
-    government "Deep" "Free Worlds" "Independent" "Neutral" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Independent" "Neutral" "Republic" "Corporation"
     near "Sol" 100
     attributes spaceport
   to offer
@@ -1086,7 +1086,7 @@ mission "Rim Archaeology 6"
     log "Factions" "Sheragi" `Recent archaeological discoveries on Zuq, a planet in the southern rim of human space, have turned up evidence of a lost alien civilization. The Quarg say that the ruins were left behind by a species called the Sheragi.`
     conversation
       `When you give your name to the spaceport traffic controller, he says, "Wait, you're Captain <first> <last>? You're all over the news right now!"`
-      `  You land and find that Albert Foster has published an initial report on the dig on Zuq. The ruins under the lava flow did indeed turn out to be an alien city. The houses are built on a gargantuan scale, with most of the doorways at least ten meters tall. What's more, some of the buildings have no exterior doors on the street level, just doors facing balconies or inner courtyards, which supports the theory that the inhabitants were capable of flight. Most of the artifacts left behind are just everyday items, and in fact the technology seems less advanced than present human society, but scientists are studying the artifacts eagerly to glean hints about how these aliens lived.`
+      `  You land and find that Albert Foster has published an initial report on the dig on Zuq. The ruins under the lava flow did indeed turn out to be an alien city. The houses are built on a gargantuan scale, with most of the doorways at least ten meters tall. What's more, some of the buildings have no exterior doors on the street level, just doors facing balconies or inner courtyards, which supports the theory that the inhabitants were capable of flight. Most of the artefacts left behind are just everyday items, and in fact the technology seems less advanced than present human society, but scientists are studying the artefacts eagerly to glean hints about how these aliens lived.`
       `  The Quarg, who at other times seem quite willing to share their knowledge with human beings, are being surprisingly reticent with information about this lost civilization. Aside from telling Foster that the aliens were known as the Sheragi, their only comments have been vague warnings that if human beings persist in developing weapons of war, they will end up like the Sheragi. From this, Foster has surmised that the alien civilization was most likely destroyed by a civil war, not by natural disaster or an attack by another species.`
       `  It may not yield any great advances in human technology, but the dig will be providing clues to the history of the galaxy for years to come, and you can be proud to have played a part in that.`
         decline
@@ -1148,7 +1148,7 @@ mission "Smuggler's Den 1"
       label `tunnel`
       `  The boy stands up. "Wait ten seconds, then head to the tunnel," he says. He walks into the bathroom, which is right next to the back entrance that she pointed out. You wait for a few seconds, then stand up. "Don't run," says the girl. "Walk slowly. Pretend. You've had a bit too much to drink. We're headed out back to find some privacy." You don't dare look behind you to see if the men in the doorway are watching you.`
       `  Finally, you reach the back entrance, and she spins the wheel to unlock it. The hinges squeal, but it opens enough for you to squeeze through. You find yourselves in a narrow corridor lit only by flickering sodium lamps. In the yellow lamplight her face and hands look pale, jaundiced. The floor of the corridor is littered with beer bottles and discarded hypodermic needles. To one side of the door are several over-stuffed trash cans. As you step into the corridor, a rat scurries away into the darkness.`
-      `  A few second later, watching through the open airlock, you see the boy walk out of the bathroom. He can't help stealing a quick glance towards the men in the doorway, after which he quickly ducks through the airlock and slams the door shut. "Run!" he whispers.`
+      `  A few seconds later, watching through the open airlock, you see the boy walk out of the bathroom. He can't help stealing a quick glance towards the men in the doorway, after which he quickly ducks through the airlock and slams the door shut. "Run!" he whispers.`
       `  You begin running down the corridor, in the direction of your ship. You pass a man, slumped over in a corner; there is no time to see if he is dead, or just sleeping. In places the lights have gone out, and it is so dim that you can barely see the floor beneath you. Your footsteps pounding on the metal decking ring terribly loud up and down the empty hallway.`
       `  Eventually the passageway widens out into a maintenance room, full of humming equipment and large tanks. You duck behind one of them and listen for sounds of pursuit. "I think we're safe," says the boy. He walks over to another airlock door on the opposite wall and tugs it open. Light pours in, almost blinding at first. You are looking out into the rimway, the main passage in this ring of the station. Crowds of people are walking past, paying no attention to you. He glances quickly in both directions, then gestures for you to follow.`
         goto ship
@@ -1179,7 +1179,7 @@ mission "Smuggler's Den 2"
     conversation
       `As soon as you have landed, Joe finds a computer terminal and tries to look up his cousin who works here, but with no success. You go with him to the company office, where after a short wait you are ushered in to meet with a foreman. After Joe introduces himself, the man says, "I'm really sorry to tell you this, but Leroy died in a refinery fire several months ago."`
       `  Joe is crestfallen. After a long silence, you say, "Sir, do you have any work available for Joe? He and his family were hoping to be able to put down roots here."`
-      `  "I'm sorry," says the foreman, "but we've had a ton of immigrants recently. The waiting list for new jobs is about five months long. They could stay here and hope for the best, but if they need work right away, they would be better off going to one of the Syndicate worlds, like <planet>."`
+      `  "I'm sorry," says the foreman, "but we've had a ton of immigrants recently. The waiting list for new jobs is about five months long. They could stay here and hope for the best, but if they need work right away, they would be better off going to one of the Corporation worlds, like <planet>."`
       choice
         `  (Volunteer to take them to <planet>.)`
         `  (Leave them here and hope for the best.)`
@@ -1200,7 +1200,7 @@ mission "Smuggler's Den 2"
 mission "Smuggler's Den: Payment"
   landing
   source
-    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Quarg" "Republic" "Corporation"
     near Sol 100
   to offer
     has "event: smuggler's den: payment"
@@ -1264,7 +1264,7 @@ mission "Terminus exploration"
   npc assist
     system "Terminus"
     government "Uninhabited"
-    personality derelict target
+    personality derelict target pacifist mute
     ship "Science Drone" "Beagle"
     dialogue `You board the science drone and discover that the pirates have stripped just about everything of value from it: the engines, the sensors, and the fuel cell that powered it. But the computer system is either too deeply integrated into the drone, or too specialized, to be of any value to the pirates. You transfer enough power to the drone's batteries to reactivate it, and are able to retrieve the data that the scientist was looking for. But it's clear that this drone, or what's left of it, is not going anywhere. You'll have to leave it behind.`
   npc
@@ -1281,7 +1281,7 @@ mission "Terminus exploration"
         `  "Can you tell me more about this anomaly you are studying?"`
         `  "I'm glad I was able to help."`
           decline
-      `  He says, "It seems to be a partially collapsed wormhole, something that once linked this part of the galaxy to somewhere else. But, we haven't succeeded in sending anything through it. Maybe the wormhole is no longer passable. Or maybe there's some way to make it open more fully. Or maybe only ships that are specially attuned to its energy signature can travel through it. We don't even know if the wormhole is a natural phenomenon or some sort of alien artifact. Honestly, we aren't even sure if it's even a wormhole at all."`
+      `  He says, "It seems to be a partially collapsed wormhole, something that once linked this part of the galaxy to somewhere else. But, we haven't succeeded in sending anything through it. Maybe the wormhole is no longer passable. Or maybe there's some way to make it open more fully. Or maybe only ships that are specially attuned to its energy signature can travel through it. We don't even know if the wormhole is a natural phenomenon or some sort of alien artefact. Honestly, we aren't even sure if it's even a wormhole at all."`
       `  You thank him for the information, and return to your ship.`
         decline
 
@@ -1406,7 +1406,7 @@ mission "Terraforming 4"
   name "Terraforming Rand"
   description "Collect some hardy plants that can grow in a low-light environment from <destination>."
   source "Rand"
-  destination "Bundok"
+  destination "Palapa"
   to offer
     has "Terraforming 3: done"
   passengers 1
@@ -1430,7 +1430,7 @@ mission "Terraforming 4"
 mission "Terraforming 5"
   name "Terraforming Rand"
   description "Bring some hardy plants that can grow in a low-light environment back to <destination>."
-  source "Bundok"
+  source "Palapa"
   destination "Rand"
   to offer
     has "Terraforming 4: done"
@@ -1491,7 +1491,7 @@ mission "There Might Be Riots 1"
         `  "Sure!"`
         `  "Sorry, I'm not headed in that direction right now."`
           defer
-      `  "Great," she says, "I'll tell the boys to start loading their gear into your ship." About a half an hour later the road crew begins carting instruments and amplifiers into your cargo hold. Soon after that, you hear the roar of a crowd in the distance and another group of men comes running into your ship. "We're with the band," they say. "Quick, shut the hatch." Half a minute later, a mob of people has surrounded your ship and a few of them are even climbing on top of it. It takes you a second to realize they're not angry or bent on destruction - they're just a group of crazy fans.`
+      `  "Great," she says, "I'll tell the boys to start loading their gear into your ship." About a half an hour later the road crew begins carting instruments and amplifiers into your cargo hold. Soon after that, you hear the roar of a crowd in the distance and another group of men comes running into your ship. "We're with the band," they say. "Quick, shut the hatch." Half a minute later, a mob of people has surrounded your ship and a few of them are even climbing on top of it. It takes you a second to realize they're not angry or bent on destruction – they're just a group of crazy fans.`
       `  "Happens everywhere we go," says one of the musicians, calmly, as he watches a video feed of the mob on one of your monitors. He tells you that he's Ulrich, the lead singer. Then he introduces the rest of the singers and musicians.`
       choice
         `  "Pleased to meet you all. What's the name of your band?"`
@@ -1522,7 +1522,7 @@ mission "There Might Be Riots part 2"
   description `Give the band "There Might Be Riots" a ride to <destination>.`
   minor
   source
-    government "Syndicate"
+    government "Corporation"
   destination "Prime"
   cargo "musical equipment" 4
   passengers 8
@@ -1550,17 +1550,17 @@ mission "There Might Be Riots part 2"
           decline
       label okay
       `  "You'll see," he says. "You should park your ship right behind us in case the natives get restless and we need to skedaddle."`
-      `  With some trepidation, you sit by the hatchway of your ship and watch as the band sets up directly outside it and the concert begins. Nothing seems out of the ordinary until the band introduces a song called "Gluttony," and you can feel a sudden tension fill the air. The Syndicate security guards, who until now have been standing at the periphery of the landing pad, begin to disperse themselves throughout the crowd.`
-      `  It's a song about a man who will die if he ever stops eating, so he eats more and more and grows bigger and bigger. A second after you realize that the whole thing is a thinly veiled critique of the Syndicate, a group up front unrolls a banner that reads "End Wage Slavery!" and begins shouting and chanting slogans. As the band plays on, there is some sort of scuffle at the back of the crowd, and then you see stun guns begin to flash, and rising plumes of what you would guess is tear gas.`
+      `  With some trepidation, you sit by the hatchway of your ship and watch as the band sets up directly outside it and the concert begins. Nothing seems out of the ordinary until the band introduces a song called "Gluttony," and you can feel a sudden tension fill the air. The Corporation security guards, who until now have been standing at the periphery of the landing pad, begin to disperse themselves throughout the crowd.`
+      `  It's a song about a man who will die if he ever stops eating, so he eats more and more and grows bigger and bigger. A second after you realize that the whole thing is a thinly veiled critique of the Corporation, a group up front unrolls a banner that reads "End Wage Slavery!" and begins shouting and chanting slogans. As the band plays on, there is some sort of scuffle at the back of the crowd, and then you see stun guns begin to flash, and rising plumes of what you would guess is tear gas.`
       `  As the demonstrators are driven away, a group of guards approach you. "What is your connection to these musicians?" they ask.`
       choice
         `  "I'm just their transport. They're paying me to carry them to their next destination."`
           goto transport
         `  "They're friends of mine. Why? They haven't done anything illegal, that I can see."`
-      `  "Be careful what friends you choose," says the guard, "or you might find that no one in this sector will offer you any jobs. Now, get them packed up and get out of here." You have no choice but to leave the planet immediately...`
+      `  "Be careful what friends you choose," says the guard, "or you might find that no one in this sector will offer you any jobs. Now, get them packed up and get out of here." You have no choice but to leave the planet immediately…`
         launch
       label transport
-      `  "Then I suggest you do your job and transport them. Immediately." The guards leave. As soon as the band is packed up, you leave the planet...`
+      `  "Then I suggest you do your job and transport them. Immediately." The guards leave. As soon as the band is packed up, you leave the planet…`
         launch
   
   on complete
@@ -1609,7 +1609,7 @@ mission "There Might Be Riots part 3A"
         `  (Yes.)`
         `  (Not right now.)`
           defer
-      `  They're very happy to see you. "You always seem to have amazing timing," says Ulrich. "We were just wondering who could transport us to a... gig of sorts... up north, and then you come along. Any chance you could take us to <destination>?"`
+      `  They're very happy to see you. "You always seem to have amazing timing," says Ulrich. "We were just wondering who could transport us to a… gig of sorts… up north, and then you come along. Any chance you could take us to <destination>?"`
       `  You've heard of that planet. "The weapons testing world for Lovelace Labs?" you ask. "I'm surprised you'd be able to find a big audience there."`
       `  "Oh, we'll have an audience, all right," he says. "We've just put out a new album called 'Songs for the End of Civilization.' A war protest album. We want to film ourselves playing a concert right in the middle of the missile testing range. Of course we'll probably end up running out of there with Republic Intelligence nipping at our heels. What do you say?"`
       choice
@@ -1637,7 +1637,7 @@ mission "There Might Be Riots part 3A"
       `  "Yes," you say, "they're called the Hai. They live in a whole big region to the north."`
         goto end
       label known
-      `  "Great," he says. "Now, the only question is where we'll go afterwards until the fuss dies down. I was thinking it'd be a great chance for our band to reconnect with the squirrel people - what did you call them?"`
+      `  "Great," he says. "Now, the only question is where we'll go afterwards until the fuss dies down. I was thinking it'd be a great chance for our band to reconnect with the squirrel people – what did you call them?"`
       `  "The Hai," you say.`
       label end
       `  "Excellent," he says. "We go thumb our noses at the military industrial complex, then you take us to stay with the peaceful squirrel people where the government won't bother us."`
@@ -1673,7 +1673,7 @@ mission "There Might Be Riots part 3B"
       `  "Did they hail us?" asks Ulrich.`
       `  "No," you say.`
       `  He swears, then shouts to the rest of the band, "Gentlemen, time to pack it up posthaste, before we get turned into a tragic industrial accident!"`
-      `  The band has just packed the last of their equipment away when the ships come into view. It's a swarm of unpiloted combat drones, and they seem to be engaged in mock combat with each other. But, their flight path is taking them straight in your direction. You power up your shields just as the first of the drones decide that your ship is a valid target for their lasers...`
+      `  The band has just packed the last of their equipment away when the ships come into view. It's a swarm of unpiloted combat drones, and they seem to be engaged in mock combat with each other. But, their flight path is taking them straight in your direction. You power up your shields just as the first of the drones decide that your ship is a valid target for their lasers…`
         launch
   
   npc
@@ -1687,7 +1687,7 @@ mission "There Might Be Riots part 3B"
     personality waiting heroic
     fleet
       variant
-        "Mark I Drone" 20
+        "Mark I Drone" 25
   npc
     government "Team Blue"
     personality waiting heroic
@@ -1750,7 +1750,7 @@ mission "Transport Workers A"
   source
     attributes "dirt belt"
   destination
-    government "Syndicate"
+    government "Corporation"
     attributes "factory"
   to offer
     random < 5
@@ -1758,7 +1758,7 @@ mission "Transport Workers A"
   cargo "household goods" 2
   
   on offer
-    dialogue `In one of the corners of the spaceport, you meet a family with two kids, and a pile of trunks and boxes spread out next to them. They tell you that they are trying to book passage to <planet>. "Work has gotten way too hard to come by here," explains the father. "I've had seven different jobs in the past year, and none of them lasted more than a month. So we thought we'd try our luck on a Syndicate world."`
+    dialogue `In one of the corners of the spaceport, you meet a family with two kids, and a pile of trunks and boxes spread out next to them. They tell you that they are trying to book passage to <planet>. "Work has gotten way too hard to come by here," explains the father. "I've had seven different jobs in the past year, and none of them lasted more than a month. So we thought we'd try our luck on a Corporation world."`
   
   on complete
     payment
@@ -1774,7 +1774,7 @@ mission "Transport Workers B"
   source
     attributes "dirt belt"
   destination
-    government "Syndicate"
+    government "Corporation"
     attributes "factory"
   to offer
     random < 5
@@ -1792,7 +1792,7 @@ mission "Transport Workers B"
       choice
         `  "I'd be glad to take you there."`
           goto thanks
-        `  "Are you sure about that? I've heard some bad things about the Syndicate's company towns."`
+        `  "Are you sure about that? I've heard some bad things about the Corporation's company towns."`
           goto towns
         `  "Do you really think she's going to wait around for you?"`
           goto wait
@@ -1827,7 +1827,7 @@ mission "Transport Workers C"
     attributes "dirt belt"
     attributes "farming"
   destination
-    government "Syndicate"
+    government "Corporation"
     attributes "farming"
   to offer
     random < 15
@@ -1863,10 +1863,10 @@ mission "A wolf, a goat, and a cabbage"
     "day" == 1
     "month" == 4
   source
-    government "Deep" "Free Worlds" "Neutral" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Republic" "Corporation"
   destination
     distance 3 5
-    government "Deep" "Free Worlds" "Neutral" "Republic" "Syndicate"
+    government "Deep" "Free Worlds" "Neutral" "Republic" "Corporation"
   cargo "wolf" 1
   
   on enter

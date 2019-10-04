@@ -20,17 +20,17 @@ SpaceportPanel::SpaceportPanel(PlayerInfo &player)
   : player(player)
 {
   SetTrapAllEvents(false);
-  
-  text.SetFont(FontSet::Get(14));
-  text.SetAlignment(WrappedText::JUSTIFIED);
+
+  text.SetFont(FontSet::Get(18));
+  text.SetAlignment(Font::JUSTIFIED);
   text.SetWrapWidth(480);
   text.Wrap(player.GetPlanet()->SpaceportDescription());
-  
+
   // Query the news interface to find out the wrap width.
   // TODO: Allow Interface to handle wrapped text directly.
   const Interface *interface = GameData::Interfaces().Get("news");
   newsMessage.SetWrapWidth(interface->GetBox("message").Width());
-  newsMessage.SetFont(FontSet::Get(14));
+  newsMessage.SetFont(FontSet::Get(18));
 }
 
 
@@ -40,13 +40,25 @@ void SpaceportPanel::UpdateNews()
   const News *news = GameData::PickNews(player.GetPlanet());
   if(!news)
     return;
-  
-  // Randomly pick a name, portrait, and message. These must be cached here
-  // because every time the functions in News are called, they return a new
-  // random element.
+
   hasNews = true;
-  newsInfo.SetString("name", news->Name() + ':');
-  newsInfo.SetSprite("portrait", news->Portrait());
+  // Randomly pick which portrait is to be shown.
+  auto portrait = news->Portrait();
+
+  // Ensure we only display one name for a given portrait.
+  const auto it = displayedProfessions.find(portrait);
+  auto name = string{};
+  if(it == displayedProfessions.end())
+  {
+    name = news->Name();
+    displayedProfessions.emplace(portrait, name);
+  }
+  else
+    name = it->second;
+
+  // Cache the randomly picked results until the next update is requested.
+  newsInfo.SetString("name", name + ':');
+  newsInfo.SetSprite("portrait", portrait);
   newsMessage.Wrap('"' + news->Message() + '"');
 }
 
@@ -74,9 +86,9 @@ void SpaceportPanel::Draw()
 {
   if(player.IsDead())
     return;
-  
+
   text.Draw(Point(-300., 80.), *GameData::Colours().Get("bright"));
-  
+
   if(hasNews)
   {
     const Interface *interface = GameData::Interfaces().Get("news");

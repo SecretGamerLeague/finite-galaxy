@@ -8,6 +8,7 @@
 #include "Files.h"
 #include "Font.h"
 #include "FontSet.h"
+#include "Format.h"
 #include "GameData.h"
 #include "Information.h"
 #include "Interface.h"
@@ -51,7 +52,7 @@ PreferencesPanel::PreferencesPanel()
 {
   if(!GameData::PluginAboutText().empty())
     selectedPlugin = GameData::PluginAboutText().begin()->first;
-  
+
   SetIsFullScreen(true);
 }
 
@@ -62,14 +63,16 @@ void PreferencesPanel::Draw()
 {
   glClear(GL_COLOR_BUFFER_BIT);
   GameData::Background().Draw(Point(), Point());
-  
+
   Information info;
   info.SetBar("volume", Audio::Volume());
   GameData::Interfaces().Get("menu background")->Draw(info, this);
   string pageName = (page == 'c' ? "controls" : page == 's' ? "settings" : "plugins");
+  if(page == 's')
+    info.SetBar("refuel behaviour", Preferences::GetMaxPrice()/10);
   GameData::Interfaces().Get(pageName)->Draw(info, this);
   GameData::Interfaces().Get("preferences")->Draw(info, this);
-  
+
   zones.clear();
   prefZones.clear();
   pluginZones.clear();
@@ -83,7 +86,7 @@ void PreferencesPanel::Draw()
 
 
 
-bool PreferencesPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
+bool PreferencesPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command, bool isNewPress)
 {
   if(static_cast<unsigned>(editing) < zones.size())
   {
@@ -91,7 +94,7 @@ bool PreferencesPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &comma
     EndEditing();
     return true;
   }
-  
+
   if(key == SDLK_DOWN && static_cast<unsigned>(selected + 1) < zones.size())
     ++selected;
   else if(key == SDLK_UP && selected > 0)
@@ -104,7 +107,7 @@ bool PreferencesPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &comma
     page = key;
   else
     return false;
-  
+
   return true;
 }
 
@@ -113,30 +116,40 @@ bool PreferencesPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &comma
 bool PreferencesPanel::Click(int x, int y, int clicks)
 {
   EndEditing();
-  
+
   if(x >= 265 && x < 295 && y >= -220 && y < 70)
   {
     Audio::SetVolume((20 - y) / 200.);
     Audio::Play(Audio::Get("warder"));
     return true;
   }
-  
+
+  if(page == 's' && x >= 25 && x < 235 && y >= 95 && y < 125)
+  {
+    double max = (x-30)/20.;
+    if(max > 10)
+      max = 10;
+    if(max < 0)
+      max = 0;
+    Preferences::SetMaxPrice(max);
+    Audio::SetVolume((20 - y) / 200.);
+    Audio::Play(Audio::Get("warder"));
+    return true;
+  }
+
   Point point(x, y);
   for(unsigned index = 0; index < zones.size(); ++index)
     if(zones[index].Contains(point))
       editing = selected = index;
-  
+
   for(const auto &zone : prefZones)
     if(zone.Contains(point))
     {
       if(zone.Value() == ZOOM_FACTOR)
       {
         int newZoom = Screen::Zoom() + ZOOM_FACTOR_INCREMENT;
-        if(newZoom > ZOOM_FACTOR_MAX)
-          newZoom = ZOOM_FACTOR_MIN;
         Screen::SetZoom(newZoom);
-        // Make sure there is enough vertical space for the full UI.
-        if(Screen::Height() < 700)
+        if(newZoom > ZOOM_FACTOR_MAX || Screen::Zoom() != newZoom)
         {
           // Notify the user why setting the zoom any higher isn't permitted.
           // Only show this if it's not possible to zoom the view at all, as
@@ -151,13 +164,15 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
         point += .5 * Point(Screen::RawWidth(), Screen::RawHeight());
         SDL_WarpMouseInWindow(nullptr, point.X(), point.Y());
       }
-      if(zone.Value() == VIEW_ZOOM_FACTOR)
+      else if(zone.Value() == VIEW_ZOOM_FACTOR)
       {
         // Increase the zoom factor unless it is at the maximum. In that
         // case, cycle around to the lowest zoom factor.
         if(!Preferences::ZoomViewIn())
           while(Preferences::ZoomViewOut()) {}
       }
+
+      // Update saved preferences.
       if(zone.Value() == EXPEND_AMMO)
         Preferences::ToggleAmmoUsage();
       else if(zone.Value() == TURRET_TRACKING)
@@ -179,11 +194,14 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
         Preferences::Set(zone.Value(), !Preferences::Has(zone.Value()));
       break;
     }
-  
+
   for(const auto &zone : pluginZones)
     if(zone.Contains(point))
+    {
       selectedPlugin = zone.Value();
-  
+      break;
+    }
+
   return true;
 }
 
@@ -192,22 +210,22 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
 bool PreferencesPanel::Hover(int x, int y)
 {
   hoverPoint = Point(x, y);
-  
+
   hover = -1;
   for(unsigned index = 0; index < zones.size(); ++index)
     if(zones[index].Contains(hoverPoint))
       hover = index;
-  
+
   hoverPreference.clear();
   for(const auto &zone : prefZones)
     if(zone.Contains(hoverPoint))
       hoverPreference = zone.Value();
-  
+
   hoverPlugin.clear();
   for(const auto &zone : pluginZones)
     if(zone.Contains(hoverPoint))
       hoverPlugin = zone.Value();
-  
+
   return true;
 }
 
@@ -218,23 +236,19 @@ bool PreferencesPanel::Scroll(double dx, double dy)
 {
   if(!dy || hoverPreference.empty())
     return false;
-  
+
   if(hoverPreference == ZOOM_FACTOR)
   {
-    int zoom = Screen::Zoom();
+    int zoom = Screen::UserZoom();
     if(dy < 0. && zoom > ZOOM_FACTOR_MIN)
       zoom -= ZOOM_FACTOR_INCREMENT;
     if(dy > 0. && zoom < ZOOM_FACTOR_MAX)
       zoom += ZOOM_FACTOR_INCREMENT;
-    
+
     Screen::SetZoom(zoom);
-    // Make sure there is enough vertical space for the full UI.
-    while(Screen::Height() < 700 && zoom > ZOOM_FACTOR_MIN)
-    {
-      zoom -= ZOOM_FACTOR_INCREMENT;
-      Screen::SetZoom(zoom);
-    }
-    
+    if(Screen::Zoom() != zoom)
+      Screen::SetZoom(Screen::Zoom());
+
     // Convert to raw window coordinates, at the new zoom level.
     Point point = hoverPoint * (Screen::Zoom() / 100.);
     point += .5 * Point(Screen::RawWidth(), Screen::RawHeight());
@@ -274,18 +288,18 @@ void PreferencesPanel::DrawControls()
   const Colour &dim = *GameData::Colours().Get("dim");
   const Colour &medium = *GameData::Colours().Get("medium");
   const Colour &bright = *GameData::Colours().Get("bright");
-  
+
   // Check for conflicts.
-  Colour red(.3, 0., 0., .3);
-  
+  Colour red(.3f, 0.f, 0.f, .3f);
+
   Table table;
   table.AddColumn(-115, Table::LEFT);
   table.AddColumn(115, Table::RIGHT);
   table.SetUnderline(-120, 120);
-  
+
   int firstY = -248;
   table.DrawAt(Point(-130, firstY));
-  
+
   static const string CATEGORIES[] = {
     "Navigation",
     "Weapons",
@@ -332,7 +346,7 @@ void PreferencesPanel::DrawControls()
     // The "BREAK" line is where to go to the next column.
     if(&command == BREAK)
       table.DrawAt(Point(130, firstY));
-    
+
     if(!command)
     {
       table.DrawGap(10);
@@ -355,7 +369,7 @@ void PreferencesPanel::DrawControls()
         table.SetHighlight(66, 120);
         table.DrawHighlight(isEditing ? dim: red);
       }
-      
+
       // Mark the selected row.
       bool isHovering = (index == hover && !isEditing);
       if(!isHovering && index == selected)
@@ -363,26 +377,26 @@ void PreferencesPanel::DrawControls()
         table.SetHighlight(-120, 64);
         table.DrawHighlight(back);
       }
-      
+
       // Highlight whichever row the mouse hovers over.
       table.SetHighlight(-120, 120);
       if(isHovering)
         table.DrawHighlight(back);
-      
+
       zones.emplace_back(table.GetCentrePoint(), table.GetRowSize(), command);
-      
+
       table.Draw(command.Description(), medium);
       table.Draw(command.KeyName(), isEditing ? bright : medium);
     }
   }
-  
+
   Table shiftTable;
   shiftTable.AddColumn(125, Table::RIGHT);
   shiftTable.SetUnderline(0, 130);
   shiftTable.DrawAt(Point(-400, 52));
-  
+
   shiftTable.DrawUnderline(medium);
-  shiftTable.Draw("With <shift> key", bright);
+  shiftTable.Draw("With &lt;shift&gt; key", bright);
   shiftTable.DrawGap(5);
   shiftTable.Draw("Select nearest ship", medium);
   shiftTable.Draw("Select next escort", medium);
@@ -398,15 +412,15 @@ void PreferencesPanel::DrawSettings()
   const Colour &dim = *GameData::Colours().Get("dim");
   const Colour &medium = *GameData::Colours().Get("medium");
   const Colour &bright = *GameData::Colours().Get("bright");
-  
+
   Table table;
   table.AddColumn(-115, Table::LEFT);
   table.AddColumn(115, Table::RIGHT);
   table.SetUnderline(-120, 120);
-  
+
   int firstY = -248;
   table.DrawAt(Point(-130, firstY));
-  
+
   static const string SETTINGS[] = {
     "Display",
     ZOOM_FACTOR,
@@ -439,6 +453,7 @@ void PreferencesPanel::DrawSettings()
     SCROLL_SPEED,
     "Show escort systems on map",
     "Warning siren"
+    // If you add anything in here be careful not to conflict with the "refuel behaviour"-bar.
   };
   bool isCategory = true;
   for(const string &setting : SETTINGS)
@@ -451,7 +466,7 @@ void PreferencesPanel::DrawSettings()
         table.DrawAt(Point(130, firstY));
       continue;
     }
-    
+
     if(isCategory)
     {
       isCategory = false;
@@ -462,18 +477,18 @@ void PreferencesPanel::DrawSettings()
       table.DrawGap(5);
       continue;
     }
-    
+
     // Record where this setting is displayed, so the user can click on it.
     prefZones.emplace_back(table.GetCentrePoint(), table.GetRowSize(), setting);
-    
+
     // Get the "on / off" text for this setting. Setting "isOn"
     // draws the setting "bright" (i.e. the setting is active).
     bool isOn = Preferences::Has(setting);
     string text;
     if(setting == ZOOM_FACTOR)
     {
-      isOn = true;
-      text = to_string(Screen::Zoom());
+      isOn = Screen::UserZoom() == Screen::Zoom();
+      text = to_string(Screen::UserZoom());
     }
     else if(setting == VIEW_ZOOM_FACTOR)
     {
@@ -507,14 +522,14 @@ void PreferencesPanel::DrawSettings()
         for(const string &str : SPECIAL_HELP)
           if(it.first.find(str) == 0)
             special = true;
-        
+
         if(!special)
         {
           ++total;
           shown += Preferences::Has("help: " + it.first);
         }
       }
-      
+
       if(shown)
         text = to_string(shown) + " / " + to_string(total);
       else
@@ -530,12 +545,32 @@ void PreferencesPanel::DrawSettings()
     }
     else
       text = isOn ? "on" : "off";
-    
+
     if(setting == hoverPreference)
       table.DrawHighlight(back);
     table.Draw(setting, isOn ? medium : dim);
     table.Draw(text, isOn ? bright : medium);
   }
+
+  // Draw the text under the refuel bar.
+  string refuelText;
+  string refuelText2 = "";
+  double maxPrice = Preferences::GetMaxPrice();
+  if(maxPrice == 10)
+    refuelText = "Always refuel";
+  else if(maxPrice)
+  {
+    refuelText = "Only refuel if the price is less than ";
+    refuelText2 = Format::Number(maxPrice)+" credits per unit.";
+  }
+  else
+    refuelText = "Only refuel if it is for free.";
+  table.DrawAt(Point(130, 80));
+  table.Draw("Automatic refuel behaviour", medium);
+  table.DrawAt(Point(130, 120));
+  table.Draw(refuelText, medium);
+  table.DrawAt(Point(130, 140));
+  table.Draw(refuelText2, medium);
 }
 
 
@@ -545,28 +580,29 @@ void PreferencesPanel::DrawPlugins()
   const Colour &back = *GameData::Colours().Get("faint");
   const Colour &medium = *GameData::Colours().Get("medium");
   const Colour &bright = *GameData::Colours().Get("bright");
-  
+
   Table table;
   table.AddColumn(-115, Table::LEFT);
   table.SetUnderline(-120, 120);
-  
+
   int firstY = -238;
   table.DrawAt(Point(-130, firstY));
   table.DrawUnderline(medium);
   table.Draw("Installed plugins:", bright);
   table.DrawGap(5);
-  
+
   const int MAX_TEXT_WIDTH = 230;
-  const Font &font = FontSet::Get(14);
+  const Font &font = FontSet::Get(18);
   for(const pair<string, string> &plugin : GameData::PluginAboutText())
   {
     pluginZones.emplace_back(table.GetCentrePoint(), table.GetRowSize(), plugin.first);
-    
+
     bool isSelected = (plugin.first == selectedPlugin);
     if(isSelected || plugin.first == hoverPlugin)
       table.DrawHighlight(back);
-    table.Draw(font.TruncateMiddle(plugin.first, MAX_TEXT_WIDTH), isSelected ? bright : medium);
-    
+    const Font::Layout layout(Font::TRUNC_MIDDLE, MAX_TEXT_WIDTH);
+    table.Draw(plugin.first, isSelected ? bright : medium, &layout);
+
     if(isSelected)
     {
       const Sprite *sprite = SpriteSet::Get(plugin.first);
@@ -577,7 +613,7 @@ void PreferencesPanel::DrawPlugins()
         SpriteShader::Draw(sprite, centre);
         top.Y() += sprite->Height() + 10.;
       }
-      
+
       WrappedText wrap(font);
       wrap.SetWrapWidth(MAX_TEXT_WIDTH);
       static const string EMPTY = "(No description given.)";
@@ -592,6 +628,6 @@ void PreferencesPanel::DrawPlugins()
 void PreferencesPanel::Exit()
 {
   Command::SaveSettings(Files::Config() + "keys.txt");
-  
+
   GetUI()->Pop(this);
 }

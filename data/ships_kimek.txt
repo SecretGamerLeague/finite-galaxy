@@ -22,16 +22,21 @@ ship "Briar"
     "mass" 180
     "drag" 3.8
     "heat dissipation" .75
-    "cargo space" 21
-    "outfit space" 279
-    "core space" 130
+    "cargo space" 51
+    "outfit space" 245
+    "core space" 96
     "engine space" 60
     "weapon space" 89
     weapon
-      "blast radius" 34
-      "shield damage" 340
-      "hull damage" 170
-      "hit force" 510
+      "blast radius" 96
+      "shield damage" 360
+      "random shield damage" 600
+      "hull damage" 540
+      "random hull damage" 900
+      "heat damage" 10800
+      "random heat damage" 18000
+      "hit force" 900
+      "random hit force" 1500
   outfits
     "Small Shield Module" 2
     "Hyperdrive"
@@ -72,16 +77,21 @@ ship "Spire"
     "mass" 570
     "drag" 8.4
     "heat dissipation" .60
-    "cargo space" 64
-    "outfit space" 587
-    "core space" 202
+    "cargo space" 154
+    "outfit space" 489
+    "core space" 104
     "engine space" 129
     "weapon space" 256
     weapon
-      "blast radius" 140
-      "shield damage" 1400
-      "hull damage" 700
-      "hit force" 2100
+      "blast radius" 244
+      "shield damage" 1140
+      "random shield damage" 1302
+      "hull damage" 1710
+      "random hull damage" 1953
+      "heat damage" 34200
+      "random heat damage" 39060
+      "hit force" 2850
+      "random hit force" 3255
   outfits
     "Large Shield Module"
     "Hyperdrive"
@@ -107,7 +117,7 @@ ship "Spire"
   explode "large explosion" 20
   explode "huge explosion" 5
   "final explode" "final explosion large"
-  description `The Spire is the largest passenger transport in Coalition space, able to carry nearly two hundred individuals... as long as they're comfortable staying in the tiny bunk rooms that are primarily designed to meet the needs of a Kimek. Most of the connecting spaces are too narrow for an Arachi to walk comfortably, the beds are too short for a Saryd to stretch out, ... and the ceilings too low for a human to stand up straight.`
+  description `The Spire is the largest passenger transport in Coalition space, able to carry nearly two hundred individuals… as long as they're comfortable staying in the tiny bunk rooms that are primarily designed to meet the needs of a Kimek. Most of the connecting spaces are too narrow for an Arachi to walk comfortably, the beds are too short for a Saryd to stretch out, … and the ceilings too low for a human to stand up straight.`
 
 
 
@@ -127,16 +137,21 @@ ship "Thistle"
     "mass" 270
     "drag" 5.8
     "heat dissipation" .70
-    "cargo space" 29
-    "outfit space" 368
-    "core space" 159
+    "cargo space" 74
+    "outfit space" 321
+    "core space" 112
     "engine space" 91
     "weapon space" 118
     weapon
-      "blast radius" 60
-      "shield damage" 600
-      "hull damage" 300
-      "hit force" 900
+      "blast radius" 133
+      "shield damage" 540
+      "random shield damage" 794
+      "hull damage" 810
+      "random hull damage" 1191
+      "heat damage" 16200
+      "random heat damage" 23820
+      "hit force" 1350
+      "random hit force" 1985
   outfits
     "Small Shield Module" 3
     "Hyperdrive"
@@ -181,16 +196,21 @@ ship "Thorn"
     "mass" 80
     "drag" 1.8
     "heat dissipation" .80
-    "cargo space" 12
-    "outfit space" 148
-    "core space" 70
+    "cargo space" 27
+    "outfit space" 133
+    "core space" 55
     "engine space" 38
     "weapon space" 40
     weapon
-      "blast radius" 14
-      "shield damage" 140
-      "hull damage" 70
-      "hit force" 210
+      "blast radius" 48
+      "shield damage" 160
+      "random shield damage" 320
+      "hull damage" 240
+      "random hull damage" 480
+      "heat damage" 4800
+      "random heat damage" 9600
+      "hit force" 400
+      "random hit force" 800
   outfits
     "Small Shield Module"
     "Hyperdrive"

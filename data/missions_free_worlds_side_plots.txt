@@ -49,11 +49,11 @@ mission "FW Conservatory 1"
         not "FW Katya 1: done"
  
       label "met andersons"
-      `When you meet Ijs in the spaceport, he has Lynn and Henry Anderson with him, the friends of Katya who you transported from Glory months ago. Ijs is beaming - his meeting must have gone really well. "Guess what, Captain?" he says. "We've got a location for the Conservatory! The government of Winter has offered a community centre for our use."`
+      `When you meet Ijs in the spaceport, he has Lynn and Henry Anderson with him, the friends of Katya who you transported from Glory months ago. Ijs is beaming – his meeting must have gone really well. "Guess what, Captain?" he says. "We've got a location for the Conservatory! The government of Winter has offered a community centre for our use."`
         goto continue
 
       label "not met andersons"
-      `When you meet Ijs in the spaceport, he has a man and a woman with him which he introduces as Lynn and Henry Anderson. Ijs is beaming - his meeting must have gone really well. "Guess what, Captain?" he says. "We've got a location for the Conservatory! The government of Winter has offered a community centre for our use."`
+      `When you meet Ijs in the spaceport, he has a man and a woman with him which he introduces as Lynn and Henry Anderson. Ijs is beaming – his meeting must have gone really well. "Guess what, Captain?" he says. "We've got a location for the Conservatory! The government of Winter has offered a community centre for our use."`
         goto continue
 
       label continue
@@ -78,7 +78,7 @@ mission "FW Conservatory 1"
 
 mission "FW Conservatory 2"
   name "Escort to Wayfarer"
-  description "Escort this Free Worlds convoy to Wayfarer, to trade for terraforming equipment provided by Tarazed and the Syndicate."
+  description "Escort this Free Worlds convoy to Wayfarer, to trade for terraforming equipment provided by Tarazed and the Corporation."
   source "Winter"
   destination "Wayfarer"
   to offer
@@ -87,7 +87,7 @@ mission "FW Conservatory 2"
   
   on offer
     conversation
-      `In the spaceport, it does not take long to locate Ijs; he is supervising a crew that is loading trade goods onto several Free Worlds ships. "Glad to see you, <first>," he says. "These three ships need to get to Tarazed and back without being destroyed by pirates... or by the Republic. Think you can tag along and protect them?"`
+      `In the spaceport, it does not take long to locate Ijs; he is supervising a crew that is loading trade goods onto several Free Worlds ships. "Glad to see you, <first>," he says. "These three ships need to get to Tarazed and back without being destroyed by pirates… or by the Republic. Think you can tag along and protect them?"`
       choice
         `  "Sure thing!"`
           accept
@@ -309,7 +309,7 @@ mission "FW Wolf Pack 1B"
         `  "Thank you."`
           goto leave
         `  "May I ask who you are and why you sympathize with us?"`
-      `  "You can call me... Agent Falco. As to my true identity, naturally you will understand that I cannot divulge it."`
+      `  "You can call me… Agent Falco. As to my true identity, naturally you will understand that I cannot divulge it."`
       `  "Of course," you say.`
       label leave
       `  "I wish you the best of luck in your struggle against the evil plutocrats," he says. "May we yet live to see the day when all people live in prosperity and freedom. Farewell, brave insurgent." It is an overly dramatic speech, and sounds like he's been rehearsing it for a while. You respond with what you hope is a properly elegant salute, and he leaves.`
@@ -384,7 +384,7 @@ mission "FW Wolf Pack 2A"
         `  "I'd be glad to join you. That does sound like a much quicker solution than our current policies that the Senate and the Council support."`
           goto join
         `  "You're trying to starve the Republic into submission? Won't that just just add more brutality to a war that has already been far too bloody?"`
-      `  "In the short run, perhaps," says Rex. "But think how many lives will be saved - how many bloody battles will be averted - by forcing them to end this war quickly rather than dragging it out across years of time."`
+      `  "In the short run, perhaps," says Rex. "But think how many lives will be saved – how many bloody battles will be averted – by forcing them to end this war quickly rather than dragging it out across years of time."`
       choice
         `  "I don't buy your argument. If we use such reprehensible tactics to build our new society, the society we build will be as corrupt as the old one."`
         `  "Okay, you've convinced me. What do you want me to do?"`
@@ -513,9 +513,9 @@ mission "FW Wolf Pack 4"
       fighters "republic fighter"
       cargo 0
       variant
-        "Saturn (Mark II)"
+        "Saturn"
         "Foxhound" 4
-        "Mark II Drone" 6
+        "Mark III Drone" 6
   
   on complete
     event "wolf pack mizar end"

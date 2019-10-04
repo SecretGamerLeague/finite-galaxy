@@ -1,6 +1,7 @@
 // main.cpp
 
 #include "Audio.h"
+#include "Cache.h"
 #include "Command.h"
 #include "Conversation.h"
 #include "ConversationPanel.h"
@@ -44,11 +45,18 @@ void AdjustViewport(SDL_Window *window);
 int DoError(string message, SDL_Window *window = nullptr, SDL_GLContext context = nullptr);
 void Cleanup(SDL_Window *window, SDL_GLContext context);
 Conversation LoadConversation();
+#ifdef _WIN32
+void InitConsole();
+#endif
 
 
 
 int main(int argc, char *argv[])
 {
+#ifdef _WIN32
+  if(argc > 1)
+    InitConsole();
+#endif
   Conversation conversation;
   bool debugMode = false;
    bool loadOnly = false; 
@@ -73,12 +81,12 @@ int main(int argc, char *argv[])
       loadOnly = true;
   }
   PlayerInfo player;
-  
+
   try {
     // Begin loading the game data. Exit early if we are not using the UI.
     if(!GameData::BeginLoad(argv))
       return 0;
-    
+
     // Load player data, including reference-checking.
     player.LoadRecent();
     if(loadOnly)
@@ -86,22 +94,22 @@ int main(int argc, char *argv[])
       cout << "Parse completed." << endl;
       return 0;
     }
-  
+
     SDL_Init(SDL_INIT_VIDEO);
-    
+
     Audio::Init(GameData::Sources());
-    
+
     // On Windows, make sure that the sleep timer has at least 1 ms resolution
     // to avoid irregular frame rates.
 #ifdef _WIN32
     timeBeginPeriod(1);
 #endif
-    
+
     // Check how big the window can be.
     SDL_DisplayMode mode;
     if(SDL_GetCurrentDisplayMode(0, &mode))
       return DoError("Unable to query monitor resolution!");
-    
+
     Preferences::Load();
     Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI;
     bool isFullscreen = Preferences::Has("fullscreen");
@@ -109,13 +117,13 @@ int main(int argc, char *argv[])
       flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
     else if(Preferences::Has("maximized"))
       flags |= SDL_WINDOW_MAXIMIZED;
-    
+
     // Make the window just slightly smaller than the monitor resolution.
     int maxWidth = mode.w;
     int maxHeight = mode.h;
     if(maxWidth < 640 || maxHeight < 480)
       return DoError("Monitor resolution is too small!");
-    
+
     // Decide how big the window should be.
     int windowWidth = (maxWidth - 100);
     int windowHeight = (maxHeight - 100);
@@ -125,7 +133,7 @@ int main(int argc, char *argv[])
       windowWidth = min(windowWidth, Screen::RawWidth());
       windowHeight = min(windowHeight, Screen::RawHeight());
     }
-    
+
     // Create the window.
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 #ifdef _WIN32
@@ -133,34 +141,34 @@ int main(int argc, char *argv[])
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 #endif
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    
+
     SDL_Window *window = SDL_CreateWindow("Finite Galaxy",
       SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
       windowWidth, windowHeight, flags);
     if(!window)
       return DoError("Unable to create window!");
-    
+
     SDL_GLContext context = SDL_GL_CreateContext(window);
     if(!context)
       return DoError("Unable to create OpenGL context! Check if your system supports OpenGL 3.0.", window);
-    
+
     if(SDL_GL_MakeCurrent(window, context))
       return DoError("Unable to set the current OpenGL context!", window, context);
-    
+
     SDL_GL_SetSwapInterval(1);
-    
+
     // Initialize GLEW.
 #ifndef __APPLE__
     glewExperimental = GL_TRUE;
     if(glewInit() != GLEW_OK)
       return DoError("Unable to initialize GLEW!", window, context);
 #endif
-    
+
     // Check that the OpenGL version is high enough.
     const char *glVersion = reinterpret_cast<const char *>(glGetString(GL_VERSION));
     if(!glVersion || !*glVersion)
       return DoError("Unable to query the OpenGL version!", window, context);
-    
+
     const char *glslVersion = reinterpret_cast<const char *>(glGetString(GL_SHADING_LANGUAGE_VERSION));
     if(!glslVersion || !*glslVersion)
     {
@@ -168,7 +176,7 @@ int main(int argc, char *argv[])
       out << "Unable to query the GLSL version. OpenGL version is " << glVersion << ".";
       return DoError(out.str(), window, context);
     }
-    
+
     if(*glVersion < '3')
     {
       ostringstream out;
@@ -177,12 +185,12 @@ int main(int argc, char *argv[])
       out << "Please update your graphics drivers.";
       return DoError(out.str(), window, context);
     }
-    
+
     glClearColor(0.f, 0.f, 0.0f, 1.f);
     glEnable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    
+
     GameData::LoadShaders();
     // Make sure the screen size and viewport are set correctly.
     AdjustViewport(window);
@@ -194,14 +202,22 @@ int main(int argc, char *argv[])
 #endif
     if(!isFullscreen)
       SDL_GetWindowSize(window, &windowWidth, &windowHeight);
-    
-    
+
+
+    // GamePanels is used for the main-panel (flying your spaceship). The planet
+    // dialogue and all other game-content related dialogs are placed on top of
+    // the main-panel.
+    // If there are both menuPanels and gamePanels, then the menuPanels take
+    // priority over the gamePanels. The gamePanels will then not be shown until
+    // the stack of menuPanels is empty.
     UI gamePanels;
+    // MenuPanels is used for the panels related to pilot creation, preferences,
+    // game loading, and game saving.
     UI menuPanels;
     menuPanels.Push(new MenuPanel(player, gamePanels));
     if(!conversation.IsEmpty())
       menuPanels.Push(new ConversationPanel(player, conversation));
-    
+
     string swizzleName = "_texture_swizzle";
 #ifndef __APPLE__
     const char *extensions = reinterpret_cast<const char *>(glGetString(GL_EXTENSIONS));
@@ -222,7 +238,7 @@ int main(int argc, char *argv[])
         "which Finite Galaxy uses to draw ships in different colours depending on which "
         "government they belong to. So, all human ships will be the same colour, which "
         "may be confusing. Consider upgrading your graphics driver (or your OS)."));
-    
+
     bool showCursor = true;
     int cursorTime = 0;
     int frameRate = 60;
@@ -241,11 +257,11 @@ int main(int argc, char *argv[])
       while(SDL_PollEvent(&event))
       {
         UI &activeUI = (menuPanels.IsEmpty() ? gamePanels : menuPanels);
-        
+
         // If the mouse moves, reset the cursor movement timeout.
         if(event.type == SDL_MOUSEMOTION)
           cursorTime = 0;
-        
+
         // The caps lock key slows the game down (to make it easier to
         // see and debug things that are happening quickly).
         if(debugMode && event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKQUOTE)
@@ -294,7 +310,7 @@ int main(int argc, char *argv[])
       }
       SDL_Keymod mod = SDL_GetModState();
       Font::ShowUnderlines(mod & KMOD_ALT);
-      
+
       // In fullscreen mode, hide the cursor if inactive for ten seconds,
       // but only if the player is flying around in the main view.
       bool inFlight = (menuPanels.IsEmpty() && gamePanels.Root() == gamePanels.Top());
@@ -305,10 +321,10 @@ int main(int argc, char *argv[])
         showCursor = shouldShowCursor;
         SDL_ShowCursor(showCursor);
       }
-      
+
       // Tell all the panels to step forward, then draw them.
       ((!isPaused && menuPanels.IsEmpty()) ? gamePanels : menuPanels).StepAll();
-      
+
       // Caps lock slows the frame rate in debug mode, but raises it in
       // normal mode. Slowing eases in and out over a couple of frames.
       bool fastForward = false;
@@ -335,38 +351,39 @@ int main(int argc, char *argv[])
         frameRate = min(frameRate + 5, 60);
         timer.SetFrameRate(frameRate);
       }
-      
+
       Audio::Step();
       // Events in this frame may have cleared out the menu, in which case
       // we should draw the game panels instead:
       (menuPanels.IsEmpty() ? gamePanels : menuPanels).DrawAll();
       if(fastForward)
         SpriteShader::Draw(SpriteSet::Get("ui/fast forward"), Screen::TopLeft() + Point(10., 10.));
-      
+
       SDL_GL_SwapWindow(window);
+      CacheBase::Step();
       timer.Wait();
     }
-    
+
     // If you quit while landed on a planet, save the game - if you did anything.
     if(player.GetPlanet() && gamePanels.CanSave())
       player.Save();
-    
+
     // Remember the window state.
     bool isMaximized = (SDL_GetWindowFlags(window) & SDL_WINDOW_MAXIMIZED);
-    Preferences::Set("maximized", isMaximized);    
+    Preferences::Set("maximized", isMaximized);
     Preferences::Set("fullscreen", isFullscreen);
     // The Preferences class reads the screen dimensions, so update them to
     // match the actual window size.
     Screen::SetRaw(windowWidth, windowHeight);
     Preferences::Save();
-    
+
     Cleanup(window, context);
   }
   catch(const runtime_error &error)
   {
     DoError(error.what());
   }
-  
+
   return 0;
 }
 
@@ -412,10 +429,10 @@ void SetIcon(SDL_Window *window)
     return;
   if(!buffer.Pixels() || !buffer.Width() || !buffer.Height())
     return;
-  
+
   // Convert the icon to an SDL surface.
   SDL_Surface *surface = SDL_CreateRGBSurfaceFrom(buffer.Pixels(), buffer.Width(), buffer.Height(),
-    32, 4 * buffer.Width(), 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
+    32, 4 * buffer.Width(), 0x00FF'0000, 0x0000'FF00, 0x0000'00FF, 0xFF00'0000);
   if(surface)
   {
     SDL_SetWindowIcon(window, surface);
@@ -430,28 +447,24 @@ void AdjustViewport(SDL_Window *window)
   // Get the window's size in screen coordinates.
   int width, height;
   SDL_GetWindowSize(window, &width, &height);
-  
+
   // Round the window size up to a multiple of 2, even if this
   // means one pixel of the display will be clipped.
   int roundWidth = (width + 1) & ~1;
   int roundHeight = (height + 1) & ~1;
   Screen::SetRaw(roundWidth, roundHeight);
-  
+
   // Find out the drawable dimensions. If this is a high- DPI display, this
   // may be larger than the window.
   int drawWidth, drawHeight;
   SDL_GL_GetDrawableSize(window, &drawWidth, &drawHeight);
-  Screen::SetHighDPI(drawWidth > width || drawHeight > height);  
-  
+  Screen::SetHighDPI(drawWidth > width || drawHeight > height);
+
   // Set the viewport to go off the edge of the window, if necessary, to get
   // everything pixel-aligned.
   drawWidth = (drawWidth * roundWidth) / width;
   drawHeight = (drawHeight * roundHeight) / height;
   glViewport(0, 0, drawWidth, drawHeight);
-  
-  // Make sure the zoom factor is not set too high for the full UI to fit.
-  if(Screen::Height() < 700)
-    Screen::SetZoom(100);
 }
 
 
@@ -459,7 +472,7 @@ void AdjustViewport(SDL_Window *window)
 int DoError(string message, SDL_Window *window, SDL_GLContext context)
 {
   Cleanup(window, context);
-  
+
   // Check if SDL has more details.
   const char *sdlMessage = SDL_GetError();
   if(sdlMessage && sdlMessage[0])
@@ -468,10 +481,10 @@ int DoError(string message, SDL_Window *window, SDL_GLContext context)
     message += sdlMessage;
     message += "\")";
   }
-  
-  // Print the error message in the terminal.
-  cerr << message << endl;
-  
+
+  // Print the error message in the terminal and the error file.
+  Files::LogError(message);
+
   // Show the error message both in a message box and in the terminal.
   SDL_MessageBoxData box;
   box.flags = SDL_MESSAGEBOX_ERROR;
@@ -479,17 +492,17 @@ int DoError(string message, SDL_Window *window, SDL_GLContext context)
   box.title = "Finite Galaxy: Error";
   box.message = message.c_str();
   box.colorScheme = nullptr;
-  
+
   SDL_MessageBoxButtonData button;
   button.flags = SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT;
   button.buttonid = 0;
   button.text = "OK";
   box.numbuttons = 1;
   box.buttons = &button;
-  
+
   int result = 0;
   SDL_ShowMessageBox(&box, &result);
-  
+
   return 1;
 }
 
@@ -499,7 +512,7 @@ void Cleanup(SDL_Window *window, SDL_GLContext context)
 {
   // Make sure the cursor is visible.
   SDL_ShowCursor(true);
-  
+
   // Clean up in the reverse order that everything is launched.
 #ifndef _WIN32
   // Under windows, this cleanup code causes intermittent crashes.
@@ -524,7 +537,7 @@ Conversation LoadConversation()
       conversation.Load(node);
       break;
     }
-  
+
   const map<string, string> subs = {
     {"<bunks>", "[N]"},
     {"<cargo>", "[N tons of Commodity]"},
@@ -545,3 +558,28 @@ Conversation LoadConversation()
   return conversation.Substitute(subs);
 }
 
+
+
+#ifdef _WIN32
+void InitConsole()
+{
+  // If both stdout and stderr are already initialized (e.g. writing to a file), do nothing.
+  const int UNINITIALIZED = -2;
+  bool redirectStdout = _fileno(stdout) == UNINITIALIZED;
+  bool redirectStderr = _fileno(stderr) == UNINITIALIZED;
+  bool redirectStdin = _fileno(stdin) == UNINITIALIZED;
+
+  if(!redirectStdout && !redirectStderr && !redirectStdin)
+    return;
+
+  if(!AttachConsole(ATTACH_PARENT_PROCESS) && !AllocConsole())
+    return;
+
+  if(redirectStdout && freopen("CONOUT$", "w", stdout))
+    setvbuf(stdout, nullptr, _IOFBF, 4096);
+  if(redirectStderr && freopen("CONOUT$", "w", stderr))
+    setvbuf(stderr, nullptr, _IOLBF, 1024);
+  if(redirectStdin && freopen("CONIN$", "r", stdin))
+    setvbuf(stdin, nullptr, _IONBF, 0);
+}
+#endif

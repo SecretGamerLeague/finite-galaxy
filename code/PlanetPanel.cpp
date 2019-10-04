@@ -8,8 +8,8 @@
 #include "Command.h"
 #include "ConversationPanel.h"
 #include "Dialogue.h"
-#include "GameData.h"
 #include "FontSet.h"
+#include "GameData.h"
 #include "HiringPanel.h"
 #include "Interface.h"
 #include "MapDetailPanel.h"
@@ -18,6 +18,7 @@
 #include "Planet.h"
 #include "PlayerInfo.h"
 #include "PlayerInfoPanel.h"
+#include "RefuelPanel.h"
 #include "Ship.h"
 #include "ShipyardPanel.h"
 #include "SpaceportPanel.h"
@@ -40,12 +41,16 @@ PlanetPanel::PlanetPanel(PlayerInfo &player, function<void()> callback)
   bank.reset(new BankPanel(player));
   spaceport.reset(new SpaceportPanel(player));
   hiring.reset(new HiringPanel(player));
-  
-  text.SetFont(FontSet::Get(14));
-  text.SetAlignment(WrappedText::JUSTIFIED);
+  refuel.reset(new RefuelPanel(player));
+
+  // Only show one news item per day.
+  spaceport->UpdateNews();
+
+  text.SetFont(FontSet::Get(18));
+  text.SetAlignment(Font::JUSTIFIED);
   text.SetWrapWidth(480);
   text.Wrap(planet.Description());
-  
+
   // Since the loading of landscape images is deferred, make sure that the
   // landscapes for this system are loaded before showing the planet panel.
   GameData::Preload(planet.Landscape());
@@ -63,7 +68,7 @@ void PlanetPanel::Step()
     TakeOffIfReady();
     return;
   }
-  
+
   // If the player starts a new game, exits the shipyard without buying
   // anything, clicks to the bank, then returns to the shipyard and buys a
   // ship, make sure they are shown an intro mission.
@@ -83,43 +88,50 @@ void PlanetPanel::Draw()
 {
   if(player.IsDead())
     return;
-  
-  const Ship *flagship = player.Flagship();
-  
+
   Information info;
   info.SetSprite("land", planet.Landscape());
-  bool hasAccess = planet.CanUseServices();
-  bool hasShip = false;
-  for(const auto &it : player.Ships())
-    if(it->GetSystem() == player.GetSystem() && !it->IsDisabled())
-    {
-      hasShip = true;
-      break;
-    }
+
+  const Ship *flagship = player.Flagship();
   if(flagship && flagship->CanBeFlagship())
     info.SetCondition("has ship");
-  if(hasAccess)
+
+  if(planet.IsInhabited())
+    info.SetCondition("is inhabited");
+
+  if(planet.CanUseServices())
   {
     if(planet.HasBank())
       info.SetCondition("has bank");
-    if(planet.HasOutfitter() && hasShip)
-      info.SetCondition("has outfitter");
+
+    if(planet.HasOutfitter())
+      for(const auto &it : player.Ships())
+        if(it->GetSystem() == &system && !it->IsDisabled())
+        {
+          info.SetCondition("has outfitter");
+          break;
+        }
+
     if(planet.HasShipyard())
       info.SetCondition("has shipyard");
-    if(planet.HasSpaceport() && flagship)
+
+    if(flagship && planet.HasSpaceport())
     {
       info.SetCondition("has spaceport");
       if(planet.IsInhabited())
+      {
         info.SetCondition("has hiring");
-      if(planet.IsInhabited())
         info.SetCondition("has jobs");
-      if(planet.IsInhabited() && planet.GetSystem()->HasTrade()) 
-        info.SetCondition("has trade");
+        if(system.HasTrade())
+          info.SetCondition("has trade");
+      }
     }
+    if(flagship && planet.GetFuelPrice() > 0)
+      info.SetCondition("has fuel");
   }
-  
+
   ui.Draw(info, this);
-  
+
   if(!selectedPanel)
     text.Draw(Point(-300., 80.), *GameData::Colours().Get("bright"));
 }
@@ -127,11 +139,11 @@ void PlanetPanel::Draw()
 
 
 // Only override the ones you need; the default action is to return false.
-bool PlanetPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
+bool PlanetPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command, bool isNewPress)
 {
   Panel *oldPanel = selectedPanel;
   const Ship *flagship = player.Flagship();
-  
+
   bool hasAccess = planet.CanUseServices();
   if(key == 'd' && flagship && flagship->CanBeFlagship())
     requestedLaunch = true;
@@ -139,12 +151,12 @@ bool PlanetPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
   {
     selectedPanel = nullptr;
   }
-  else if(key == 's' && planet.HasShipyard() && hasAccess)
+  else if(key == 'b' && hasAccess && planet.HasBank())
   {
-    GetUI()->Push(new ShipyardPanel(player));
-    return true;
+    selectedPanel = bank.get();
+    GetUI()->Push(bank);
   }
-  else if(key == 'o' && planet.HasOutfitter() && hasAccess)
+  else if(key == 'o' && hasAccess && planet.HasOutfitter())
   {
     bool hasShip = false;
     for(const auto &it : player.Ships())
@@ -157,31 +169,36 @@ bool PlanetPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
       GetUI()->Push(new OutfitterPanel(player));
     return true;
   }
-  else if(key == 'b' && planet.HasBank() && hasAccess)
+  else if(key == 's' && hasAccess && planet.HasShipyard())
   {
-    selectedPanel = bank.get();
-    GetUI()->Push(bank);
+    GetUI()->Push(new ShipyardPanel(player));
+    return true;
   }
-  else if(key == 'p' && flagship && planet.HasSpaceport() && hasAccess)
+  else if(key == 'p' && hasAccess && flagship && planet.HasSpaceport())
   {
     selectedPanel = spaceport.get();
-    spaceport->UpdateNews();
     GetUI()->Push(spaceport);
   }
-  else if(key == 't' && flagship && planet.GetSystem()->HasTrade() && planet.IsInhabited() && planet.HasSpaceport() && hasAccess)
-  {
-    selectedPanel = trading.get();
-    GetUI()->Push(trading);
-  }
-  else if(key == 'h' && flagship && planet.IsInhabited() && planet.HasSpaceport() && hasAccess)
+  else if(key == 'h' && hasAccess && flagship && planet.HasSpaceport() && planet.IsInhabited())
   {
     selectedPanel = hiring.get();
     GetUI()->Push(hiring);
   }
-  else if(key == 'j' && flagship && planet.IsInhabited() && planet.HasSpaceport() && hasAccess)
+  else if(key == 'r' && flagship && planet.GetFuelPrice() >= 0)
+  {
+    refuel.get()->RefreshUI();
+    selectedPanel = refuel.get();
+    GetUI()->Push(refuel);
+  }
+  else if(key == 'j' && hasAccess && flagship && planet.HasSpaceport() && planet.IsInhabited())
   {
     GetUI()->Push(new MissionPanel(player));
     return true;
+  }
+  else if(key == 't' && hasAccess && flagship && planet.HasSpaceport() && planet.IsInhabited() && system.HasTrade())
+  {
+    selectedPanel = trading.get();
+    GetUI()->Push(trading);
   }
   else if(command.Has(Command::MAP))
   {
@@ -195,12 +212,12 @@ bool PlanetPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
   }
   else
     return false;
-  
+
   // If we are here, it is because something happened to change the selected
-  // panel. So, we need to pop the old selected panel:
+  // planet UI panel. So, we need to pop the old selected panel:
   if(oldPanel)
     GetUI()->Pop(oldPanel);
-  
+
   return true;
 }
 
@@ -208,15 +225,15 @@ bool PlanetPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
 
 void PlanetPanel::TakeOffIfReady()
 {
-  // If we're currently showing a conversation or dialogue, wait for it to close.
+  // If we are currently showing a conversation or dialogue, wait for it to close.
   if(!GetUI()->IsTop(this) && !GetUI()->IsTop(trading.get()) && !GetUI()->IsTop(bank.get())
       && !GetUI()->IsTop(spaceport.get()) && !GetUI()->IsTop(hiring.get()))
     return;
-  
+
   // If something happens here that cancels the order to take off, don't try
   // to take off until the button is clicked again.
   requestedLaunch = false;
-  
+
   // Check for any landing missions that have not been offered.
   Mission *mission = player.MissionToOffer(Mission::LANDING);
   if(mission)
@@ -224,21 +241,21 @@ void PlanetPanel::TakeOffIfReady()
     mission->Do(Mission::OFFER, player, GetUI());
     return;
   }
-  
+
   // Check whether the player should be warned before taking off.
   if(player.ShouldLaunch())
   {
     TakeOff();
     return;
   }
-  
+
   // Check if any of the player's ships are configured in such a way that they
   // will be impossible to fly.
   for(const shared_ptr<Ship> &ship : player.Ships())
   {
-    if(ship->GetSystem() != player.GetSystem() || ship->IsDisabled() || ship->IsParked())
+    if(ship->GetSystem() != &system || ship->IsDisabled() || ship->IsParked())
       continue;
-    
+
     string check = ship->FlightCheck();
     if(!check.empty() && check.back() == '!')
     {
@@ -247,11 +264,11 @@ void PlanetPanel::TakeOffIfReady()
       return;
     }
   }
-  
-  // The checks that follow are typically cause by parking or selling
+
+  // The checks that follow are typically caused by parking or selling
   // ships or changing outfits.
   const Ship *flagship = player.Flagship();
-  
+
   // Are you overbooked? Don't count fireable flagship crew. If your
   // ship can't hold the required crew, count it as having no fireable
   // crew rather than a negative number.
@@ -264,14 +281,13 @@ void PlanetPanel::TakeOffIfReady()
   int fighterCount = 0;
   int bomberCount = 0;
   for(const auto &it : player.Ships())
-    if(!it->IsParked() && !it->IsDisabled() && it->GetSystem() == player.GetSystem())
+    if(!it->IsParked() && !it->IsDisabled() && it->GetSystem() == &system)
     {
-      const string &category = it->Attributes().Category();
-      droneCount += (category == "Drone") - it->BaysFree(false);
-      fighterCount += (category == "Fighter") - it->BaysFree(true);
-      bomberCount += (category == "Bomber") - it->BaysFree(true);
+      droneCount -= it->BaysFree("Drone");
+      fighterCount -= it->BaysFree("Fighter");
+      bomberCount -= it->BaysFree("Bomber");
     }
-  
+
   if(droneCount > 0 || fighterCount > 0 || bomberCount > 0 || cargoToSell > 0 || overbooked > 0)
   {
     ostringstream out;
@@ -298,7 +314,7 @@ void PlanetPanel::TakeOffIfReady()
     {
       out << "If you take off now you will have to sell ";
       bool triple = (droneCount > 0 && fighterCount > 0 && bomberCount > 0 && cargoToSell > 0);
-    
+
       if(droneCount == 1)
         out << "a drone";
       else if(droneCount > 0)
@@ -312,7 +328,7 @@ void PlanetPanel::TakeOffIfReady()
         out << fighterCount << " fighters";
       if(fighterCount > 0 && (bomberCount > 0 || cargoToSell > 0))
         out << (triple ? ", " : " and ");
-    
+
       if(bomberCount == 1)
         out << "a bomber";
       else if(bomberCount > 0)
@@ -330,7 +346,7 @@ void PlanetPanel::TakeOffIfReady()
     GetUI()->Push(new Dialogue(this, &PlanetPanel::TakeOff, out.str()));
     return;
   }
-  
+
   // There was no need to ask the player whether we can get rid of anything,
   // so go ahead and take off.
   TakeOff();

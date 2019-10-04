@@ -22,12 +22,13 @@ public:
   explicit DataNode(const DataNode *parent = nullptr);
   // Copy constructor.
   DataNode(const DataNode &other);
-  
+
   DataNode &operator=(const DataNode &other);
-  
+
   // Get the number of tokens in this node.
   int Size() const;
   // Get the token at the given index. No bounds checking is done internally.
+  // DataFile loading guarantees index 0 always exists.
   const std::string &Token(int index) const;
   // Convert the token at the given index to a number. This returns 0 if the
   // index is out of range or the token cannot be interpreted as a number.
@@ -35,22 +36,22 @@ public:
   // Check if the token at the given index is a number in a format that this
   // class is able to parse.
   bool IsNumber(int index) const;
-  
+
   // Check if this node has any children. If so, the iterator functions below
   // can be used to access them.
   bool HasChildren() const;
   std::list<DataNode>::const_iterator begin() const;
   std::list<DataNode>::const_iterator end() const;
-  
+
   // Print a message followed by a "trace" of this node and its parents.
   int PrintTrace(const std::string &message = "") const;
-  
-  
+
+
 private:
   // Adjust the parent pointers when a copy is made of a DataNode.
   void Reparent();
-  
-  
+
+
 private:
   // These are "child" nodes found on subsequent lines with deeper indentation.
   std::list<DataNode> children;
@@ -58,7 +59,7 @@ private:
   std::vector<std::string> tokens;
   // The parent pointer is used only for printing stack traces.
   const DataNode *parent = nullptr;
-  
+
   // Allow DataFile to modify the internal structure of DataNodes.
   friend class DataFile;
 };

@@ -2,10 +2,10 @@
 # "FW Prisoner Parole"
 # "FW Prisoner Parole 2"
 # "Oathkeepers founded"
-# "FW Syndicate Diplomacy 1"
-# "FW Syndicate Diplomacy 1B"
-# "FW Syndicate Diplomacy 1C"
-# "FW Syndicate Diplomacy 1D"
+# "FW Corporation Diplomacy 1"
+# "FW Corporation Diplomacy 1B"
+# "FW Corporation Diplomacy 1C"
+# "FW Corporation Diplomacy 1D"
 # "FW Hope Recon 1"
 # "FW Hope Recon 1B"
 # "FW Hope Recon 1C"
@@ -52,7 +52,7 @@ mission "Liberate Kornephoros"
       `  You find Tomek walking among the fleet, conversing with captains and assessing the damage they have suffered. When he sees you he says, "Captain <last>! How is your '<ship>' holding together?"`
       choice
         `  "She took a bit of a pounding, but I've patched her up."`
-        `  "Just fine. It'd take more than a few Venuss to destroy the <ship>."`
+        `  "Just fine. It'd take more than a few Venus to destroy the <ship>."`
       
       `  "Glad to hear it," he says. "Listen, we need to press our advantage before the Republic has time to call for reinforcements. If we strike quickly, we could be able to retake Kornephoros from them. It's important to break the blockade on that system just for the sake of trade with the rest of the galaxy, and on top of that, of course, Katya needs to be rescued."`
       `  "Indeed," you say.`
@@ -73,15 +73,14 @@ mission "Liberate Kornephoros"
     fleet
       names "free worlds capital"
       variant
-        "Falcon"
-        "Osprey" 2
+        "Osprey"
+        "Raven" 2
       variant
         "Bastion"
-        "Clipper" 2
+        "Stymphalian" 2
       variant
-        "Clipper"
-        "Hawk" 2
-        "Hawk (Javelin)" 1
+        "Raven"
+        "Hawk" 3
   npc
     personality heroic disables
     government "Free Worlds"
@@ -89,7 +88,7 @@ mission "Liberate Kornephoros"
     fleet
       names "free worlds capital"
       variant
-        "Falcon (Heavy)"
+        "Osprey"
         "Hawk" 2
     fleet
       names "free worlds small"
@@ -99,27 +98,25 @@ mission "Liberate Kornephoros"
     fleet
       names "free worlds small"
       variant
-        "Hawk (Javelin)"
-        "Fury (Javelin)" 2
+        "Hawk"
+        "Stymphalian" 2
     fleet
       names "free worlds capital"
       variant
-        "Osprey"
-        "Osprey (Javelin)"
+        "Osprey" 2
     fleet
       names "free worlds capital"
       variant
-        "Falcon"
-        "Osprey"
-        "Osprey (Laser)"
+        "Bastion"
+        "Osprey" 2
         "Hawk" 3
         "Harpy" 5
     fleet
       names "free worlds capital"
       variant
-        "Bastion (Heavy)" 2
-        "Argosy (Blaster)" 4
-        "Fury" 6
+        "Bastion" 2
+        "Stymphalian" 4
+        "Berserker" 6
   
   npc evade
     personality staying heroic
@@ -130,7 +127,7 @@ mission "Liberate Kornephoros"
       fighters "republic fighter"
       variant
         "Venus" 2
-        "Mark I Drone" 8
+        "Mark II Drone" 8
         "Mars" 2
         "Mercury" 2
     fleet
@@ -138,7 +135,7 @@ mission "Liberate Kornephoros"
       fighters "republic fighter"
       variant
         "Venus"
-        "Mark I Drone" 4
+        "Mark II Drone" 4
         "Mars" 2
         "Mercury" 2
     fleet
@@ -146,7 +143,7 @@ mission "Liberate Kornephoros"
       fighters "republic fighter"
       variant
         "Venus"
-        "Mark I Drone" 4
+        "Mark II Drone" 4
         "Mars" 2
         "Mercury" 3
   
@@ -199,9 +196,9 @@ mission "FW Prisoner Parole"
   npc accompany save
     government "Free Worlds"
     personality timid escort
-    ship "Falcon (Heavy)" "F.W.S. Starry Warrior"
-    ship "Blackbird" "F.W.S. Flight of Fancy"
-    ship "Blackbird" "F.W.S. Southern Luxury"
+    ship "Lance" "F.W.S. Starry Warrior"
+    ship "Blackbird (Anti-Missile)" "F.W.S. Flight of Fancy"
+    ship "Blackbird (Anti-Missile)" "F.W.S. Southern Luxury"
   
   on visit
     dialogue "You have reached <planet>, but you left part of your convoy behind! Better depart and wait for them to arrive in this star system."
@@ -239,9 +236,9 @@ mission "FW Prisoner Parole 2"
   npc accompany save
     government "Free Worlds"
     personality timid escort
-    ship "Falcon (Heavy)" "F.W.S. Starry Warrior"
-    ship "Blackbird" "F.W.S. Flight of Fancy"
-    ship "Blackbird" "F.W.S. Southern Luxury"
+    ship "Lance" "F.W.S. Starry Warrior"
+    ship "Blackbird (Anti-Missile)" "F.W.S. Flight of Fancy"
+    ship "Blackbird (Anti-Missile)" "F.W.S. Southern Luxury"
   
   on visit
     dialogue "You have reached <planet>, but you left part of your convoy behind! Better depart and wait for them to arrive in this star system."
@@ -258,11 +255,11 @@ mission "FW Prisoner Parole 2"
           goto exchange
       
       label exchange
-      `  "I know," he says. "That's what a lot of our people are saying now. But what we did, a pure good-faith gesture with nothing demanded in return - we may come to be glad of that. My hope was to set a precedent, to shape the character of whatever conflict comes out of this, and I still think that was the right thing to do."`
+      `  "I know," he says. "That's what a lot of our people are saying now. But what we did, a pure good-faith gesture with nothing demanded in return – we may come to be glad of that. My hope was to set a precedent, to shape the character of whatever conflict comes out of this, and I still think that was the right thing to do."`
       `  "So, what do we do now?" you ask.`
       
       label next
-      `  "The Navy has had two crushing defeats," he says. "They will be hesitant to attack again until their numbers are much stronger. That gives us some time for diplomacy, to strengthen our position and look for allies, or at least for sympathizers. Which is where you come in. I'm going to ask you to carry a diplomatic mission to the Syndicate. Meet us in the spaceport when you are ready."`
+      `  "The Navy has had two crushing defeats," he says. "They will be hesitant to attack again until their numbers are much stronger. That gives us some time for diplomacy, to strengthen our position and look for allies, or at least for sympathizers. Which is where you come in. I'm going to ask you to carry a diplomatic mission to the Corporation. Meet us in the spaceport when you are ready."`
     "reputation: Republic" <?= -1000
     event "oathkeepers founded" 50
 
@@ -285,9 +282,9 @@ mission "Oathkeepers founded"
 
 
 
-mission "FW Syndicate Diplomacy 1"
-  name "Syndicate Diplomacy"
-  description "Transport Alondo Gruyere to the Syndicate headquarters on <planet>."
+mission "FW Corporation Diplomacy 1"
+  name "Corporation Diplomacy"
+  description "Transport Alondo Gruyere to the Corporation headquarters on <planet>."
   autosave
   source "Deep"
   destination "Hephaestus"
@@ -302,11 +299,11 @@ mission "FW Syndicate Diplomacy 1"
   
   on offer
     conversation
-      `You meet Tomek and Alondo in the spaceport. "We've decided that now would be a good time for a diplomatic mission to the Syndicate," says Alondo. "We've proven that we are a force to reckon with, but also that we are open to working for peace. And a relationship with the Syndicate would be a significant advantage for us."`
+      `You meet Tomek and Alondo in the spaceport. "We've decided that now would be a good time for a diplomatic mission to the Corporation," says Alondo. "We've proven that we are a force to reckon with, but also that we are open to working for peace. And a relationship with the Corporation would be a significant advantage for us."`
       choice
         `  "Do you think they will fight on our side?"`
           goto fight
-        `  "Wait, isn't the Syndicate an evil megacorporation?"`
+        `  "Wait, isn't the Corporation an evil megacorporation?"`
           goto evil
       
       label fight
@@ -318,7 +315,7 @@ mission "FW Syndicate Diplomacy 1"
         goto time
       
       label time
-      `  "Reaching Syndicate space could be difficult once the Navy has time to regroup," says Tomek. "This may be the last window of opportunity we get for a while to meet with them in person."`
+      `  "Reaching Corporation space could be difficult once the Navy has time to regroup," says Tomek. "This may be the last window of opportunity we get for a while to meet with them in person."`
       `  "I have plenty of contacts in the Dirt Belt," says Alondo, "so if a planet won't let us land, we can just hail them and I should be able to negotiate with them. In fact, I'm hoping that a side effect of this trip will be to judge how much sympathy we have in the surrounding systems."`
       choice
         `  "Sounds good! Let's do it!"`
@@ -329,7 +326,7 @@ mission "FW Syndicate Diplomacy 1"
           goto navy
       
       label trap
-      `  "It's a risk, but not a large one. The Syndicate is driven by greed, and they want us as a customer."`
+      `  "It's a risk, but not a large one. The Corporation is driven by greed, and they want us as a customer."`
       choice
         `  "I hope you're right! Let's get going."`
           accept
@@ -342,14 +339,14 @@ mission "FW Syndicate Diplomacy 1"
 
 
 
-mission "FW Syndicate Diplomacy 1B"
+mission "FW Corporation Diplomacy 1B"
   landing
   name "Tarazed Diplomacy"
   description "Transport Alondo Gruyere to <planet> to negotiate with Tarazed Corporation."
   source "Hephaestus"
   destination "Wayfarer"
   to offer
-    has "FW Syndicate Diplomacy 1: done"
+    has "FW Corporation Diplomacy 1: done"
   clearance "Alondo has a brief chat with the spaceport controller and manages to get you permission to land."
     attributes "dirt belt"
   passengers 1
@@ -363,12 +360,12 @@ mission "FW Syndicate Diplomacy 1B"
     fleet "Republic Small" 3
   
   on offer
-    log "Visited the Syndicate and worked out a deal where they promised to stay neutral. They are expecting to profit from selling weapons to both sides in this war. Also discovered that Katya is in the Republic's custody and is accused of terrorist activity."
+    log "Visited the Corporation and worked out a deal where they promised to stay neutral. They are expecting to profit from selling weapons to both sides in this war. Also discovered that Katya is in the Republic's custody and is accused of terrorist activity."
     log "People" "Katya Reynolds" `Katya was on Clink when the Navy invaded the Kornephoros system, and was taken captive by them and imprisoned as a war criminal.`
     conversation
-      `As you land, Alondo says to you, "Let me do the talking, please." You are met almost immediately by two men in suits, who escort you to a room in the Syndicate headquarters. Six men are sitting on one side of a large mahogany conference table; they gesture for the two of you to be seated on the other side.`
+      `As you land, Alondo says to you, "Let me do the talking, please." You are met almost immediately by two men in suits, who escort you to a room in the Corporation headquarters. Six men are sitting on one side of a large mahogany conference table; they gesture for the two of you to be seated on the other side.`
       `  You introduce yourselves. "Thank you for meeting with us," says Alondo.`
-      `  "We are always open to new business opportunities," says one of the men, "although negotiating with known terrorists is... distasteful." He leafs through a folder of papers, pulls one out, and slides it over to you. It is a picture of Katya, and the caption under it reads, "Terrorist ringleader captured in raid on Kornephoros system." It is dated a few days after the Navy's initial assault, before you retook the system from them.`
+      `  "We are always open to new business opportunities," says one of the men, "although negotiating with known terrorists is… distasteful." He leafs through a folder of papers, pulls one out, and slides it over to you. It is a picture of Katya, and the caption under it reads, "Terrorist ringleader captured in raid on Kornephoros system." It is dated a few days after the Navy's initial assault, before you retook the system from them.`
       choice
         `  (Try to explain what Katya was doing in that system.)`
           goto explain
@@ -381,16 +378,16 @@ mission "FW Syndicate Diplomacy 1B"
       
       label alondo
       `  Alondo has turned very pale, but finally he says, "They have not announced this publicly."`
-      `  "No," says the man, "they have only shared it with certain... trusted friends of the Republic."`
+      `  "No," says the man, "they have only shared it with certain… trusted friends of the Republic."`
       `  Alondo says, "They haven't announced anything because they know she was innocent. She was hunting the terrorists, not helping them."`
         goto ijs
       
       label ijs
-      `  "That may be true," says the man. "I am willing to believe you were hunting the terrorists, because I am aware through my own sources that the Free Worlds secured the services of a certain Ijs Springborn, whose skills would be well suited to such a hunt. And who might not be alive today if you had not given him a reason to leave this sector of space, where he is... universally despised. Regardless, we cannot sell weapons to enemies of the Republic."`
+      `  "That may be true," says the man. "I am willing to believe you were hunting the terrorists, because I am aware through my own sources that the Free Worlds secured the services of a certain Ijs Springborn, whose skills would be well suited to such a hunt. And who might not be alive today if you had not given him a reason to leave this sector of space, where he is… universally despised. Regardless, we cannot sell weapons to enemies of the Republic."`
       `  "Piracy is on the rise in the Dirt Belt," says Alondo. "And I know you have customers there. Such as the Tarazed Corporation. If we can count you among our friends, we could ensure that your convoys reach Tarazed unmolested."`
       `  "And you would no doubt immediately purchase said weapons from Tarazed," says the man.`
       `  An older man sitting next to him says, "Of course, such weapons would end up being bought at a significant price markup." He is grinning.`
-      `  You speak for a while longer, but Alondo manages to hash out a deal where the Free Worlds will defend any Syndicate ships they encounter in return for a promise that the Syndicate will not serve as Republic mercenaries and will not prevent you from purchasing their equipment indirectly through Tarazed. You thank the Syndicate leaders, and return to your ship.`
+      `  You speak for a while longer, but Alondo manages to hash out a deal where the Free Worlds will defend any Corporation ships they encounter in return for a promise that the Corporation will not serve as Republic mercenaries and will not prevent you from purchasing their equipment indirectly through Tarazed. You thank the Corporation leaders, and return to your ship.`
       `  "That was disgusting," says Alondo.`
       choice
         `  "I thought it went pretty well."`
@@ -408,14 +405,14 @@ mission "FW Syndicate Diplomacy 1B"
 
 
 
-mission "FW Syndicate Diplomacy 1C"
+mission "FW Corporation Diplomacy 1C"
   landing
   name "Poisonwood Diplomacy"
   description "Travel to <planet> with Alondo Gruyere, to make one final diplomatic visit."
   source "Wayfarer"
   destination "Poisonwood"
   to offer
-    has "FW Syndicate Diplomacy 1B: done"
+    has "FW Corporation Diplomacy 1B: done"
   clearance "Alondo has a brief chat with the spaceport controller and manages to get you permission to land."
     attributes "dirt belt" "south"
   passengers 1
@@ -431,10 +428,10 @@ mission "FW Syndicate Diplomacy 1C"
   on offer
     log "People" "Emily Lane" `Emily Lane is the CEO of Tarazed Corporation. Although sympathetic to the Free Worlds, she prefers Tarazed to remain nominally part of the Republic but unofficially neutral, to allow them to trade with everyone.`
     conversation
-      `You are led into the Tarazed board room, which is different from the Syndicate one in two respects. First, it is much less fancy. And second, there are women present: unlike the notoriously misogynistic Syndicate, Tarazed is in fact currently run by a female CEO, Emily Lane.`
+      `You are led into the Tarazed board room, which is different from the Corporation one in two respects. First, it is much less fancy. And second, there are women present: unlike the notoriously misogynistic Corporation, Tarazed is in fact currently run by a female CEO, Emily Lane.`
       `  "I'm pleased to welcome you here," says Emily. "Many of us are sympathetic to your cause."`
-      `  "Thank you," says Alondo, "although for the time being the best way to support us, may be for you to remain neutral in this conflict." He explains the idea of Tarazed being a go-between with the Syndicate.`
-      `  "I don't like dealing with the Syndicate," says Emily, "but like yourselves, we could not build ships without the systems they manufacture. Of course, the materials we receive from Free space are equally valuable. But if we remain nominally a part of the Republic, they will have full access to this system, including searching incoming and outgoing freighters."`
+      `  "Thank you," says Alondo, "although for the time being the best way to support us, may be for you to remain neutral in this conflict." He explains the idea of Tarazed being a go-between with the Corporation.`
+      `  "I don't like dealing with the Corporation," says Emily, "but like yourselves, we could not build ships without the systems they manufacture. Of course, the materials we receive from Free space are equally valuable. But if we remain nominally a part of the Republic, they will have full access to this system, including searching incoming and outgoing freighters."`
       `  "True," says Alondo, "but a Navy fleet here would be vulnerable to being cut off from Republic space, so unless they occupy the whole Dirt Belt, I do not think they would risk it."`
       `  "Yes, Navy fleets rarely visit Tarazed," Emily says, "even though they are one of our costumers. Off record, we've been secretly working on a highly efficient ramscoop for years and it's currently nearing completion. Once we start producing them, dozens will be shipped to the Navy's shipyards." She pauses. "Of course, we're willing to sell them to the Free Worlds as well, unofficially. Here in Tarazed we highly value free trade." They continue talking for a while, and you leave well convinced that Tarazed is willing to support you and that the best way they can do that for now is by remaining neutral.`
       `  "Now," says Alondo, "I'd like to make one more diplomatic visit. The planet Poisonwood has insisted on remaining loyal to the Republic, even though they are deep inside our space. I'd like to meet with their leaders and see if they will reconsider joining us."`
@@ -443,14 +440,14 @@ mission "FW Syndicate Diplomacy 1C"
   
   
   
-mission "FW Syndicate Diplomacy 1D"
+mission "FW Corporation Diplomacy 1D"
   landing
   name "Return to <planet>"
   description "Return to <planet> with Alondo, to report on the outcome of your diplomatic mission."
   source "Poisonwood"
   destination "Longjump"
   to offer
-    has "FW Syndicate Diplomacy 1C: done"
+    has "FW Corporation Diplomacy 1C: done"
   passengers 1
   on fail
     dialogue `You have failed an essential Free Worlds mission. If you want to complete the story line, revert to the autosave or another earlier snapshot of the game.`
@@ -480,7 +477,7 @@ mission "FW Syndicate Diplomacy 1D"
         goto threat
       
       label corporations
-      `  "Since there is only one corporation in the galaxy that fits that description," she says, "I assume you are talking about the Syndicate. Any human organization can take on a life of its own, and act in ways that any of its individual members would consider immoral. That is a danger the Syndicate does face. but I find myself more concerned with certain threats that are closer to home."`
+      `  "Since there is only one corporation in the galaxy that fits that description," she says, "I assume you are talking about the Corporation. Any human organization can take on a life of its own, and act in ways that any of its individual members would consider immoral. That is a danger the Corporation does face. but I find myself more concerned with certain threats that are closer to home."`
         goto threat
       
       label alphas
@@ -493,7 +490,7 @@ mission "FW Syndicate Diplomacy 1D"
         goto threat
       
       label aliens
-      `  She laughs. "You must watch far too many videos. The most powerful species in this galaxy are also the most peace-loving. Trust me, I should know. Here on the edge of human space, we receive... visitors, on occasion. They do not interfere in human events, but they came seeking information on a threat that concerns us both."`
+      `  She laughs. "You must watch far too many videos. The most powerful species in this galaxy are also the most peace-loving. Trust me, I should know. Here on the edge of human space, we receive… visitors, on occasion. They do not interfere in human events, but they came seeking information on a threat that concerns us both."`
         goto threat
       
       label threat
@@ -511,7 +508,7 @@ mission "FW Syndicate Diplomacy 1D"
       choice
         `  "Did you ever find out why they let you go?"`
       
-      `  "My parents said it was because I was so willful and stubborn, too hard to control," she says. "But years later, we began to discover that all of us who were passed over had one thing in common. We were all infertile. Had been already, the day of the Disappearance. Which means that either a bunch of pirates had suddenly decided they wanted to leave behind their lives of crime and settle down and raise families... or those girls were being used as incubators."`
+      `  "My parents said it was because I was so willful and stubborn, too hard to control," she says. "But years later, we began to discover that all of us who were passed over had one thing in common. We were all infertile. Had been already, the day of the Disappearance. Which means that either a bunch of pirates had suddenly decided they wanted to leave behind their lives of crime and settle down and raise families… or those girls were being used as incubators."`
       `  Alondo says, "I hear that was common during the Alpha wars. Alpha genetics were so unstable, they needed hundreds of test subjects to produce a handful of viable Alpha babies. Those were evil days."`
       `  "Days that may yet return," she says. "Somewhere, maybe even nearby on Bloodsea or Greenrock or Albatross, the remnants of the Alphas may still be hiding. Creatures bred to be strong and clever and able to kill without a hint of remorse. And now that this sector of space is yours, the duty of defending against them becomes yours, as well. That is why I agreed to talk with you: to warn you of that reality."`
       `  You and Alondo return to your ship with one more thing for the fledgling Free Worlds to worry about. "I guess now we should return to <planet> and report to the Council," he says.`
@@ -520,7 +517,7 @@ mission "FW Syndicate Diplomacy 1D"
   on complete
     payment 200000
     conversation
-      `You meet Tomek and Freya at the spaceport, and the entire Council quickly convenes. Alondo outlines the results of your diplomatic mission, which he believes has been a success. "There is one other thing," he says. "The Syndicate informed us that the Republic has Katya in custody, accused of terrorism."`
+      `You meet Tomek and Freya at the spaceport, and the entire Council quickly convenes. Alondo outlines the results of your diplomatic mission, which he believes has been a success. "There is one other thing," he says. "The Corporation informed us that the Republic has Katya in custody, accused of terrorism."`
       `  The news is a shock to everyone. "I had begun to worry that was the case," says Freya.`
       `  "Why have they not announced it publicly?" asks Tomek.`
       `  "I suspect it's because they know she is innocent," says Alondo. "They say it is impossible to tell a lie to the Questioners, and in this case that will work in her favour."`
@@ -535,7 +532,7 @@ mission "FW Hope Recon 1"
   source "Longjump"
   destination "Hope"
   to offer
-    has "FW Syndicate Diplomacy 1D: done"
+    has "FW Corporation Diplomacy 1D: done"
   cargo sensors 10
   blocked `Freya contacts you and says, "<first>, you're going to need ten tons of cargo space for this next mission." You should return here after freeing up <capacity>.`
   on fail
@@ -607,13 +604,13 @@ mission "FW Hope Recon 1C"
         decline
       
       label steal
-      `  The landing crew has absolutely nowhere to hide in this glacial field; you pick them off easily. There is no response from the ship, so you land beside it and prepare to board it. But, the moment you open your hatch, the other ship roars to life, powering up its engines and beating a hasty retreat while firing a few parting shots at you from its turret. You fire up your own engines and pursue it...`
+      `  The landing crew has absolutely nowhere to hide in this glacial field; you pick them off easily. There is no response from the ship, so you land beside it and prepare to board it. But, the moment you open your hatch, the other ship roars to life, powering up its engines and beating a hasty retreat while firing a few parting shots at you from its turret. You fire up your own engines and pursue it…`
         launch
       
       label spare
       apply
         karma ++
-      `  Most ships are equipped with external speakers for exactly this sort of situation. Speaking through them, you tell the Navy crew below, "Return to your ship and leave this system immediately." They beat a hasty retreat and fire up their engines. You follow their ship into orbit to make sure it truly does leave the system...`
+      `  Most ships are equipped with external speakers for exactly this sort of situation. Speaking through them, you tell the Navy crew below, "Return to your ship and leave this system immediately." They beat a hasty retreat and fire up their engines. You follow their ship into orbit to make sure it truly does leave the system…`
         launch
   
   
@@ -700,16 +697,16 @@ mission "FW Plasma Testing 1B"
   npc accompany save
     government "Free Worlds"
     personality heroic escort
-    ship "Falcon (Plasma)" "Walloping Window-Blind"
+    ship "Lance (Plasma)" "Walloping Window-Blind"
   npc kill
     government "Pirate"
     personality plunders staying target
     system "Ildaria"
-    ship "Leviathan (South)" "Red Nile"
+    ship "Leviathan" "Red Nile"
     dialogue `The <npc> has been eliminated. Time to return to <destination> and report to Barmy Edward.`
   
   on visit
-    dialogue "You have reached <planet>, but your mission is not complete - either the Red Nile is not destroyed, or you have left the Walloping Window-Blind behind."
+    dialogue "You have reached <planet>, but your mission is not complete – either the Red Nile is not destroyed, or you have left the Walloping Window-Blind behind."
   
   on offer
     log "People" "Edward Tivrusky" `Barmy Edward is the Chief Offensive Engineer at Kraz Cybernetics, known for his inventive and sometimes impractical weapon designs. Supposedly, his engineers gave him the "Barmy" sobriquet after an incident where an experimental epoxy cannon he was working on exploded and glued him to the ceiling.`
@@ -733,10 +730,10 @@ mission "FW Plasma Testing 1B"
         `  "Well, we try to only blow things up when strictly necessary."`
       
       label explain
-      `  "Of course," he says. "Anyway, I bet you're wondering what new toys we're going to let you play with." You nod. He says, "We've been trying to come up with a weapon for our capital ships, something that's a match for one of the Navy's particle turrets. Something more efficient than those awful blaster turrets the Syndicate makes. So I thought, why not take the biggest thing we've got, and then mount a pair of them on a turret?" He beckons for you to follow, and leads you through a door and into a hangar.`
-      `  In front of you is a turret. It is almost absurdly large: a pair of plasma cannons mounted on a massive rotating base. "Sixty tons," says Barmy Edward. "Produces more heat than... well, than anything else, practically. Is a little power drain, too."`
+      `  "Of course," he says. "Anyway, I bet you're wondering what new toys we're going to let you play with." You nod. He says, "We've been trying to come up with a weapon for our capital ships, something that's a match for one of the Navy's pulse turrets. Something more efficient than those awful blaster turrets the Corporation makes. So I thought, why not take the biggest thing we've got, and then mount a pair of them on a turret?" He beckons for you to follow, and leads you through a door and into a hangar.`
+      `  In front of you is a turret. It is almost absurdly large: a pair of plasma cannons mounted on a massive rotating base. "Sixty tons," says Barmy Edward. "Produces more heat than… well, than anything else, practically. Is a little power drain, too."`
       choice
-        `  "It's so... big!"`
+        `  "It's so… big!"`
           goto big
         `  "I want one!"`
           goto want
@@ -758,7 +755,7 @@ mission "FW Plasma Testing 1B"
       label plan
       `  "So, where do I come in?" you ask.`
       `  "Well, the Council says no testing against the Navy yet. No point in provoking a fight just to try out an untested weapon. So I asked them what other target they could suggest, and they mentioned this pirate ship by the name of Red Nile, that's been haunting the <waypoints> system, sniping on merchants that take a wrong turn and end up there."`
-      `  With a grand gesture, he indicates an aging Tarazed Falcon parked in the far corner of the hangar. It's a little rusty, and the paint is flaking, but a Falcon is an impressive ship under any circumstances. "We packed four of our prototypes into our department's very own test ship, the Walloping Window-Blind. We can't let you fly her, of course," he says, "on account of she's dearer to us than our own children. So the plan is, the Window-Blind will accompany you to <waypoints>, and you fight the pirates together, taking careful note of how the guns perform. Sound like fun?`
+      `  With a grand gesture, he indicates an aging Tarazed Lance parked in the far corner of the hangar. It's a little rusty, and the paint is flaking, but a Lance is an impressive ship under any circumstances. "We packed four of our prototypes into our department's very own test ship, the Walloping Window-Blind. We can't let you fly her, of course," he says, "on account of she's dearer to us than our own children. So the plan is, the Window-Blind will accompany you to <waypoints>, and you fight the pirates together, taking careful note of how the guns perform. Sound like fun?`
       choice
         `  "You bet!"`
           accept
@@ -842,7 +839,7 @@ mission "FW Supply Convoy 1"
   
   on offer
     conversation
-      `In the spaceport, you meet up with a woman wearing a militia uniform and carrying a clipboard. "Are you Captain <last>?" she asks. You nod. "We have a large shipment of weapons and equipment that needs to go to the militia base on <planet>. Your job is to make sure none of these ships get... lost in transit." She points to a large landing pad where you count ten Star Barges lined up next to each other.`
+      `In the spaceport, you meet up with a woman wearing a militia uniform and carrying a clipboard. "Are you Captain <last>?" she asks. You nod. "We have a large shipment of weapons and equipment that needs to go to the militia base on <planet>. Your job is to make sure none of these ships get… lost in transit." She points to a large landing pad where you count ten Star Barges lined up next to each other.`
       choice
         `  "Isn't it risky to transport valuable cargo in such flimsy and vulnerable ships?"`
           goto risky
@@ -963,7 +960,7 @@ mission "FW Pirates 1A"
         `  "How so?"`
         `  "Naturally."`
           goto continue
-      `  "For starters, we both wear black all the time," he says, grinning. "And more to the point, we're both seeking to build an alternative community according to our own ideals. Historically, monasticism can actually be seen as a form of utopic anarchism - 'Fear none but God' and all that."`
+      `  "For starters, we both wear black all the time," he says, grinning. "And more to the point, we're both seeking to build an alternative community according to our own ideals. Historically, monasticism can actually be seen as a form of utopic anarchism – 'Fear none but God' and all that."`
       choice
         `  "Of course."`
         `  "That makes absolutely no sense. Are you joking around with me?"`
@@ -1026,7 +1023,7 @@ mission "FW Senate 1B"
       `  She looks angry for a minute, then her expression softens. "Oh, pardon me," she says. "I was treating you like another scheming politician, but now I realize you're way too clueless for that. Tell me, Captain, do you know what makes politics similar to piloting a ship?"`
       choice
         `  "I have no idea."`
-        `  "Ummm... they both involve momentous decisions that have serious consequences?"`
+        `  "Ummm… they both involve momentous decisions that have serious consequences?"`
         `  "They both require someone skilled and decisive to be in command?"`
       `  "The correct answer," she says, "was, 'nothing whatsoever; they are entirely different disciplines.' Now, hurry up, I hope to be on Bourne a week from now." You consider explaining to her that it's impossible to get there that fast, but decide against it.`
         accept
@@ -1049,7 +1046,7 @@ mission "FW Senate 1B"
       `  "Which dream?" you ask.`
       `  "Terraforming for the masses. A publicly funded university and research centre. Are you familiar with the Free Worlds taxation model?"`
       `  "Not really," you say.`
-      `  "It's brilliant. And probably totally unsustainable. Each world that joins us negotiates a certain yearly tax amount based on their population and resources. In return they gain access to our defence fleet and other shared resources. Twenty percent of each planet's tax payments are 'unrestricted,' money the Free Worlds can use for whatever we think is most important. But the rest of the taxes can be earmarked for whatever projects that world thinks are most important. Those taxes can also be an in kind donation, such as supplying ships or crews for the common militia..."`
+      `  "It's brilliant. And probably totally unsustainable. Each world that joins us negotiates a certain yearly tax amount based on their population and resources. In return they gain access to our defence fleet and other shared resources. Twenty percent of each planet's tax payments are 'unrestricted,' money the Free Worlds can use for whatever we think is most important. But the rest of the taxes can be earmarked for whatever projects that world thinks are most important. Those taxes can also be an in kind donation, such as supplying ships or crews for the common militia…"`
       `  He continues talking for quite some time. You stop even trying to follow what he is saying. Finally he sees the blank expression on your face and stops babbling. "The point is," he says, "if we can convince enough worlds to pool their money, the Conservatory will become a reality. Our own public university."`
       choice
         `  "So you're here to talk to the senators?"`
@@ -1105,7 +1102,7 @@ mission "FW Flamethrower 2"
   npc save disable
     personality disables heroic staying
     government "Test Dummy"
-    ship "Fury (Doombat)" "Doombat"
+    ship "Harpy (Doombat)" "Doombat"
   
   on complete
     event "flamethrower available" 30
@@ -1166,7 +1163,7 @@ mission "FW Pirates 2"
         `  "It seems like some people are a little bit hostile toward the Council."`
           goto council
       label pirates
-      `  "Not yet. This is why we wanted to get as much done as possible while we were still under a relatively agile leadership structure. Getting two dozen politicians to agree on any course of action is... difficult. What did your reconnaissance turn up?"`
+      `  "Not yet. This is why we wanted to get as much done as possible while we were still under a relatively agile leadership structure. Getting two dozen politicians to agree on any course of action is… difficult. What did your reconnaissance turn up?"`
         goto recon
       label council
       `  "You mean Arianna? Don't worry, she's one of those people who by reflex opposes any idea that comes from someone other than her. Most people appreciate what the Council has done, and in fact before you even arrived the Senate voted to give us a continued advisory role, under the Senate's supervision."`
@@ -1228,7 +1225,7 @@ mission "FW Pirates 3"
   npc accompany save
     personality timid escort
     government "Free Worlds"
-    ship "Falcon" "F.W.S. Terebinth"
+    ship "Lance" "F.W.S. Terebinth"
   
   on offer
     log "Given orders by the Free Worlds Senate to escort a diplomatic mission to the anarchist planet Thule. Tomek is not happy about bargaining with the pirates instead of fighting them."
@@ -1264,11 +1261,12 @@ mission "FW Pirates 3.1"
     personality plunders staying
     government "Pirate"
     system Antares
-    fleet "Pirates South Small" 2
-    fleet "Pirates North Small"
-    fleet "Pirates South Large" 2
+    fleet "Pirates South Small" 3
+    fleet "Pirates West Small" 2
     fleet "Pirates East Large"
     fleet "Pirates North Large"
+    fleet "Pirates South Large"
+    fleet "Pirates West Large"
   
   on offer
     conversation
@@ -1293,7 +1291,7 @@ mission "FW Pirates 3.1"
       `  "Absolutely," says Tomek. "The Senate doesn't know what's best for them. Perhaps we should save them from their own stupidity and make sure the right thing gets done."`
       `  "Tomek," says Freya, "this is a democracy. We follow the Senate's orders."`
       label plan
-      `  JJ says, "Captain <last>, the Senate wants you to travel to Thule and deliver their ultimatum. You will be given a single Falcon as an escort: not enough for a battle fleet, just enough to keep you safe. You are to avoid engaging any pirates you meet, if possible."`
+      `  JJ says, "Captain <last>, the Senate wants you to travel to Thule and deliver their ultimatum. You will be given a single Lance as an escort: not enough for a battle fleet, just enough to keep you safe. You are to avoid engaging any pirates you meet, if possible."`
       `  "I'll introduce you to your escort," says Tomek, and he leads you out of the bar. Once you are outside, he pulls you aside and says, "If by any chance you are attacked by pirates along the way, and if you have any reason to suspect that they originate from the <system> system, you would be totally justified in attacking that system instead of following your initial orders. I could even supply you with a backup fleet, if that happened."`
       choice
         `  "You're asking me to go against the Senate's decision?"`
@@ -1337,7 +1335,7 @@ mission "FW Pirates 3.2"
       `  Just then, JJ walks out of the bar and sees you talking with Tomek. "Tomek," he says, "what are you doing? Freya and I are waiting inside." He beckons you into the bar.`
       `  Inside, Freya is sitting at a table looking at Tomek's battered and whisky-stained galactic map. As you all sit down, JJ explains, "We've been asked to deliver an ultimatum to each pirate world, starting with the ruling authorities on Thule, in the Men system. The Free Worlds maintains the right to attack any ships engaged in piracy. Any world that continues to support piracy, slavery, or illegal weapons manufacture will be a valid military target for us. But first, we are to offer each world the opportunity to become truly autonomous and free from outside intervention, if they will pledge to cease those activities."`
       `  Freya says, "The thing is, just like any other world, most people on the 'pirate' planets are just ordinary farmers, or factory workers, or whatever. The only difference is, they want no off-world government telling them how to live. So that's what we're going to offer them."`
-      `  JJ says, "Captain <last>, the Senate wants you to travel to Thule and deliver their ultimatum. You will be given a single Falcon as an escort: not enough for a battle fleet, just enough to keep you safe. You are to avoid engaging any pirates you meet, if possible. Understood?"`
+      `  JJ says, "Captain <last>, the Senate wants you to travel to Thule and deliver their ultimatum. You will be given a single Lance as an escort: not enough for a battle fleet, just enough to keep you safe. You are to avoid engaging any pirates you meet, if possible. Understood?"`
       choice
         `  "Understood."`
           goto leave
@@ -1460,8 +1458,8 @@ mission "FW Pirates 4"
   npc evade
     personality plunders entering
     government "Pirate"
-    ship "Leviathan (Heavy)" "Red Dawn"
-    ship "Leviathan (South)" "Bleak Omen"
+    ship "Leviathan" "Red Dawn"
+    ship "Leviathan" "Bleak Omen"
   
   npc
     personality heroic
@@ -1481,9 +1479,9 @@ mission "FW Pirates 4"
     personality heroic
     government "Free Worlds"
     system "Sabik"
-    ship "Falcon (Plasma)" "F.W.S. White Oak"
-    ship "Falcon (Plasma)" "F.W.S. Larch"
-    ship "Falcon (Plasma)" "F.W.S. Ironwood"
+    ship "Lance (Plasma)" "F.W.S. White Oak"
+    ship "Lance (Plasma)" "F.W.S. Larch"
+    ship "Lance (Plasma)" "F.W.S. Ironwood"
   
   on offer
     conversation
@@ -1516,7 +1514,7 @@ mission "FW Pirates 4B"
   npc accompany save
     personality timid escort
     government "Free Worlds"
-    ship "Falcon" "F.W.S. Terebinth"
+    ship "Lance" "F.W.S. Terebinth"
   
   on visit
     dialogue "You have reached <planet>, but you left the <npc> behind! Better depart and wait for them to arrive in this star system."
@@ -1668,12 +1666,12 @@ mission "FW Refinery 1"
       `  "I suppose you're right," you say. "So, what's next?"`
       label repairs
       `  "Well, thanks to you, the Men system is no longer engaged in piracy," says JJ. "And that means the folks on Smuggler's Den are in need of new work. That station used to be a deuterium refinery. With a little work, it can be one, again."`
-      `  "A working refinery could bring more income to that system than piracy ever did," says Freya. "Only problem is, the replacement parts are rare, and hard to come by. The Syndicate agreed to sell us the parts, but only if we meet them halfway, on Alapia. That's in the Ascella system. Just one jump away from two of the new Navy bases."`
+      `  "A working refinery could bring more income to that system than piracy ever did," says Freya. "Only problem is, the replacement parts are rare, and hard to come by. The Corporation agreed to sell us the parts, but only if we meet them halfway, on Alapia. That's in the Ascella system. Just one jump away from two of the new Navy bases."`
       choice
         `  "We're going to take a supply convoy through Republic space?"`
           goto convoy
         `  "How do we know this isn't a trap?"`
-      `  "We don't," says Freya, "except that the Syndicate is greedy, and we have money. I don't think they're ready yet to give up on the chance to sell their wares to both sides in this war."`
+      `  "We don't," says Freya, "except that the Corporation is greedy, and we have money. I don't think they're ready yet to give up on the chance to sell their wares to both sides in this war."`
       `  "Still, how do they expect us to get a convoy safely to Alapia?"`
       label convoy
       `  "Not a convoy," says JJ. "Just you, captain. It's only ten tons of spare parts. Your job is to fly to Alapia, retrieve the parts, and return here."`
@@ -1701,7 +1699,7 @@ mission "FW Refinery 1A"
   
   on offer
     conversation
-      `Your landing site is an abandoned settlement a thousand kilometers from Alapia's main spaceport. It's an old oil field that ran dry decades ago, and only a few of the landing pads are still usable. The Syndicate employees quickly load the cargo onto your ship, and say, "Now, take off quickly, before the Navy sees us doing business with a ship flying Free Worlds colours."`
+      `Your landing site is an abandoned settlement a thousand kilometers from Alapia's main spaceport. It's an old oil field that ran dry decades ago, and only a few of the landing pads are still usable. The Corporation employees quickly load the cargo onto your ship, and say, "Now, take off quickly, before the Navy sees us doing business with a ship flying Free Worlds colours."`
         launch
   
   on complete

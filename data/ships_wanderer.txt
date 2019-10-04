@@ -19,6 +19,7 @@ shipyard "Wanderer Variants"
   "Hurricane"
   "Hurricane (Tough)"
   "Hurricane (Turret)"
+  "Mistral"
   "Strong Wind"
   "Summer Leaf"
   "Tempest"
@@ -47,23 +48,29 @@ ship "Autumn Leaf"
     "mass" 130
     "drag" 2.9
     "heat dissipation" .8
-    "cargo space" 45
-    "outfit space" 438
-    "core space" 218
+    "cargo space" 107
+    "outfit space" 376
+    "core space" 156
     "engine space" 117
     "weapon space" 103
     weapon
-      "blast radius" 80
-      "shield damage" 800
-      "hull damage" 400
-      "hit force" 1200
+      "blast radius" 123
+      "shield damage" 260
+      "random shield damage" 966
+      "hull damage" 390
+      "random hull damage" 1449
+      "heat damage" 7800
+      "random heat damage" 28980
+      "hit force" 650
+      "random hit force" 2415
   outfits
     "Bright Cloud Shielding"
-    "White Sun Reactor"
+    "Yellow Sun Reactor"
+    "Small Biochemical Cell"
     "Scram Drive"
 
-    "Type 3 Radiant Thruster"
-    "Type 3 Radiant Steering"
+    "Type 4 Radiant Thruster"
+    "Type 4 Radiant Steering"
 
     "Sunbeam" 2
     "Wanderer Anti-Missile"
@@ -85,11 +92,12 @@ ship "Autumn Leaf"
 ship "Autumn Leaf" "Autumn Leaf (Heavy)"
   outfits
     "Bright Cloud Shielding"
-    "White Sun Reactor"
+    "Yellow Sun Reactor"
+    "Small Biochemical Cell"
     "Scram Drive"
 
-    "Type 3 Radiant Thruster"
-    "Type 3 Radiant Steering"
+    "Type 4 Radiant Thruster"
+    "Type 4 Radiant Steering"
 
     "Sunbeam" 2
     "Moonbeam Turret"
@@ -115,16 +123,21 @@ ship "Cool Breeze"
     "mass" 50
     "drag" 1.8
     "heat dissipation" .9
-    "cargo space" 14
-    "outfit space" 224
-    "core space" 116
+    "cargo space" 26
+    "outfit space" 212
+    "core space" 104
     "engine space" 62
     "weapon space" 46
     weapon
-      "blast radius" 36
-      "shield damage" 360
-      "hull damage" 180
-      "hit force" 540
+      "blast radius" 58
+      "shield damage" 100
+      "random shield damage" 476
+      "hull damage" 150
+      "random hull damage" 714
+      "heat damage" 3000
+      "random heat damage" 14280
+      "hit force" 250
+      "random hit force" 1190
   outfits
     "Bright Cloud Shielding"
     "Red Sun Reactor"
@@ -179,15 +192,20 @@ ship "Deep River"
     "mass" 750
     "drag" 9.4
     "heat dissipation" .6
-    "cargo space" 1140
-    "outfit space" 312
-    "core space" 229
+    "cargo space" 1200
+    "outfit space" 250
+    "core space" 167
     "engine space" 83
     weapon
-      "blast radius" 280
-      "shield damage" 2800
-      "hull damage" 1400
-      "hit force" 4200
+      "blast radius" 440
+      "shield damage" 1500
+      "random shield damage" 2904
+      "hull damage" 2250
+      "random hull damage" 4356
+      "heat damage" 45000
+      "random heat damage" 87120
+      "hit force" 3750
+      "random hit force" 7260
   outfits
     "Bright Cloud Shielding"
     "Large Biochemical Cell"
@@ -196,7 +214,7 @@ ship "Deep River"
     "Type 2 Radiant Thruster"
     "Type 4 Radiant Steering"
 
-    "Fuel Pod" 111
+    "Fuel Pod" 110
     "Wanderer Ramscoop"
   engine 53 345 .7
   engine 0 345
@@ -214,7 +232,28 @@ ship "Deep River" "Deep River 0"
   add attributes
     "mass" -400
     "drag" -2
-    "cargo space" -1140
+    "cargo space" -1200
+    weapon
+      "blast radius" -308
+      "shield damage" -800
+      "random shield damage" -2240
+      "hull damage" -1200
+      "random hull damage" -3420
+      "heat damage" -24000
+      "random heat damage" -68400
+      "hit force" -2000
+      "random hit force" -5700
+  outfits
+    "Bright Cloud Shielding"
+    "Large Biochemical Cell"
+    "Scram Drive"
+
+    "Type 2 Radiant Thruster"
+    "Type 4 Radiant Steering"
+
+    "Fuel Pod" 30
+    "Wanderer Ramscoop"
+    "Extra Cargo Space" 5
 
 
 ship "Deep River" "Deep River 1"
@@ -222,7 +261,28 @@ ship "Deep River" "Deep River 1"
   add attributes
     "mass" -320
     "drag" -1.6
-    "cargo space" -912
+    "cargo space" -960
+    weapon
+      "blast radius" -246
+      "shield damage" -640
+      "random shield damage" -1824
+      "hull damage" -960
+      "random hull damage" -2736
+      "heat damage" -19200
+      "random heat damage" -54720
+      "hit force" -1600
+      "random hit force" -4560
+  outfits
+    "Bright Cloud Shielding"
+    "Large Biochemical Cell"
+    "Scram Drive"
+
+    "Type 2 Radiant Thruster"
+    "Type 4 Radiant Steering"
+
+    "Fuel Pod" 46
+    "Wanderer Ramscoop"
+    "Extra Cargo Space" 4
 
 
 ship "Deep River" "Deep River 2"
@@ -230,7 +290,28 @@ ship "Deep River" "Deep River 2"
   add attributes
     "mass" -240
     "drag" -1.2
-    "cargo space" -684
+    "cargo space" -720
+    weapon
+      "blast radius" -185
+      "shield damage" -480
+      "random shield damage" -1368
+      "hull damage" -720
+      "random hull damage" -2052
+      "heat damage" -14400
+      "random heat damage" -41040
+      "hit force" -1200
+      "random hit force" -3420
+  outfits
+    "Bright Cloud Shielding"
+    "Large Biochemical Cell"
+    "Scram Drive"
+
+    "Type 2 Radiant Thruster"
+    "Type 4 Radiant Steering"
+
+    "Fuel Pod" 62
+    "Wanderer Ramscoop"
+    "Extra Cargo Space" 3
 
 
 ship "Deep River" "Deep River 3"
@@ -238,7 +319,28 @@ ship "Deep River" "Deep River 3"
   add attributes
     "mass" -160
     "drag" -.8
-    "cargo space" -456
+    "cargo space" -480
+    weapon
+      "blast radius" -123
+      "shield damage" -320
+      "random shield damage" -912
+      "hull damage" -480
+      "random hull damage" -1368
+      "heat damage" -9600
+      "random heat damage" -27360
+      "hit force" -800
+      "random hit force" -2280
+  outfits
+    "Bright Cloud Shielding"
+    "Large Biochemical Cell"
+    "Scram Drive"
+
+    "Type 2 Radiant Thruster"
+    "Type 4 Radiant Steering"
+
+    "Fuel Pod" 78
+    "Wanderer Ramscoop"
+    "Extra Cargo Space" 2
 
 
 ship "Deep River" "Deep River 4"
@@ -246,7 +348,28 @@ ship "Deep River" "Deep River 4"
   add attributes
     "mass" -80
     "drag" -.4
-    "cargo space" -228
+    "cargo space" -240
+    weapon
+      "blast radius" -62
+      "shield damage" -160
+      "random shield damage" -456
+      "hull damage" -240
+      "random hull damage" -684
+      "heat damage" -4800
+      "random heat damage" -13680
+      "hit force" -400
+      "random hit force" -1140
+  outfits
+    "Bright Cloud Shielding"
+    "Large Biochemical Cell"
+    "Scram Drive"
+
+    "Type 2 Radiant Thruster"
+    "Type 4 Radiant Steering"
+
+    "Fuel Pod" 94
+    "Wanderer Ramscoop"
+    "Extra Cargo Space"
 
 
 ship "Deep River" "Deep River (Jump)"
@@ -258,9 +381,8 @@ ship "Deep River" "Deep River (Jump)"
     "Type 2 Radiant Thruster"
     "Type 4 Radiant Steering"
 
-    "Fuel Pod" 97
+    "Fuel Pod" 110
     "Wanderer Ramscoop"
-    "Extra Outfit Space" 2
 
 
 ship "Deep River" "Deep River Transport"
@@ -272,10 +394,9 @@ ship "Deep River" "Deep River Transport"
     "Type 3 Radiant Thruster"
     "Type 3 Radiant Steering"
 
-    "Fuel Pod" 111
+    "Fuel Pod" 70
     "Wanderer Ramscoop"
     "Extra Bunks" 100
-    "Extra Outfit Space" 5
 
 
 
@@ -295,16 +416,21 @@ ship "Derecho"
     "mass" 540
     "drag" 8.7
     "heat dissipation" 0.6
-    "cargo space" 56
-    "outfit space" 886
-    "core space" 380
+    "cargo space" 131
+    "outfit space" 811
+    "core space" 305
     "engine space" 164
     "weapon space" 342
     weapon
-      "blast radius" 340
-      "shield damage" 3400
-      "hull damage" 1700
-      "hit force" 5100
+      "blast radius" 296
+      "shield damage" 1080
+      "random shield damage" 1884
+      "hull damage" 1620
+      "random hull damage" 2826
+      "heat damage" 32400
+      "random heat damage" 56520
+      "hit force" 2700
+      "random hit force" 4710
   outfits
     "Dark Storm Shielding"
     "Bright Cloud Shielding"
@@ -317,7 +443,7 @@ ship "Derecho"
     "Type 4 Radiant Steering"
     "Type 3 Radiant Steering"
 
-    "Thunderstorm Torpedo" 60
+    "Thunderstorm" 60
     "Thunderstorm Launcher" 2
     "Sunbeam" 2
     "Dual Sunbeam Turret" 2
@@ -346,7 +472,8 @@ ship "Derecho"
 
 ship "Derecho" "Derecho (Tough)"
   outfits
-    "Dark Storm Shielding" 2
+    "Dark Storm Shielding"
+    "Bright Cloud Shielding"
     "Blue Sun Reactor"
     "Red Sun Reactor"
     "Scram Drive"
@@ -360,7 +487,6 @@ ship "Derecho" "Derecho (Tough)"
     "Thermoelectric Cooler" 2
     "Fuel Pod" 75
     "Wanderer Ramscoop" 2
-    "Extra Outfit Space"
 
 
 ship "Derecho" "Derecho (Turret)"
@@ -398,17 +524,22 @@ ship "Earth Shaper"
     "mass" 50
     "drag" .9
     "heat dissipation" .9
-    "cargo space" 27
-    "outfit space" 85
-    "core space" 64
+    "cargo space" 32
+    "outfit space" 80
+    "core space" 59
     "engine space" 21
 # miscellaneous stats
     "atmosphere scan" 100
     weapon
-      "blast radius" 10
+      "blast radius" 32
       "shield damage" 100
+      "random shield damage" 224
       "hull damage" 150
+      "random hull damage" 336
+      "heat damage" 3000
+      "random heat damage" 6720
       "hit force" 250
+      "random hit force" 560
   outfits
     "Small Biochemical Cell"
     "Scram Drive"
@@ -434,7 +565,7 @@ ship "Flycatcher"
 #    manufacturer "Wanderer"
     licences
       Wanderer
-    "carried" 2
+#    "carried" 2
     "cost" 830000
     "hull" 4700
     "automaton" 1
@@ -446,10 +577,15 @@ ship "Flycatcher"
     "engine space" 21
     "weapon space" 24
     weapon
-      "blast radius" 10
-      "shield damage" 100
-      "hull damage" 150
-      "hit force" 250
+      "blast radius" 24
+      "shield damage" 80
+      "random shield damage" 158
+      "hull damage" 120
+      "random hull damage" 237
+      "heat damage" 2400
+      "random heat damage" 4740
+      "hit force" 200
+      "random hit force" 395
   outfits
     "Small Biochemical Cell" 2
 
@@ -482,20 +618,25 @@ ship "Hurricane"
     "mass" 770
     "drag" 11.9
     "heat dissipation" 0.55
-    "cargo space" 98
-    "outfit space" 1072
-    "core space" 504
+    "cargo space" 196
+    "outfit space" 982
+    "core space" 421
     "engine space" 140
-    "weapon space" 428
+    "weapon space" 421
     weapon
-      "blast radius" 400
-      "shield damage" 4000
-      "hull damage" 2000
-      "hit force" 6000
+      "blast radius" 388
+      "shield damage" 1540
+      "random shield damage" 2340
+      "hull damage" 2310
+      "random hull damage" 3510
+      "hit force" 3850
+      "random hit force" 5850
+      "heat damage" 46200
+      "random heat damage" 70200
   outfits
     "Dark Storm Shielding" 2
     "Blue Sun Reactor"
-    "Yellow Sun Reactor"
+    "White Sun Reactor"
     "Scram Drive"
 
     "Type 4 Radiant Thruster"
@@ -503,12 +644,12 @@ ship "Hurricane"
     "Type 4 Radiant Steering"
     "Type 1 Radiant Steering"
 
-    "Thunderstorm Torpedo" 120
+    "Thunderstorm" 120
     "Thunderstorm Launcher" 4
     "Dual Sunbeam Turret" 3
     "Wanderer Anti-Missile" 2
 
-    "Fuel Pod" 97
+    "Fuel Pod" 98
     "Wanderer Ramscoop" 2
   engine -23 181
   engine 23 181
@@ -533,14 +674,12 @@ ship "Hurricane"
 
 ship "Hurricane" "Hurricane (Tough)"
   outfits
-    "Dark Storm Shielding" 3
-    "Blue Sun Reactor"
-    "White Sun Reactor"
+    "Dark Storm Shielding" 2
+    "Blue Sun Reactor" 2
     "Scram Drive"
 
     "Type 4 Radiant Thruster"
     "Type 4 Radiant Steering"
-    "Type 2 Radiant Steering"
 
     "Sunbeam" 6
     "Dual Sunbeam Turret" 2
@@ -549,7 +688,6 @@ ship "Hurricane" "Hurricane (Tough)"
     "Thermoelectric Cooler" 3
     "Fuel Pod" 97
     "Wanderer Ramscoop" 2
-    "Extra Outfit Space" 5
   turret "Dual Sunbeam Turret"
   turret "Dual Sunbeam Turret"
   turret
@@ -564,7 +702,6 @@ ship "Hurricane" "Hurricane (Turret)"
     "Scram Drive"
 
     "Type 4 Radiant Thruster"
-    "Type 2 Radiant Thruster"
     "Type 4 Radiant Steering"
 
     "Dual Sunbeam Turret" 5
@@ -572,7 +709,28 @@ ship "Hurricane" "Hurricane (Turret)"
     "Thermoelectric Cooler" 4
     "Fuel Pod" 97
     "Wanderer Ramscoop" 2
-    "Extra Outfit Space" 4
+
+
+
+ship "Mistral"
+  sprite "ship/mistral"
+  thumbnail "thumbnail/mistral"
+  attributes
+#    manufacturer "Wanderer"
+    licences
+      Wanderer
+    "mass" 1
+  engine -30 165
+  engine 30 165
+  turret 0 -28
+  turret -40 110
+  turret 40 110
+  drone -57 120
+  drone 57 120
+  explode "small explosion" 60
+  explode "medium explosion" 40
+  explode "large explosion" 20
+  "final explode" "final explosion medium"
 
 
 
@@ -592,16 +750,21 @@ ship "Strong Wind"
     "mass" 260
     "drag" 4.7
     "heat dissipation" .7
-    "cargo space" 68
-    "outfit space" 545
-    "core space" 233
+    "cargo space" 103
+    "outfit space" 510
+    "core space" 203
     "engine space" 114
-    "weapon space" 198
+    "weapon space" 193
     weapon
-      "blast radius" 200
-      "shield damage" 2000
-      "hull damage" 1000
-      "hit force" 3000
+      "blast radius" 175
+      "shield damage" 520
+      "random shield damage" 1226
+      "hull damage" 780
+      "random hull damage" 1839
+      "heat damage" 15600
+      "random heat damage" 36780
+      "hit force" 1300
+      "random hit force" 3065
   outfits
     "Dark Storm Shielding"
     "White Sun Reactor"
@@ -610,7 +773,7 @@ ship "Strong Wind"
     "Type 4 Radiant Thruster"
     "Type 4 Radiant Steering"
 
-    "Thunderstorm Torpedo" 60
+    "Thunderstorm" 60
     "Thunderstorm Launcher" 2
     "Sunbeam" 4
 
@@ -649,16 +812,21 @@ ship "Summer Leaf"
     "mass" 110
     "drag" 2.6
     "heat dissipation" .8
-    "cargo space" 41
-    "outfit space" 378
-    "core space" 191
+    "cargo space" 84
+    "outfit space" 335
+    "core space" 148
     "engine space" 103
     "weapon space" 84
     weapon
-      "blast radius" 70
-      "shield damage" 700
-      "hull damage" 350
-      "hit force" 1050
+      "blast radius" 106
+      "shield damage" 220
+      "random shield damage" 838
+      "hull damage" 330
+      "random hull damage" 1257
+      "heat damage" 6600
+      "random heat damage" 25140
+      "hit force" 550
+      "random hit force" 2095
   outfits
     "Bright Cloud Shielding"
     "Yellow Sun Reactor"
@@ -698,25 +866,31 @@ ship "Tempest"
     "mass" 320
     "drag" 6.2
     "heat dissipation" 0.65
-    "cargo space" 47
-    "outfit space" 686
-    "core space" 293
+    "cargo space" 111
+    "outfit space" 622
+    "core space" 229
     "engine space" 122
     "weapon space" 271
     weapon
-      "blast radius" 280
-      "shield damage" 2800
-      "hull damage" 1400
-      "hit force" 4200
+      "blast radius" 211
+      "shield damage" 640
+      "random shield damage" 1466
+      "hull damage" 960
+      "random hull damage" 2199
+      "heat damage" 19200
+      "random heat damage" 43980
+      "hit force" 1600
+      "random hit force" 3665
   outfits
     "Dark Storm Shielding"
-    "Yellow Sun Reactor" 2
+    "White Sun Reactor"
+    "Small Biochemical Cell"
     "Scram Drive"
 
     "Type 4 Radiant Thruster"
     "Type 4 Radiant Steering"
 
-    "Thunderstorm Torpedo" 60
+    "Thunderstorm" 60
     "Thunderstorm Launcher" 2
     "Sunbeam" 2
     "Dual Sunbeam Turret"
@@ -745,7 +919,7 @@ ship "Tempest" "Tempest (Heavy)"
   outfits
     "Dark Storm Shielding"
     "White Sun Reactor"
-    "Red Sun Reactor"
+    "Small Biochemical Cell"
     "Scram Drive"
 
     "Type 3 Radiant Thruster"
@@ -759,7 +933,6 @@ ship "Tempest" "Tempest (Heavy)"
 
     "Thermoelectric Cooler"
     "Wanderer Ramscoop"
-    "Extra Outfit Space" 2
   turret "Dual Sunbeam Turret"
   turret "Wanderer Anti-Missile"
   turret "Wanderer Anti-Missile"
@@ -775,7 +948,7 @@ ship "Tempest" "Tempest (Torpedo)"
     "Type 4 Radiant Thruster"
     "Type 4 Radiant Steering"
 
-    "Thunderstorm Torpedo" 120
+    "Thunderstorm" 120
     "Thunderstorm Launcher" 4
     "Dual Sunbeam Turret" 2
 
@@ -804,16 +977,21 @@ ship "Winter Gale"
     "mass" 240
     "drag" 5.6
     "heat dissipation" .7
-    "cargo space" 28
-    "outfit space" 542
-    "core space" 251
-    "engine space" 120
+    "cargo space" 77
+    "outfit space" 493
+    "core space" 203
+    "engine space" 119
     "weapon space" 171
     weapon
-      "blast radius" 120
-      "shield damage" 1200
-      "hull damage" 600
-      "hit force" 1800
+      "blast radius" 162
+      "shield damage" 480
+      "random shield damage" 1140
+      "hull damage" 720
+      "random hull damage" 1710
+      "heat damage" 14400
+      "random heat damage" 34200
+      "hit force" 1200
+      "random hit force" 2850
   outfits
     "Dark Storm Shielding"
     "White Sun Reactor"
@@ -850,15 +1028,15 @@ ship "Winter Gale" "Winter Gale (Heavy)"
     "Scram Drive"
 
     "Type 3 Radiant Thruster"
-    "Type 2 Radiant Thruster"
+    "Type 1 Radiant Thruster"
     "Type 4 Radiant Steering"
+    "Type 1 Radiant Steering"
 
     "Sunbeam" 4
     "Moonbeam Turret"
 
     "Fuel Pod" 49
     "Wanderer Ramscoop"
-    "Extra Outfit Space"
 
 
 ship "Winter Gale" "Winter Gale (Torpedo)"
@@ -871,7 +1049,7 @@ ship "Winter Gale" "Winter Gale (Torpedo)"
     "Type 4 Radiant Steering"
     "Type 3 Radiant Steering"
 
-    "Tornado Torpedo" 80
+    "Tornado" 80
     "Tornado Launcher" 4
     "Moonbeam Turret"
 
